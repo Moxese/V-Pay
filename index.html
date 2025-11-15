@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#001f3f">
+    <meta name="description" content="V-PAY - Secure Payment Processing Platform">
     <title>V-PAY - Secure Payments</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/GtHqWWbV/wallet.png">
     <style>
         :root {
             --navy: #001f3f;
@@ -17,6 +20,7 @@
             --gray-dark: #666666;
             --success: #28a745;
             --warning: #ffc107;
+            --sidebar-width: 280px;
         }
 
         * {
@@ -30,59 +34,216 @@
             background: linear-gradient(135deg, var(--navy) 0%, var(--black) 100%);
             color: var(--black);
             min-height: 100vh;
-            padding: 15px;
             line-height: 1.5;
             -webkit-text-size-adjust: 100%;
+            overflow-x: hidden;
         }
 
+        /* App Layout */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--navy);
+            color: var(--white);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid var(--navy-light);
+            text-align: center;
+        }
+
+        .sidebar-logo {
+            width: 60px;
+            height: 60px;
+            background: var(--white);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            font-size: 24px;
+            color: var(--navy);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .sidebar-logo-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .sidebar-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-tagline {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .sidebar-nav {
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: var(--navy-light);
+        }
+
+        .nav-item.active {
+            background: var(--navy-light);
+            border-left-color: var(--white);
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .nav-item span {
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 15px;
+            transition: margin-left 0.3s ease;
+            padding-bottom: 80px;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 12px 0;
+        }
+
+        .menu-toggle {
+            background: var(--white);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--navy);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--white);
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--navy);
+        }
+
+        /* Page Content */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .nav-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-icon.active {
+            background: var(--navy-light);
+            color: var(--white);
+        }
+
+        .nav-icon i {
+            font-size: 20px;
+        }
+
+        .nav-icon span {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* Payment Form Styles */
         .container {
             max-width: 450px;
             margin: 0 auto;
             transform: scale(0.95);
             transform-origin: top center;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding: 20px 15px;
-            position: relative;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 10px;
-        }
-
-        .logo {
-            width: 50px;
-            height: 50px;
-            background: var(--white);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 20px;
-            color: var(--navy);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        .logo-text {
-            color: var(--white);
-            font-size: 2.2em;
-            font-weight: 700;
-            letter-spacing: -1px;
-        }
-
-        .tagline {
-            color: var(--white);
-            font-size: 1em;
-            opacity: 0.9;
-            font-weight: 300;
         }
 
         .form-section {
@@ -133,11 +294,6 @@
         .form-group {
             margin-bottom: 20px;
             animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         label {
@@ -479,25 +635,70 @@
             font-size: 15px;
         }
 
+        /* Coming Soon Pages */
+        .coming-soon {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--white);
+        }
+
+        .coming-soon-icon {
+            font-size: 80px;
+            margin-bottom: 25px;
+            opacity: 0.8;
+        }
+
+        .coming-soon h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .coming-soon p {
+            font-size: 1.1em;
+            opacity: 0.8;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Responsive */
         @media (max-width: 480px) {
             .container {
                 padding: 0 8px;
                 transform: scale(0.92);
             }
             
-            .header {
-                padding: 18px 12px;
-                margin-bottom: 20px;
+            .main-content {
+                padding: 12px;
             }
             
-            .logo-text {
-                font-size: 2em;
+            .sidebar-header {
+                padding: 20px 15px;
             }
             
-            .logo {
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
+            .sidebar-title {
+                font-size: 1.2em;
+            }
+            
+            .sidebar-logo {
+                width: 50px;
+                height: 50px;
             }
             
             .section-content.active {
@@ -520,6 +721,18 @@
             .instructions {
                 padding: 14px;
             }
+            
+            .coming-soon {
+                padding: 60px 15px;
+            }
+            
+            .coming-soon-icon {
+                font-size: 60px;
+            }
+            
+            .coming-soon h2 {
+                font-size: 1.6em;
+            }
         }
 
         @media (max-width: 360px) {
@@ -527,14 +740,13 @@
                 transform: scale(0.88);
             }
             
-            .logo-text {
-                font-size: 1.8em;
+            .sidebar-title {
+                font-size: 1.1em;
             }
             
-            .logo {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
+            .sidebar-logo {
+                width: 45px;
+                height: 45px;
             }
             
             .section-header {
@@ -548,184 +760,313 @@
             select, input, textarea {
                 padding: 12px 14px;
             }
+            
+            .coming-soon h2 {
+                font-size: 1.4em;
+            }
+            
+            .coming-soon-icon {
+                font-size: 50px;
+            }
         }
 
+        /* Hide sidebar on desktop since it's mobile-only */
         @media (min-width: 768px) {
-            .container {
-                transform: scale(1);
-                max-width: 500px;
+            .sidebar {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            
+            .menu-toggle {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="https://i.postimg.cc/GtHqWWbV/wallet.png" alt="V-PAY Logo" class="sidebar-logo-img">
+                </div>
+                <div class="sidebar-title">V-PAY</div>
+                <div class="sidebar-tagline">Secure Payment Platform</div>
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-item active" onclick="showPage('home')">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </div>
+                <div class="nav-item" onclick="showPage('wallet')">
+                    <i class="fas fa-wallet"></i>
+                    <span>Wallet</span>
+                </div>
+                <div class="nav-item" onclick="showPage('forex')">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Forex</span>
+                </div>
+                <div class="nav-item" onclick="showPage('coin')">
+                    <i class="fas fa-coins"></i>
+                    <span>V-Coin</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overlay -->
+        <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: 500;">Welcome</div>
+                        <div style="font-size: 0.9em; opacity: 0.8;">User</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pages -->
+            <!-- Home Page (Payments) -->
+            <div class="page active" id="home">
+                <div class="container">
+                    <div class="progress-indicator">
+                        <div class="progress-step active" id="step1"></div>
+                        <div class="progress-step" id="step2"></div>
+                        <div class="progress-step" id="step3"></div>
+                        <div class="progress-step" id="step4"></div>
+                    </div>
+
+                    <!-- Personal Information Section -->
+                    <div class="form-section">
+                        <div class="section-header" onclick="toggleSection('personalInfo')">
+                            <h3><i class="fas fa-user"></i> Personal Information</h3>
+                            <i class="fas fa-chevron-down" id="personalInfoIcon"></i>
+                        </div>
+                        <div class="section-content active" id="personalInfo">
+                            <div class="form-group">
+                                <label for="customerName">Full Name</label>
+                                <input type="text" id="customerName" required placeholder="Enter your full name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="customerPhone">Phone Number</label>
+                                <input type="tel" id="customerPhone" required placeholder="0712345678">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="customerEmail">Email Address</label>
+                                <input type="email" id="customerEmail" required placeholder="your.email@example.com">
+                            </div>
+
+                            <button class="btn btn-next" onclick="showSection('paymentDetails')">
+                                Continue <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Payment Details Section -->
+                    <div class="form-section">
+                        <div class="section-header" onclick="toggleSection('paymentDetails')">
+                            <h3><i class="fas fa-receipt"></i> Payment Details</h3>
+                            <i class="fas fa-chevron-down" id="paymentDetailsIcon"></i>
+                        </div>
+                        <div class="section-content" id="paymentDetails">
+                            <div class="form-group">
+                                <label for="businessSearch">Payment For</label>
+                                <div class="search-container">
+                                    <input type="text" id="businessSearch" required placeholder="Type business name to search...">
+                                    <div class="search-results" id="searchResults"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="paymentCategory">Payment Type</label>
+                                <select id="paymentCategory" required>
+                                    <option value="">-- Select category --</option>
+                                    <option value="event_ticket">Event Ticket</option>
+                                    <option value="service">Service Payment</option>
+                                    <option value="subscription">Subscription</option>
+                                    <option value="product">Product Purchase</option>
+                                    <option value="booking">Booking Fee</option>
+                                    <option value="membership">Membership</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="amount">Amount</label>
+                                <div class="amount-input">
+                                    <input type="number" id="amount" required min="1" placeholder="0">
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn" style="flex: 1;" onclick="showSection('personalInfo')">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                                <button class="btn btn-next" style="flex: 1;" onclick="showSection('paymentMethod')">
+                                    Continue <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method Section -->
+                    <div class="form-section">
+                        <div class="section-header" onclick="toggleSection('paymentMethod')">
+                            <h3><i class="fas fa-mobile-alt"></i> Payment Method</h3>
+                            <i class="fas fa-chevron-down" id="paymentMethodIcon"></i>
+                        </div>
+                        <div class="section-content" id="paymentMethod">
+                            <div id="businessPaymentInfo">
+                                <!-- Dynamic content will be inserted here -->
+                            </div>
+
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn" style="flex: 1;" onclick="showSection('paymentDetails')">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                                <button class="btn btn-next" style="flex: 1;" onclick="showSection('confirmation')">
+                                    Continue <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirmation Section -->
+                    <div class="form-section">
+                        <div class="section-header" onclick="toggleSection('confirmation')">
+                            <h3><i class="fas fa-check-circle"></i> Confirmation</h3>
+                            <i class="fas fa-chevron-down" id="confirmationIcon"></i>
+                        </div>
+                        <div class="section-content" id="confirmation">
+                            <div class="form-group">
+                                <label for="transactionId">Transaction Reference Number</label>
+                                <input type="text" id="transactionId" required placeholder="Enter transaction code">
+                                <small style="color: var(--gray-dark); margin-top: 5px; display: block;">
+                                    Enter the code you received after making the payment
+                                </small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="notes">Additional Information</label>
+                                <textarea id="notes" placeholder="Any additional details about your payment"></textarea>
+                            </div>
+
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn" style="flex: 1;" onclick="showSection('paymentMethod')">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                                <button class="btn btn-submit" style="flex: 2;" onclick="processPayment()">
+                                    <i class="fas fa-paper-plane"></i> Submit Payment
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <div>Processing your payment details...</div>
+                    </div>
+
+                    <div id="statusMessage" class="status-message"></div>
+                </div>
+            </div>
+
+            <!-- Wallet Page -->
+            <div class="page" id="wallet">
+                <div class="coming-soon">
+                    <div class="coming-soon-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h2>Wallet Coming Soon</h2>
+                    <p>We're building a secure digital wallet to manage all your payments and transactions in one convenient place.</p>
+                    <div class="btn" style="max-width: 200px; margin: 0 auto; background: var(--navy-light);">
+                        <i class="fas fa-bell"></i> Notify Me
+                    </div>
+                </div>
+            </div>
+
+            <!-- Forex Page -->
+            <div class="page" id="forex">
+                <div class="coming-soon">
+                    <div class="coming-soon-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h2>Forex Trading Coming Soon</h2>
+                    <p>Get ready for seamless currency exchange and forex trading with competitive rates and real-time market data.</p>
+                    <div class="btn" style="max-width: 200px; margin: 0 auto; background: var(--navy-light);">
+                        <i class="fas fa-bell"></i> Get Updates
+                    </div>
+                </div>
+            </div>
+
+            <!-- V-Coin Page -->
+            <div class="page" id="coin">
+                <div class="coming-soon">
+                    <div class="coming-soon-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h2>V-Coin Launching Soon</h2>
+                    <p>Our revolutionary cryptocurrency is coming soon. Stay tuned for the future of digital payments and decentralized finance.</p>
+                    <div class="btn" style="max-width: 200px; margin: 0 auto; background: var(--navy-light);">
+                        <i class="fas fa-rocket"></i> Join Waitlist
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-icon active" onclick="showPage('home')">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-icon" onclick="showPage('wallet')">
+                <i class="fas fa-wallet"></i>
+                <span>Wallet</span>
+            </div>
+            <div class="nav-icon" onclick="showPage('forex')">
+                <i class="fas fa-chart-line"></i>
+                <span>Forex</span>
+            </div>
+            <div class="nav-icon" onclick="showPage('coin')">
+                <i class="fas fa-coins"></i>
+                <span>V-Coin</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copy Notification -->
     <div class="copy-notification" id="copyNotification">
         <i class="fas fa-check-circle"></i> Copied to clipboard!
     </div>
 
-    <div class="container">
-        <div class="header">
-            <div class="logo-container">
-                <div class="logo">VP</div>
-                <div class="logo-text">V-PAY</div>
-            </div>
-            <div class="tagline">Secure Payment Processing</div>
-        </div>
-
-        <div class="progress-indicator">
-            <div class="progress-step active" id="step1"></div>
-            <div class="progress-step" id="step2"></div>
-            <div class="progress-step" id="step3"></div>
-            <div class="progress-step" id="step4"></div>
-        </div>
-
-        <!-- Personal Information Section -->
-        <div class="form-section">
-            <div class="section-header" onclick="toggleSection('personalInfo')">
-                <h3><i class="fas fa-user"></i> Personal Information</h3>
-                <i class="fas fa-chevron-down" id="personalInfoIcon"></i>
-            </div>
-            <div class="section-content active" id="personalInfo">
-                <div class="form-group">
-                    <label for="customerName">Full Name</label>
-                    <input type="text" id="customerName" required placeholder="Enter your full name">
-                </div>
-
-                <div class="form-group">
-                    <label for="customerPhone">Phone Number</label>
-                    <input type="tel" id="customerPhone" required placeholder="0712345678">
-                </div>
-
-                <div class="form-group">
-                    <label for="customerEmail">Email Address</label>
-                    <input type="email" id="customerEmail" required placeholder="your.email@example.com">
-                </div>
-
-                <button class="btn btn-next" onclick="showSection('paymentDetails')">
-                    Continue <i class="fas fa-arrow-right"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Payment Details Section -->
-        <div class="form-section">
-            <div class="section-header" onclick="toggleSection('paymentDetails')">
-                <h3><i class="fas fa-receipt"></i> Payment Details</h3>
-                <i class="fas fa-chevron-down" id="paymentDetailsIcon"></i>
-            </div>
-            <div class="section-content" id="paymentDetails">
-                <div class="form-group">
-                    <label for="businessSearch">Payment For</label>
-                    <div class="search-container">
-                        <input type="text" id="businessSearch" required placeholder="Type business name to search...">
-                        <div class="search-results" id="searchResults"></div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="paymentCategory">Payment Type</label>
-                    <select id="paymentCategory" required>
-                        <option value="">-- Select category --</option>
-                        <option value="event_ticket">Event Ticket</option>
-                        <option value="service">Service Payment</option>
-                        <option value="subscription">Subscription</option>
-                        <option value="product">Product Purchase</option>
-                        <option value="booking">Booking Fee</option>
-                        <option value="membership">Membership</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="amount">Amount</label>
-                    <div class="amount-input">
-                        <input type="number" id="amount" required min="1" placeholder="0">
-                    </div>
-                </div>
-
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn" style="flex: 1;" onclick="showSection('personalInfo')">
-                        <i class="fas fa-arrow-left"></i> Back
-                    </button>
-                    <button class="btn btn-next" style="flex: 1;" onclick="showSection('paymentMethod')">
-                        Continue <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Payment Method Section -->
-        <div class="form-section">
-            <div class="section-header" onclick="toggleSection('paymentMethod')">
-                <h3><i class="fas fa-mobile-alt"></i> Payment Method</h3>
-                <i class="fas fa-chevron-down" id="paymentMethodIcon"></i>
-            </div>
-            <div class="section-content" id="paymentMethod">
-                <div id="businessPaymentInfo">
-                    <!-- Dynamic content will be inserted here -->
-                </div>
-
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn" style="flex: 1;" onclick="showSection('paymentDetails')">
-                        <i class="fas fa-arrow-left"></i> Back
-                    </button>
-                    <button class="btn btn-next" style="flex: 1;" onclick="showSection('confirmation')">
-                        Continue <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Confirmation Section -->
-        <div class="form-section">
-            <div class="section-header" onclick="toggleSection('confirmation')">
-                <h3><i class="fas fa-check-circle"></i> Confirmation</h3>
-                <i class="fas fa-chevron-down" id="confirmationIcon"></i>
-            </div>
-            <div class="section-content" id="confirmation">
-                <div class="form-group">
-                    <label for="transactionId">Transaction Reference Number</label>
-                    <input type="text" id="transactionId" required placeholder="Enter transaction code">
-                    <small style="color: var(--gray-dark); margin-top: 5px; display: block;">
-                        Enter the code you received after making the payment
-                    </small>
-                </div>
-
-                <div class="form-group">
-                    <label for="notes">Additional Information</label>
-                    <textarea id="notes" placeholder="Any additional details about your payment"></textarea>
-                </div>
-
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn" style="flex: 1;" onclick="showSection('paymentMethod')">
-                        <i class="fas fa-arrow-left"></i> Back
-                    </button>
-                    <button class="btn btn-submit" style="flex: 2;" onclick="processPayment()">
-                        <i class="fas fa-paper-plane"></i> Submit Payment
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <div>Processing your payment details...</div>
-        </div>
-
-        <div id="statusMessage" class="status-message"></div>
-
-        <div class="footer">
-            <p>V-PAY • Secure Transaction Platform</p>
-        </div>
-    </div>
-
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbye5v1kl3NaqMZXH4XzlzztO56B8vt73PvGMRdnIEA2iKKnswKDCYHEyRNRxskHycgbkA/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxQ9kS3sSC9G9qdlZ3bL1VHQxcXoYoSkn8vaz2bg1rK7bNQM2KytTK9wcWNoEhO_qZByw/exec';
 
+        // App State
+        let currentPage = 'home';
+        let sidebarOpen = false;
         let selectedBusiness = null;
         let selectedPaymentOption = '';
         let currentSection = 'personalInfo';
 
+        // Business Configuration
         const businesses = {
             'houseofglamour': {
                 name: "House of Glamour",
@@ -768,7 +1109,7 @@
             },
             'hekima hub': {
                 name: "Hekima Hub",
-                email: "hekima.hub@example.com",
+                email: "finance.hekimahub@gmail.com",
                 sheetName: "Hekima Hub Payments",
                 paymentMethods: [
                     {
@@ -781,48 +1122,50 @@
             }
         };
 
-        // Search functionality
-        document.getElementById('businessSearch').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const resultsContainer = document.getElementById('searchResults');
+        // Navigation Functions
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebarOpen = !sidebarOpen;
             
-            if (searchTerm.length < 2) {
-                resultsContainer.style.display = 'none';
-                return;
-            }
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
 
-            const matchingBusinesses = Object.entries(businesses).filter(([key, business]) => 
-                business.name.toLowerCase().includes(searchTerm)
-            );
-
-            if (matchingBusinesses.length > 0) {
-                resultsContainer.innerHTML = matchingBusinesses.map(([key, business]) => 
-                    `<div class="search-result" onclick="selectBusiness('${key}')">${business.name}</div>`
-                ).join('');
-                resultsContainer.style.display = 'block';
-            } else {
-                resultsContainer.style.display = 'none';
-            }
-        });
-
-        // Close search results when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.search-container')) {
-                document.getElementById('searchResults').style.display = 'none';
-            }
-        });
-
-        function selectBusiness(businessKey) {
-            selectedBusiness = businesses[businessKey];
-            document.getElementById('businessSearch').value = selectedBusiness.name;
-            document.getElementById('searchResults').style.display = 'none';
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
             
-            // Auto-select first payment option
-            if (selectedBusiness.paymentMethods.length > 0) {
-                selectedPaymentOption = selectedBusiness.paymentMethods[0].type;
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.nav-icon').forEach(icon => {
+                icon.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Activate corresponding nav items
+            const navItem = document.querySelector(`.nav-item[onclick="showPage('${pageId}')"]`);
+            const navIcon = document.querySelector(`.nav-icon[onclick="showPage('${pageId}")]`);
+            
+            if (navItem) navItem.classList.add('active');
+            if (navIcon) navIcon.classList.add('active');
+            
+            currentPage = pageId;
+            
+            // Close sidebar on mobile after selection
+            if (window.innerWidth < 768) {
+                toggleSidebar();
             }
         }
 
+        // Payment Form Functions
         function toggleSection(sectionId) {
             const section = document.getElementById(sectionId);
             const icon = document.getElementById(sectionId + 'Icon');
@@ -870,6 +1213,48 @@
                     stepElement.classList.remove('active');
                 }
             });
+        }
+
+        // Search functionality
+        document.getElementById('businessSearch').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const resultsContainer = document.getElementById('searchResults');
+            
+            if (searchTerm.length < 2) {
+                resultsContainer.style.display = 'none';
+                return;
+            }
+
+            const matchingBusinesses = Object.entries(businesses).filter(([key, business]) => 
+                business.name.toLowerCase().includes(searchTerm)
+            );
+
+            if (matchingBusinesses.length > 0) {
+                resultsContainer.innerHTML = matchingBusinesses.map(([key, business]) => 
+                    `<div class="search-result" onclick="selectBusiness('${key}')">${business.name}</div>`
+                ).join('');
+                resultsContainer.style.display = 'block';
+            } else {
+                resultsContainer.style.display = 'none';
+            }
+        });
+
+        // Close search results when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-container')) {
+                document.getElementById('searchResults').style.display = 'none';
+            }
+        });
+
+        function selectBusiness(businessKey) {
+            selectedBusiness = businesses[businessKey];
+            document.getElementById('businessSearch').value = selectedBusiness.name;
+            document.getElementById('searchResults').style.display = 'none';
+            
+            // Auto-select first payment option
+            if (selectedBusiness.paymentMethods.length > 0) {
+                selectedPaymentOption = selectedBusiness.paymentMethods[0].type;
+            }
         }
 
         function updatePaymentMethods() {
@@ -1069,7 +1454,14 @@
             updateProgressIndicator();
         }
 
-        updateProgressIndicator();
+        // Close sidebar when clicking on overlay
+        document.getElementById('overlay').addEventListener('click', toggleSidebar);
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home');
+            updateProgressIndicator();
+        });
     </script>
 </body>
 </html>
