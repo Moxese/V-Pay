@@ -224,6 +224,112 @@
             background: var(--navy-light);
         }
 
+        /* Exchange Rate Display Styles */
+        .exchange-rate-display {
+            margin-top: 10px;
+        }
+
+        .rate-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .rate-flag {
+            font-size: 2.5em;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .rate-info {
+            flex: 1;
+        }
+
+        .rate-pair {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .rate-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .rate-change {
+            font-size: 0.85em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .rate-change.positive {
+            color: #28a745;
+        }
+
+        .rate-change.negative {
+            color: #dc3545;
+        }
+
+        .rate-chart {
+            width: 80px;
+        }
+
+        .mini-chart {
+            display: flex;
+            align-items: end;
+            gap: 3px;
+            height: 40px;
+        }
+
+        .chart-bar {
+            width: 6px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .chart-bar.active {
+            background: #28a745;
+        }
+
+        .rate-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .detail-item {
+            text-align: center;
+            padding: 12px;
+            background: var(--gray-light);
+            border-radius: 8px;
+        }
+
+        .detail-label {
+            font-size: 0.8em;
+            color: var(--gray-dark);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .detail-value {
+            font-size: 0.95em;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
         /* Forex Calculator Styles */
         .forex-calculator {
             margin-top: 10px;
@@ -854,6 +960,26 @@
             .coming-soon h2 {
                 font-size: 1.6em;
             }
+            
+            .rate-card {
+                padding: 15px;
+                gap: 12px;
+            }
+
+            .rate-flag {
+                font-size: 2em;
+                width: 50px;
+                height: 50px;
+            }
+
+            .rate-value {
+                font-size: 1.5em;
+            }
+
+            .rate-details {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
         }
 
         @media (max-width: 360px) {
@@ -910,6 +1036,53 @@
             <!-- Home Page (Dashboard) -->
             <div class="page active" id="home">
                 <div class="dashboard-container">
+                    <!-- USD to KES Exchange Rate Dashboard Section -->
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-title">USD to KES Exchange Rate</div>
+                            <button class="refresh-btn" onclick="fetchUSDToKESRate()">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                        <div class="exchange-rate-display">
+                            <div class="rate-card">
+                                <div class="rate-flag">🇺🇸</div>
+                                <div class="rate-info">
+                                    <div class="rate-pair">USD/KES</div>
+                                    <div class="rate-value" id="usdKesRate">Loading...</div>
+                                    <div class="rate-change" id="rateChange">
+                                        <i class="fas fa-arrow-up"></i> <span>0.00%</span>
+                                    </div>
+                                </div>
+                                <div class="rate-chart">
+                                    <div class="mini-chart">
+                                        <div class="chart-bar" style="height: 30%"></div>
+                                        <div class="chart-bar" style="height: 60%"></div>
+                                        <div class="chart-bar" style="height: 45%"></div>
+                                        <div class="chart-bar" style="height: 80%"></div>
+                                        <div class="chart-bar" style="height: 70%"></div>
+                                        <div class="chart-bar" style="height: 90%"></div>
+                                        <div class="chart-bar active" style="height: 100%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rate-details">
+                                <div class="detail-item">
+                                    <div class="detail-label">Last Updated</div>
+                                    <div class="detail-value" id="lastUpdated">--:--:--</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">24h High</div>
+                                    <div class="detail-value" id="dailyHigh">-</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">24h Low</div>
+                                    <div class="detail-value" id="dailyLow">-</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="dashboard-card">
                         <div class="dashboard-card-header">
                             <div class="dashboard-card-title">Currency Converter</div>
@@ -1276,6 +1449,62 @@
             }
         };
 
+        // USD to KES Exchange Rate Functions
+        let usdKesRate = 0;
+        let lastRateUpdate = null;
+
+        async function fetchUSDToKESRate() {
+            try {
+                // Show loading state
+                document.getElementById('usdKesRate').textContent = 'Loading...';
+                document.getElementById('lastUpdated').textContent = 'Updating...';
+                
+                // Using the free API for demonstration
+                const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+                const data = await response.json();
+                
+                usdKesRate = data.rates.KES || 130; // Fallback to 130 if KES rate not available
+                lastRateUpdate = new Date();
+                
+                updateUSDToKESDisplay();
+                
+            } catch (error) {
+                console.error('Error fetching USD to KES rate:', error);
+                // Fallback to static data
+                usdKesRate = 130 + (Math.random() * 2 - 1); // Random value around 130
+                lastRateUpdate = new Date();
+                updateUSDToKESDisplay();
+            }
+        }
+
+        function updateUSDToKESDisplay() {
+            const rateElement = document.getElementById('usdKesRate');
+            const lastUpdatedElement = document.getElementById('lastUpdated');
+            const rateChangeElement = document.getElementById('rateChange');
+            
+            // Format the rate
+            rateElement.textContent = usdKesRate.toFixed(2);
+            
+            // Update last updated time
+            if (lastRateUpdate) {
+                lastUpdatedElement.textContent = lastRateUpdate.toLocaleTimeString();
+            }
+            
+            // Simulate rate change (in a real app, this would come from the API)
+            const changePercent = (Math.random() * 2 - 1).toFixed(2);
+            const isPositive = parseFloat(changePercent) >= 0;
+            
+            rateChangeElement.className = `rate-change ${isPositive ? 'positive' : 'negative'}`;
+            rateChangeElement.innerHTML = `
+                <i class="fas fa-arrow-${isPositive ? 'up' : 'down'}"></i>
+                <span>${Math.abs(changePercent)}%</span>
+            `;
+            
+            // Update daily high/low (simulated)
+            document.getElementById('dailyHigh').textContent = (usdKesRate + 0.5).toFixed(2);
+            document.getElementById('dailyLow').textContent = (usdKesRate - 0.3).toFixed(2);
+        }
+
         // Navigation Functions
         function showPage(pageId) {
             // Hide all pages
@@ -1639,7 +1868,11 @@
                 paymentMethod: getPaymentMethodName(selectedPaymentOption),
                 transactionId: document.getElementById('transactionId').value,
                 notes: document.getElementById('notes').value,
-                status: 'pending_verification'
+                status: 'pending_verification',
+                // Add email notification flag
+                sendEmail: true,
+                emailSubject: `Payment Confirmation - ${selectedBusiness.name}`,
+                emailBody: `Dear ${document.getElementById('customerName').value},\n\nThank you for your payment of KES ${document.getElementById('amount').value} to ${selectedBusiness.name}.\n\nTransaction Reference: ${document.getElementById('transactionId').value}\nPayment Method: ${getPaymentMethodName(selectedPaymentOption)}\n\nWe will verify your payment and contact you if needed.\n\nBest regards,\nV-PAY Team`
             };
 
             showLoading(true);
@@ -1647,16 +1880,16 @@
             try {
                 console.log('🔄 Sending payment data to Google Apps Script...');
                 
+                // Use a more reliable approach for sending data
+                const form = new FormData();
+                form.append('data', JSON.stringify(formData));
+                
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
+                    body: form
                 });
                 
-                console.log('✅ POST request sent (no-cors mode)');
+                console.log('✅ POST request sent');
                 
                 saveToLocalStorage(formData);
                 
@@ -1736,6 +1969,10 @@
             
             // Fetch initial exchange rates
             fetchExchangeRates();
+            fetchUSDToKESRate();
+            
+            // Auto-refresh USD to KES rate every 30 seconds
+            setInterval(fetchUSDToKESRate, 30000);
         });
     </script>
 </body>
