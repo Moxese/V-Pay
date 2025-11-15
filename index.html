@@ -160,6 +160,216 @@
             font-weight: 500;
         }
 
+        /* Dashboard Styles */
+        .dashboard-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--white);
+        }
+
+        .dashboard-header h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .dashboard-header p {
+            opacity: 0.8;
+            font-size: 1em;
+        }
+
+        .dashboard-card {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .dashboard-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .dashboard-card-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .refresh-btn {
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: var(--navy-light);
+        }
+
+        /* Forex Calculator Styles */
+        .forex-calculator {
+            margin-top: 10px;
+        }
+
+        .converter-form {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 15px;
+            align-items: end;
+        }
+
+        .converter-input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .converter-input-group label {
+            margin-bottom: 8px;
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        .converter-input {
+            display: flex;
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .converter-input select {
+            border: none;
+            border-right: 1px solid var(--gray);
+            border-radius: 0;
+            width: 80px;
+            padding: 12px;
+        }
+
+        .converter-input input {
+            border: none;
+            flex: 1;
+            padding: 12px;
+        }
+
+        .swap-btn {
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .swap-btn:hover {
+            background: var(--navy-light);
+            transform: rotate(180deg);
+        }
+
+        .converter-result {
+            margin-top: 20px;
+            padding: 15px;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        /* Info Cards */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .info-card {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .info-card-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+
+        .info-card-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .info-card-content {
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        .info-card-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+
+        .info-card-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card-list li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card-list i {
+            color: var(--success);
+        }
+
         /* Payment Form Styles */
         .container {
             max-width: 450px;
@@ -557,220 +767,6 @@
             font-size: 15px;
         }
 
-        /* Forex Page Styles */
-        .forex-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 10px;
-        }
-
-        .forex-header {
-            text-align: center;
-            margin-bottom: 25px;
-            color: var(--white);
-        }
-
-        .forex-header h2 {
-            font-size: 1.8em;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .forex-header p {
-            opacity: 0.8;
-            font-size: 1em;
-        }
-
-        .forex-card {
-            background: var(--white);
-            border-radius: 14px;
-            padding: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
-        }
-
-        .forex-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--gray);
-        }
-
-        .forex-card-title {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: var(--navy);
-        }
-
-        .refresh-btn {
-            background: var(--navy);
-            color: var(--white);
-            border: none;
-            border-radius: 8px;
-            padding: 8px 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .refresh-btn:hover {
-            background: var(--navy-light);
-        }
-
-        .currency-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 15px;
-        }
-
-        .currency-card {
-            background: var(--gray-light);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .currency-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .currency-flag {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .currency-code {
-            font-weight: 700;
-            font-size: 1.1em;
-            color: var(--navy);
-            margin-bottom: 5px;
-        }
-
-        .currency-name {
-            font-size: 0.85em;
-            color: var(--gray-dark);
-            margin-bottom: 10px;
-        }
-
-        .currency-rate {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: var(--success);
-        }
-
-        .currency-change {
-            font-size: 0.85em;
-            margin-top: 5px;
-        }
-
-        .positive {
-            color: var(--success);
-        }
-
-        .negative {
-            color: var(--danger);
-        }
-
-        .converter-section {
-            margin-top: 25px;
-        }
-
-        .converter-form {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 15px;
-            align-items: end;
-        }
-
-        .converter-input-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .converter-input-group label {
-            margin-bottom: 8px;
-            color: var(--navy);
-            font-weight: 600;
-        }
-
-        .converter-input {
-            display: flex;
-            border: 2px solid var(--gray);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .converter-input select {
-            border: none;
-            border-right: 1px solid var(--gray);
-            border-radius: 0;
-            width: 80px;
-            padding: 12px;
-        }
-
-        .converter-input input {
-            border: none;
-            flex: 1;
-            padding: 12px;
-        }
-
-        .swap-btn {
-            background: var(--navy);
-            color: var(--white);
-            border: none;
-            border-radius: 8px;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .swap-btn:hover {
-            background: var(--navy-light);
-            transform: rotate(180deg);
-        }
-
-        .converter-result {
-            margin-top: 20px;
-            padding: 15px;
-            background: var(--navy);
-            color: var(--white);
-            border-radius: 10px;
-            text-align: center;
-            font-size: 1.2em;
-            font-weight: 600;
-        }
-
-        .trending-currencies {
-            margin-top: 25px;
-        }
-
-        .trending-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .trending-item {
-            background: var(--gray-light);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
         /* Coming Soon Pages */
         .coming-soon {
             text-align: center;
@@ -808,13 +804,8 @@
                 padding: 12px;
             }
             
-            .forex-container {
+            .dashboard-container {
                 padding: 0 5px;
-            }
-            
-            .currency-grid {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-                gap: 10px;
             }
             
             .converter-form {
@@ -825,6 +816,10 @@
             .swap-btn {
                 align-self: center;
                 transform: rotate(90deg);
+            }
+            
+            .info-cards {
+                grid-template-columns: 1fr;
             }
             
             .section-content.active {
@@ -885,10 +880,6 @@
             .coming-soon-icon {
                 font-size: 50px;
             }
-            
-            .currency-grid {
-                grid-template-columns: 1fr 1fr;
-            }
         }
     </style>
 </head>
@@ -916,8 +907,112 @@
             </div>
 
             <!-- Pages -->
-            <!-- Home Page (Payments) -->
+            <!-- Home Page (Dashboard) -->
             <div class="page active" id="home">
+                <div class="dashboard-container">
+                    <div class="dashboard-header">
+                        <h2>V-PAY Dashboard</h2>
+                        <p>Your secure payment and financial management platform</p>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-title">Currency Converter</div>
+                            <button class="refresh-btn" onclick="fetchExchangeRates()">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                        <div class="forex-calculator">
+                            <div class="converter-form">
+                                <div class="converter-input-group">
+                                    <label>From</label>
+                                    <div class="converter-input">
+                                        <select id="fromCurrency">
+                                            <option value="KES" selected>KES</option>
+                                            <option value="USD">USD</option>
+                                            <option value="EUR">EUR</option>
+                                            <option value="GBP">GBP</option>
+                                            <option value="JPY">JPY</option>
+                                            <option value="CAD">CAD</option>
+                                            <option value="AUD">AUD</option>
+                                            <option value="CHF">CHF</option>
+                                        </select>
+                                        <input type="number" id="fromAmount" placeholder="0" value="1">
+                                    </div>
+                                </div>
+                                
+                                <button class="swap-btn" onclick="swapCurrencies()">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </button>
+                                
+                                <div class="converter-input-group">
+                                    <label>To</label>
+                                    <div class="converter-input">
+                                        <select id="toCurrency">
+                                            <option value="USD" selected>USD</option>
+                                            <option value="KES">KES</option>
+                                            <option value="EUR">EUR</option>
+                                            <option value="GBP">GBP</option>
+                                            <option value="JPY">JPY</option>
+                                            <option value="CAD">CAD</option>
+                                            <option value="AUD">AUD</option>
+                                            <option value="CHF">CHF</option>
+                                        </select>
+                                        <input type="number" id="toAmount" placeholder="0" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="converter-result" id="converterResult">
+                                Convert currencies to see result
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                <div class="info-card-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <div class="info-card-title">V-PAY Improvements</div>
+                            </div>
+                            <div class="info-card-content">
+                                <p>We're continuously enhancing V-PAY to provide you with the best payment experience:</p>
+                                <ul class="info-card-list">
+                                    <li><i class="fas fa-check-circle"></i> Faster transaction processing</li>
+                                    <li><i class="fas fa-check-circle"></i> Enhanced security features</li>
+                                    <li><i class="fas fa-check-circle"></i> New payment methods</li>
+                                    <li><i class="fas fa-check-circle"></i> Improved user interface</li>
+                                    <li><i class="fas fa-check-circle"></i> Multi-currency support</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                <div class="info-card-icon">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                                <div class="info-card-title">What to Expect</div>
+                            </div>
+                            <div class="info-card-content">
+                                <p>Exciting new features are coming to V-PAY:</p>
+                                <ul class="info-card-list">
+                                    <li><i class="fas fa-star"></i> Digital wallet integration</li>
+                                    <li><i class="fas fa-star"></i> Savings and investment options</li>
+                                    <li><i class="fas fa-star"></i> Bill payment automation</li>
+                                    <li><i class="fas fa-star"></i> Loyalty rewards program</li>
+                                    <li><i class="fas fa-star"></i> Business payment solutions</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payments Page -->
+            <div class="page" id="payments">
                 <div class="container">
                     <div class="progress-indicator">
                         <div class="progress-step active" id="step1"></div>
@@ -1077,115 +1172,14 @@
                 </div>
             </div>
 
-            <!-- Forex Page -->
-            <div class="page" id="forex">
-                <div class="forex-container">
-                    <div class="forex-header">
-                        <h2>Forex Trading</h2>
-                        <p>Real-time currency exchange rates and trading tools</p>
-                    </div>
-
-                    <div class="forex-card">
-                        <div class="forex-card-header">
-                            <div class="forex-card-title">Live Exchange Rates</div>
-                            <button class="refresh-btn" onclick="fetchForexData()">
-                                <i class="fas fa-sync-alt"></i> Refresh
-                            </button>
-                        </div>
-                        <div class="currency-grid" id="currencyGrid">
-                            <!-- Currency cards will be inserted here -->
-                        </div>
-                    </div>
-
-                    <div class="forex-card">
-                        <div class="forex-card-header">
-                            <div class="forex-card-title">Currency Converter</div>
-                        </div>
-                        <div class="converter-section">
-                            <div class="converter-form">
-                                <div class="converter-input-group">
-                                    <label>From</label>
-                                    <div class="converter-input">
-                                        <select id="fromCurrency">
-                                            <option value="USD">USD</option>
-                                            <option value="EUR">EUR</option>
-                                            <option value="GBP">GBP</option>
-                                            <option value="KES" selected>KES</option>
-                                            <option value="JPY">JPY</option>
-                                            <option value="CAD">CAD</option>
-                                            <option value="AUD">AUD</option>
-                                            <option value="CHF">CHF</option>
-                                        </select>
-                                        <input type="number" id="fromAmount" placeholder="0" value="1">
-                                    </div>
-                                </div>
-                                
-                                <button class="swap-btn" onclick="swapCurrencies()">
-                                    <i class="fas fa-exchange-alt"></i>
-                                </button>
-                                
-                                <div class="converter-input-group">
-                                    <label>To</label>
-                                    <div class="converter-input">
-                                        <select id="toCurrency">
-                                            <option value="USD">USD</option>
-                                            <option value="EUR">EUR</option>
-                                            <option value="GBP">GBP</option>
-                                            <option value="KES">KES</option>
-                                            <option value="JPY" selected>JPY</option>
-                                            <option value="CAD">CAD</option>
-                                            <option value="AUD">AUD</option>
-                                            <option value="CHF">CHF</option>
-                                        </select>
-                                        <input type="number" id="toAmount" placeholder="0" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="converter-result" id="converterResult">
-                                Convert currencies to see result
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="forex-card">
-                        <div class="forex-card-header">
-                            <div class="forex-card-title">Trending Currencies</div>
-                        </div>
-                        <div class="trending-currencies">
-                            <div class="trending-list">
-                                <div class="trending-item">
-                                    <i class="fas fa-dollar-sign"></i> USD/KES
-                                </div>
-                                <div class="trending-item">
-                                    <i class="fas fa-euro-sign"></i> EUR/KES
-                                </div>
-                                <div class="trending-item">
-                                    <i class="fas fa-pound-sign"></i> GBP/KES
-                                </div>
-                                <div class="trending-item">
-                                    <i class="fas fa-yen-sign"></i> JPY/KES
-                                </div>
-                                <div class="trending-item">
-                                    <i class="fas fa-rupee-sign"></i> INR/KES
-                                </div>
-                                <div class="trending-item">
-                                    <i class="fas fa-won-sign"></i> KRW/KES
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- V-Coin Page -->
-            <div class="page" id="coin">
+            <!-- Savings Page -->
+            <div class="page" id="savings">
                 <div class="coming-soon">
                     <div class="coming-soon-icon">
-                        <i class="fas fa-coins"></i>
+                        <i class="fas fa-piggy-bank"></i>
                     </div>
-                    <h2>V-Coin Launching Soon</h2>
-                    <p>Our revolutionary cryptocurrency is coming soon. Stay tuned for the future of digital payments and decentralized finance.</p>
+                    <h2>Savings Coming Soon</h2>
+                    <p>We're developing smart savings solutions to help you grow your money with competitive interest rates and flexible options.</p>
                     <div class="btn" style="max-width: 200px; margin: 0 auto; background: var(--navy-light);">
                         <i class="fas fa-rocket"></i> Join Waitlist
                     </div>
@@ -1199,17 +1193,17 @@
                 <i class="fas fa-home"></i>
                 <span>Home</span>
             </div>
+            <div class="nav-icon" onclick="showPage('payments')">
+                <i class="fas fa-credit-card"></i>
+                <span>Payments</span>
+            </div>
             <div class="nav-icon" onclick="showPage('wallet')">
                 <i class="fas fa-wallet"></i>
                 <span>Wallet</span>
             </div>
-            <div class="nav-icon" onclick="showPage('forex')">
-                <i class="fas fa-chart-line"></i>
-                <span>Forex</span>
-            </div>
-            <div class="nav-icon" onclick="showPage('coin')">
-                <i class="fas fa-coins"></i>
-                <span>V-Coin</span>
+            <div class="nav-icon" onclick="showPage('savings')">
+                <i class="fas fa-piggy-bank"></i>
+                <span>Savings</span>
             </div>
         </div>
     </div>
@@ -1308,11 +1302,145 @@
             
             currentPage = pageId;
             
-            // Load forex data when forex page is opened
-            if (pageId === 'forex') {
-                fetchForexData();
-                setupCurrencyConverter();
+            // Reset payment form when opening payments page
+            if (pageId === 'payments') {
+                resetForm();
             }
+        }
+
+        // Dashboard Forex Functions
+        async function fetchExchangeRates() {
+            try {
+                // Show loading state
+                const converterResult = document.getElementById('converterResult');
+                converterResult.textContent = 'Loading exchange rates...';
+                
+                // In a real implementation, we would use the API key
+                // For demonstration, we'll use a free API
+                const response = await fetch('https://api.exchangerate-api.com/v4/latest/KES');
+                const data = await response.json();
+                
+                exchangeRates = data.rates;
+                
+                // Update the converter
+                convertCurrency();
+                
+            } catch (error) {
+                console.error('Error fetching exchange rates:', error);
+                // Fallback to static data if API fails
+                loadFallbackExchangeRates();
+            }
+        }
+
+        function loadFallbackExchangeRates() {
+            // Fallback data in case API fails
+            exchangeRates = {
+                USD: 0.0077,
+                EUR: 0.0071,
+                GBP: 0.0061,
+                JPY: 1.16,
+                CAD: 0.0105,
+                AUD: 0.0118,
+                CHF: 0.0069,
+                CNY: 0.055
+            };
+            
+            // Update the converter
+            convertCurrency();
+        }
+
+        function setupCurrencyConverter() {
+            const fromAmount = document.getElementById('fromAmount');
+            const toAmount = document.getElementById('toAmount');
+            const fromCurrency = document.getElementById('fromCurrency');
+            const toCurrency = document.getElementById('toCurrency');
+            
+            // Add event listeners
+            fromAmount.addEventListener('input', convertCurrency);
+            fromCurrency.addEventListener('change', convertCurrency);
+            toCurrency.addEventListener('change', convertCurrency);
+            
+            // Initial conversion
+            convertCurrency();
+        }
+
+        function convertCurrency() {
+            const fromAmount = document.getElementById('fromAmount');
+            const toAmount = document.getElementById('toAmount');
+            const fromCurrency = document.getElementById('fromCurrency');
+            const toCurrency = document.getElementById('toCurrency');
+            const converterResult = document.getElementById('converterResult');
+            
+            const amount = parseFloat(fromAmount.value) || 0;
+            const from = fromCurrency.value;
+            const to = toCurrency.value;
+            
+            if (amount <= 0) {
+                toAmount.value = '';
+                converterResult.textContent = 'Convert currencies to see result';
+                return;
+            }
+            
+            // Use actual exchange rates if available, otherwise use fallback
+            let result;
+            
+            if (from === to) {
+                result = amount;
+            } else if (exchangeRates[from] && exchangeRates[to]) {
+                // Convert via base currency (KES)
+                if (from === 'KES') {
+                    result = amount * exchangeRates[to];
+                } else if (to === 'KES') {
+                    result = amount / exchangeRates[from];
+                } else {
+                    // Convert from -> KES -> to
+                    result = (amount / exchangeRates[from]) * exchangeRates[to];
+                }
+            } else {
+                // Fallback calculation using approximate rates
+                const rates = {
+                    USD: { KES: 130, EUR: 0.92, GBP: 0.79, JPY: 150, CAD: 1.36, AUD: 1.53, CHF: 0.90 },
+                    EUR: { KES: 141, USD: 1.09, GBP: 0.86, JPY: 163, CAD: 1.48, AUD: 1.66, CHF: 0.98 },
+                    GBP: { KES: 164, USD: 1.26, EUR: 1.16, JPY: 190, CAD: 1.72, AUD: 1.93, CHF: 1.14 },
+                    KES: { USD: 0.0077, EUR: 0.0071, GBP: 0.0061, JPY: 1.16, CAD: 0.0105, AUD: 0.0118, CHF: 0.0069 },
+                    JPY: { KES: 0.86, USD: 0.0067, EUR: 0.0061, GBP: 0.0053, CAD: 0.0091, AUD: 0.0102, CHF: 0.0060 },
+                    CAD: { KES: 95, USD: 0.73, EUR: 0.68, GBP: 0.58, JPY: 110, AUD: 1.12, CHF: 0.66 },
+                    AUD: { KES: 85, USD: 0.65, EUR: 0.60, GBP: 0.52, JPY: 98, CAD: 0.89, CHF: 0.59 },
+                    CHF: { KES: 145, USD: 1.11, EUR: 1.02, GBP: 0.88, JPY: 167, CAD: 1.52, AUD: 1.70 }
+                };
+                
+                if (rates[from] && rates[from][to]) {
+                    result = amount * rates[from][to];
+                } else if (rates[to] && rates[to][from]) {
+                    result = amount / rates[to][from];
+                } else {
+                    // Fallback calculation using USD as intermediary
+                    result = amount * (rates[from]?.USD || 1) * (rates.USD?.[to] || 1);
+                }
+            }
+            
+            toAmount.value = result.toFixed(2);
+            converterResult.textContent = `${amount} ${from} = ${result.toFixed(2)} ${to}`;
+        }
+
+        function swapCurrencies() {
+            const fromCurrency = document.getElementById('fromCurrency');
+            const toCurrency = document.getElementById('toCurrency');
+            const fromAmount = document.getElementById('fromAmount');
+            const toAmount = document.getElementById('toAmount');
+            
+            // Swap currency values
+            const tempCurrency = fromCurrency.value;
+            fromCurrency.value = toCurrency.value;
+            toCurrency.value = tempCurrency;
+            
+            // Swap amount values
+            const tempAmount = fromAmount.value;
+            fromAmount.value = toAmount.value;
+            toAmount.value = tempAmount;
+            
+            // Trigger conversion
+            convertCurrency();
         }
 
         // Payment Form Functions
@@ -1604,169 +1732,15 @@
             updateProgressIndicator();
         }
 
-        // Forex Functions
-        async function fetchForexData() {
-            try {
-                // Show loading state
-                const currencyGrid = document.getElementById('currencyGrid');
-                currencyGrid.innerHTML = '<div class="loading">Loading exchange rates...</div>';
-                
-                // In a real implementation, we would use the API key
-                // For demonstration, we'll use a free API
-                const response = await fetch('https://api.exchangerate-api.com/v4/latest/KES');
-                const data = await response.json();
-                
-                exchangeRates = data.rates;
-                
-                // Display the currency rates
-                displayCurrencyRates();
-                
-            } catch (error) {
-                console.error('Error fetching forex data:', error);
-                // Fallback to static data if API fails
-                loadFallbackForexData();
-            }
-        }
-
-        function displayCurrencyRates() {
-            const currencyGrid = document.getElementById('currencyGrid');
-            const currencies = [
-                { code: 'USD', name: 'US Dollar', flag: '🇺🇸', baseRate: 0.0077 },
-                { code: 'EUR', name: 'Euro', flag: '🇪🇺', baseRate: 0.0071 },
-                { code: 'GBP', name: 'British Pound', flag: '🇬🇧', baseRate: 0.0061 },
-                { code: 'JPY', name: 'Japanese Yen', flag: '🇯🇵', baseRate: 1.16 },
-                { code: 'CAD', name: 'Canadian Dollar', flag: '🇨🇦', baseRate: 0.0105 },
-                { code: 'AUD', name: 'Australian Dollar', flag: '🇦🇺', baseRate: 0.0118 },
-                { code: 'CHF', name: 'Swiss Franc', flag: '🇨🇭', baseRate: 0.0069 },
-                { code: 'CNY', name: 'Chinese Yuan', flag: '🇨🇳', baseRate: 0.055 }
-            ];
-            
-            let html = '';
-            
-            currencies.forEach(currency => {
-                // Calculate a slightly randomized rate for demonstration
-                const rate = exchangeRates[currency.code] || (currency.baseRate + (Math.random() * 0.002 - 0.001));
-                const change = (Math.random() * 0.02 - 0.01); // Random change between -1% and +1%
-                const changeClass = change >= 0 ? 'positive' : 'negative';
-                const changeSymbol = change >= 0 ? '+' : '';
-                
-                html += `
-                    <div class="currency-card">
-                        <div class="currency-flag">${currency.flag}</div>
-                        <div class="currency-code">${currency.code}</div>
-                        <div class="currency-name">${currency.name}</div>
-                        <div class="currency-rate">${rate.toFixed(4)}</div>
-                        <div class="currency-change ${changeClass}">
-                            ${changeSymbol}${(change * 100).toFixed(2)}%
-                        </div>
-                    </div>
-                `;
-            });
-            
-            currencyGrid.innerHTML = html;
-        }
-
-        function loadFallbackForexData() {
-            // Fallback data in case API fails
-            exchangeRates = {
-                USD: 0.0077,
-                EUR: 0.0071,
-                GBP: 0.0061,
-                JPY: 1.16,
-                CAD: 0.0105,
-                AUD: 0.0118,
-                CHF: 0.0069,
-                CNY: 0.055
-            };
-            
-            displayCurrencyRates();
-        }
-
-        function setupCurrencyConverter() {
-            const fromAmount = document.getElementById('fromAmount');
-            const toAmount = document.getElementById('toAmount');
-            const fromCurrency = document.getElementById('fromCurrency');
-            const toCurrency = document.getElementById('toCurrency');
-            const converterResult = document.getElementById('converterResult');
-            
-            function convertCurrency() {
-                const amount = parseFloat(fromAmount.value) || 0;
-                const from = fromCurrency.value;
-                const to = toCurrency.value;
-                
-                if (amount <= 0) {
-                    toAmount.value = '';
-                    converterResult.textContent = 'Convert currencies to see result';
-                    return;
-                }
-                
-                // In a real implementation, we would use the actual exchange rates
-                // For demonstration, we'll use approximate rates
-                const rates = {
-                    USD: { KES: 130, EUR: 0.92, GBP: 0.79, JPY: 150, CAD: 1.36, AUD: 1.53, CHF: 0.90 },
-                    EUR: { KES: 141, USD: 1.09, GBP: 0.86, JPY: 163, CAD: 1.48, AUD: 1.66, CHF: 0.98 },
-                    GBP: { KES: 164, USD: 1.26, EUR: 1.16, JPY: 190, CAD: 1.72, AUD: 1.93, CHF: 1.14 },
-                    KES: { USD: 0.0077, EUR: 0.0071, GBP: 0.0061, JPY: 1.16, CAD: 0.0105, AUD: 0.0118, CHF: 0.0069 },
-                    JPY: { KES: 0.86, USD: 0.0067, EUR: 0.0061, GBP: 0.0053, CAD: 0.0091, AUD: 0.0102, CHF: 0.0060 },
-                    CAD: { KES: 95, USD: 0.73, EUR: 0.68, GBP: 0.58, JPY: 110, AUD: 1.12, CHF: 0.66 },
-                    AUD: { KES: 85, USD: 0.65, EUR: 0.60, GBP: 0.52, JPY: 98, CAD: 0.89, CHF: 0.59 },
-                    CHF: { KES: 145, USD: 1.11, EUR: 1.02, GBP: 0.88, JPY: 167, CAD: 1.52, AUD: 1.70 }
-                };
-                
-                let result;
-                
-                if (from === to) {
-                    result = amount;
-                } else if (rates[from] && rates[from][to]) {
-                    result = amount * rates[from][to];
-                } else if (rates[to] && rates[to][from]) {
-                    result = amount / rates[to][from];
-                } else {
-                    // Fallback calculation using USD as intermediary
-                    result = amount * (rates[from]?.USD || 1) * (rates.USD?.[to] || 1);
-                }
-                
-                toAmount.value = result.toFixed(2);
-                converterResult.textContent = `${amount} ${from} = ${result.toFixed(2)} ${to}`;
-            }
-            
-            // Add event listeners
-            fromAmount.addEventListener('input', convertCurrency);
-            fromCurrency.addEventListener('change', convertCurrency);
-            toCurrency.addEventListener('change', convertCurrency);
-            
-            // Initial conversion
-            convertCurrency();
-        }
-
-        function swapCurrencies() {
-            const fromCurrency = document.getElementById('fromCurrency');
-            const toCurrency = document.getElementById('toCurrency');
-            const fromAmount = document.getElementById('fromAmount');
-            const toAmount = document.getElementById('toAmount');
-            
-            // Swap currency values
-            const tempCurrency = fromCurrency.value;
-            fromCurrency.value = toCurrency.value;
-            toCurrency.value = tempCurrency;
-            
-            // Swap amount values
-            const tempAmount = fromAmount.value;
-            fromAmount.value = toAmount.value;
-            toAmount.value = tempAmount;
-            
-            // Trigger conversion
-            const event = new Event('input');
-            fromAmount.dispatchEvent(event);
-        }
-
         // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
             showPage('home');
-            updateProgressIndicator();
             
-            // Load initial forex data
-            fetchForexData();
+            // Setup currency converter
+            setupCurrencyConverter();
+            
+            // Fetch initial exchange rates
+            fetchExchangeRates();
         });
     </script>
 </body>
