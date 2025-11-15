@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="https://i.postimg.cc/GtHqWWbV/wallet.png">
     <style>
+        /* Your existing CSS remains the same */
         :root {
             --navy: #001f3f;
             --navy-light: #003366;
@@ -1107,7 +1108,7 @@
                     }
                 ]
             },
-            'hekima hub': {
+            'hekimahub': {
                 name: "Hekima Hub",
                 email: "finance.hekimahub@gmail.com",
                 sheetName: "Hekima Hub Payments",
@@ -1128,8 +1129,13 @@
             const overlay = document.getElementById('overlay');
             sidebarOpen = !sidebarOpen;
             
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
+            if (sidebarOpen) {
+                sidebar.classList.add('active');
+                overlay.classList.add('active');
+            } else {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
         }
 
         function showPage(pageId) {
@@ -1152,7 +1158,7 @@
             
             // Activate corresponding nav items
             const navItem = document.querySelector(`.nav-item[onclick="showPage('${pageId}')"]`);
-            const navIcon = document.querySelector(`.nav-icon[onclick="showPage('${pageId}")]`);
+            const navIcon = document.querySelector(`.nav-icon[onclick="showPage('${pageId}')"]`);
             
             if (navItem) navItem.classList.add('active');
             if (navIcon) navIcon.classList.add('active');
@@ -1226,7 +1232,7 @@
             }
 
             const matchingBusinesses = Object.entries(businesses).filter(([key, business]) => 
-                business.name.toLowerCase().includes(searchTerm)
+                business.name.toLowerCase().includes(searchTerm) || key.toLowerCase().includes(searchTerm)
             );
 
             if (matchingBusinesses.length > 0) {
@@ -1273,7 +1279,7 @@
             `;
 
             selectedBusiness.paymentMethods.forEach((method, index) => {
-                const isActive = index === 0 ? 'active' : '';
+                const isActive = selectedPaymentOption === method.type ? 'active' : '';
                 html += `
                     <div class="payment-method ${isActive}" onclick="selectPaymentOption('${method.type}', this)">
                         <div class="payment-method-header">
@@ -1289,11 +1295,6 @@
             });
 
             container.innerHTML = html;
-            
-            // Auto-select first option
-            if (selectedBusiness.paymentMethods.length > 0) {
-                selectedPaymentOption = selectedBusiness.paymentMethods[0].type;
-            }
         }
 
         function selectPaymentOption(option, element) {
