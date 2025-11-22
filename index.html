@@ -8,6 +8,7 @@
     <title>V-PAY - Secure Payments</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="https://i.postimg.cc/GtHqWWbV/wallet.png">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         :root {
             --navy: #001f3f;
@@ -104,6 +105,13 @@
             justify-content: center;
             font-weight: bold;
             color: var(--navy);
+            overflow: hidden;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* Page Content */
@@ -878,6 +886,129 @@
             font-size: 15px;
         }
 
+        /* Payment Categories */
+        .payment-categories {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .category-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            background: var(--navy-light);
+            color: var(--white);
+        }
+
+        .category-card:hover .category-icon {
+            color: var(--white);
+        }
+
+        .category-icon {
+            font-size: 2.5em;
+            margin-bottom: 12px;
+            color: var(--navy);
+        }
+
+        .category-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .welcome-title {
+            color: var(--navy);
+            margin-bottom: 12px;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .welcome-text {
+            color: var(--gray-dark);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* Google Sign-In Button */
+        .g-signin-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        /* Accounts Page Styles */
+        .transaction-history {
+            margin-top: 20px;
+        }
+
+        .transaction-item {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .transaction-details {
+            flex: 1;
+        }
+
+        .transaction-business {
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 5px;
+        }
+
+        .transaction-date {
+            font-size: 0.85em;
+            color: var(--gray-dark);
+        }
+
+        .transaction-amount {
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .transaction-status {
+            font-size: 0.8em;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .status-completed {
+            background: #e8f5e8;
+            color: #2d5016;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
         /* Coming Soon Pages */
         .coming-soon {
             text-align: center;
@@ -963,7 +1094,7 @@
             }
             
             .coming-soon h2 {
-                font-size: 1.6em;
+                fontSize: 1.6em;
             }
             
             .rate-card {
@@ -984,6 +1115,10 @@
             .rate-details {
                 grid-template-columns: 1fr;
                 gap: 10px;
+            }
+
+            .payment-categories {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1025,6 +1160,11 @@
                         <img src="https://i.postimg.cc/GtHqWWbV/wallet.png" alt="V-PAY Logo" style="width: 30px; height: 30px;">
                     </div>
                     <div class="logo-text">V-PAY</div>
+                </div>
+                <div class="user-profile">
+                    <div class="user-avatar" id="userAvatar">
+                        <i class="fas fa-user"></i>
+                    </div>
                 </div>
             </div>
 
@@ -1178,147 +1318,215 @@
             <!-- Payments Page -->
             <div class="page" id="payments">
                 <div class="container">
-                    <div class="progress-indicator">
-                        <div class="progress-step active" id="step1"></div>
-                        <div class="progress-step" id="step2"></div>
-                        <div class="progress-step" id="step3"></div>
-                        <div class="progress-step" id="step4"></div>
-                    </div>
-
-                    <!-- Personal Information Section -->
-                    <div class="form-section">
-                        <div class="section-header" onclick="toggleSection('personalInfo')">
-                            <h3><i class="fas fa-user"></i> Personal Information</h3>
-                            <i class="fas fa-chevron-down" id="personalInfoIcon"></i>
-                        </div>
-                        <div class="section-content active" id="personalInfo">
-                            <div class="form-group">
-                                <label for="customerName">Full Name</label>
-                                <input type="text" id="customerName" required placeholder="Enter your full name">
+                    <!-- Welcome Section -->
+                    <div class="welcome-section">
+                        <h2 class="welcome-title">Welcome to V-PAY Payments</h2>
+                        <p class="welcome-text">Select a payment category to get started with your transaction</p>
+                        
+                        <!-- Google Sign-In Button -->
+                        <div class="g-signin-container">
+                            <div id="g_id_onload"
+                                data-client_id="286681909528-ca5egn614i94vgh2p3ejrov1r53hn8v8.apps.googleusercontent.com"
+                                data-context="signin"
+                                data-ux_mode="popup"
+                                data-callback="handleGoogleSignIn"
+                                data-auto_prompt="false">
                             </div>
-
-                            <div class="form-group">
-                                <label for="customerPhone">Phone Number</label>
-                                <input type="tel" id="customerPhone" required placeholder="0712345678">
+                            <div class="g_id_signin"
+                                data-type="standard"
+                                data-shape="rectangular"
+                                data-theme="filled_blue"
+                                data-text="signin_with"
+                                data-size="large"
+                                data-logo_alignment="left">
                             </div>
-
-                            <div class="form-group">
-                                <label for="customerEmail">Email Address</label>
-                                <input type="email" id="customerEmail" required placeholder="your.email@example.com">
-                            </div>
-
-                            <button class="btn btn-next" onclick="showSection('paymentDetails')">
-                                Continue <i class="fas fa-arrow-right"></i>
-                            </button>
                         </div>
                     </div>
 
-                    <!-- Payment Details Section -->
-                    <div class="form-section">
-                        <div class="section-header" onclick="toggleSection('paymentDetails')">
-                            <h3><i class="fas fa-receipt"></i> Payment Details</h3>
-                            <i class="fas fa-chevron-down" id="paymentDetailsIcon"></i>
+                    <!-- Payment Categories -->
+                    <div class="payment-categories">
+                        <div class="category-card" onclick="selectCategory('shopping')">
+                            <div class="category-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="category-name">Shopping</div>
                         </div>
-                        <div class="section-content" id="paymentDetails">
-                            <div class="form-group">
-                                <label for="businessSearch">Payment For</label>
-                                <div class="search-container">
-                                    <input type="text" id="businessSearch" required placeholder="Type business name to search...">
-                                    <div class="search-results" id="searchResults"></div>
+                        <div class="category-card" onclick="selectCategory('tickets')">
+                            <div class="category-icon">
+                                <i class="fas fa-ticket-alt"></i>
+                            </div>
+                            <div class="category-name">Ticket Purchase</div>
+                        </div>
+                        <div class="category-card" onclick="selectCategory('subscriptions')">
+                            <div class="category-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <div class="category-name">Subscriptions</div>
+                        </div>
+                        <div class="category-card" onclick="selectCategory('rent')">
+                            <div class="category-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="category-name">House Rent</div>
+                        </div>
+                        <div class="category-card" onclick="selectCategory('services')">
+                            <div class="category-icon">
+                                <i class="fas fa-concierge-bell"></i>
+                            </div>
+                            <div class="category-name">Service Payment</div>
+                        </div>
+                        <div class="category-card" onclick="selectCategory('other')">
+                            <div class="category-icon">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </div>
+                            <div class="category-name">Other</div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Form (Hidden Initially) -->
+                    <div id="paymentForm" style="display: none;">
+                        <div class="progress-indicator">
+                            <div class="progress-step active" id="step1"></div>
+                            <div class="progress-step" id="step2"></div>
+                            <div class="progress-step" id="step3"></div>
+                            <div class="progress-step" id="step4"></div>
+                        </div>
+
+                        <!-- Personal Information Section -->
+                        <div class="form-section">
+                            <div class="section-header" onclick="toggleSection('personalInfo')">
+                                <h3><i class="fas fa-user"></i> Personal Information</h3>
+                                <i class="fas fa-chevron-down" id="personalInfoIcon"></i>
+                            </div>
+                            <div class="section-content active" id="personalInfo">
+                                <div class="form-group">
+                                    <label for="customerName">Full Name</label>
+                                    <input type="text" id="customerName" required placeholder="Enter your full name">
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="paymentCategory">Payment Type</label>
-                                <select id="paymentCategory" required>
-                                    <option value="">-- Select category --</option>
-                                    <option value="event_ticket">Event Ticket</option>
-                                    <option value="service">Service Payment</option>
-                                    <option value="subscription">Subscription</option>
-                                    <option value="product">Product Purchase</option>
-                                    <option value="booking">Booking Fee</option>
-                                    <option value="membership">Membership</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="amount">Amount</label>
-                                <div class="amount-input">
-                                    <input type="number" id="amount" required min="1" placeholder="0">
+                                <div class="form-group">
+                                    <label for="customerPhone">Phone Number</label>
+                                    <input type="tel" id="customerPhone" required placeholder="0712345678">
                                 </div>
-                            </div>
 
-                            <div style="display: flex; gap: 10px;">
-                                <button class="btn" style="flex: 1;" onclick="showSection('personalInfo')">
-                                    <i class="fas fa-arrow-left"></i> Back
-                                </button>
-                                <button class="btn btn-next" style="flex: 1;" onclick="showSection('paymentMethod')">
+                                <div class="form-group">
+                                    <label for="customerEmail">Email Address</label>
+                                    <input type="email" id="customerEmail" required placeholder="your.email@example.com">
+                                </div>
+
+                                <button class="btn btn-next" onclick="showSection('paymentDetails')">
                                     Continue <i class="fas fa-arrow-right"></i>
                                 </button>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Payment Method Section -->
-                    <div class="form-section">
-                        <div class="section-header" onclick="toggleSection('paymentMethod')">
-                            <h3><i class="fas fa-mobile-alt"></i> Payment Method</h3>
-                            <i class="fas fa-chevron-down" id="paymentMethodIcon"></i>
-                        </div>
-                        <div class="section-content" id="paymentMethod">
-                            <div id="businessPaymentInfo">
-                                <!-- Dynamic content will be inserted here -->
+                        <!-- Payment Details Section -->
+                        <div class="form-section">
+                            <div class="section-header" onclick="toggleSection('paymentDetails')">
+                                <h3><i class="fas fa-receipt"></i> Payment Details</h3>
+                                <i class="fas fa-chevron-down" id="paymentDetailsIcon"></i>
                             </div>
+                            <div class="section-content" id="paymentDetails">
+                                <div class="form-group">
+                                    <label for="businessSearch">Payment For</label>
+                                    <div class="search-container">
+                                        <input type="text" id="businessSearch" required placeholder="Type business name to search...">
+                                        <div class="search-results" id="searchResults"></div>
+                                    </div>
+                                </div>
 
-                            <div style="display: flex; gap: 10px;">
-                                <button class="btn" style="flex: 1;" onclick="showSection('paymentDetails')">
-                                    <i class="fas fa-arrow-left"></i> Back
-                                </button>
-                                <button class="btn btn-next" style="flex: 1;" onclick="showSection('confirmation')">
-                                    Continue <i class="fas fa-arrow-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                                <div class="form-group">
+                                    <label for="paymentCategory">Payment Type</label>
+                                    <select id="paymentCategory" required>
+                                        <option value="">-- Select category --</option>
+                                        <option value="event_ticket">Event Ticket</option>
+                                        <option value="service">Service Payment</option>
+                                        <option value="subscription">Subscription</option>
+                                        <option value="product">Product Purchase</option>
+                                        <option value="booking">Booking Fee</option>
+                                        <option value="membership">Membership</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
 
-                    <!-- Confirmation Section -->
-                    <div class="form-section">
-                        <div class="section-header" onclick="toggleSection('confirmation')">
-                            <h3><i class="fas fa-check-circle"></i> Confirmation</h3>
-                            <i class="fas fa-chevron-down" id="confirmationIcon"></i>
-                        </div>
-                        <div class="section-content" id="confirmation">
-                            <div class="form-group">
-                                <label for="transactionId">Transaction Reference Number</label>
-                                <input type="text" id="transactionId" required placeholder="Enter transaction code">
-                                <small style="color: var(--gray-dark); margin-top: 5px; display: block;">
-                                    Enter the code you received after making the payment
-                                </small>
-                            </div>
+                                <div class="form-group">
+                                    <label for="amount">Amount</label>
+                                    <div class="amount-input">
+                                        <input type="number" id="amount" required min="1" placeholder="0">
+                                    </div>
+                                </div>
 
-                            <div class="form-group">
-                                <label for="notes">Additional Information</label>
-                                <textarea id="notes" placeholder="Any additional details about your payment"></textarea>
-                            </div>
-
-                            <div style="display: flex; gap: 10px;">
-                                <button class="btn" style="flex: 1;" onclick="showSection('paymentMethod')">
-                                    <i class="fas fa-arrow-left"></i> Back
-                                </button>
-                                <button class="btn btn-submit" style="flex: 2;" onclick="processPayment()">
-                                    <i class="fas fa-paper-plane"></i> Submit Payment
-                                </button>
+                                <div style="display: flex; gap: 10px;">
+                                    <button class="btn" style="flex: 1;" onclick="showSection('personalInfo')">
+                                        <i class="fas fa-arrow-left"></i> Back
+                                    </button>
+                                    <button class="btn btn-next" style="flex: 1;" onclick="showSection('paymentMethod')">
+                                        Continue <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="loading" id="loading">
-                        <div class="spinner"></div>
-                        <div>Processing your payment details...</div>
-                    </div>
+                        <!-- Payment Method Section -->
+                        <div class="form-section">
+                            <div class="section-header" onclick="toggleSection('paymentMethod')">
+                                <h3><i class="fas fa-mobile-alt"></i> Payment Method</h3>
+                                <i class="fas fa-chevron-down" id="paymentMethodIcon"></i>
+                            </div>
+                            <div class="section-content" id="paymentMethod">
+                                <div id="businessPaymentInfo">
+                                    <!-- Dynamic content will be inserted here -->
+                                </div>
 
-                    <div id="statusMessage" class="status-message"></div>
+                                <div style="display: flex; gap: 10px;">
+                                    <button class="btn" style="flex: 1;" onclick="showSection('paymentDetails')">
+                                        <i class="fas fa-arrow-left"></i> Back
+                                    </button>
+                                    <button class="btn btn-next" style="flex: 1;" onclick="showSection('confirmation')">
+                                        Continue <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Confirmation Section -->
+                        <div class="form-section">
+                            <div class="section-header" onclick="toggleSection('confirmation')">
+                                <h3><i class="fas fa-check-circle"></i> Confirmation</h3>
+                                <i class="fas fa-chevron-down" id="confirmationIcon"></i>
+                            </div>
+                            <div class="section-content" id="confirmation">
+                                <div class="form-group">
+                                    <label for="transactionId">Transaction Reference Number</label>
+                                    <input type="text" id="transactionId" required placeholder="Enter transaction code">
+                                    <small style="color: var(--gray-dark); margin-top: 5px; display: block;">
+                                        Enter the code you received after making the payment
+                                    </small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="notes">Additional Information</label>
+                                    <textarea id="notes" placeholder="Any additional details about your payment"></textarea>
+                                </div>
+
+                                <div style="display: flex; gap: 10px;">
+                                    <button class="btn" style="flex: 1;" onclick="showSection('paymentMethod')">
+                                        <i class="fas fa-arrow-left"></i> Back
+                                    </button>
+                                    <button class="btn btn-submit" style="flex: 2;" onclick="processPayment()">
+                                        <i class="fas fa-paper-plane"></i> Submit Payment
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="loading" id="loading">
+                            <div class="spinner"></div>
+                            <div>Processing your payment details...</div>
+                        </div>
+
+                        <div id="statusMessage" class="status-message"></div>
+                    </div>
                 </div>
             </div>
 
@@ -1336,16 +1544,19 @@
                 </div>
             </div>
 
-            <!-- Savings Page -->
-            <div class="page" id="savings">
-                <div class="coming-soon">
-                    <div class="coming-soon-icon">
-                        <i class="fas fa-piggy-bank"></i>
-                    </div>
-                    <h2>Savings Coming Soon</h2>
-                    <p>We're developing smart savings solutions to help you grow your money with competitive interest rates and flexible options.</p>
-                    <div class="btn" style="max-width: 200px; margin: 0 auto; background: var(--navy-light);">
-                        <i class="fas fa-rocket"></i> Join Waitlist
+            <!-- Accounts Page (Replaces Savings) -->
+            <div class="page" id="accounts">
+                <div class="dashboard-container">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-title">Transaction History</div>
+                            <button class="refresh-btn" onclick="loadTransactionHistory()">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                        <div class="transaction-history" id="transactionHistory">
+                            <!-- Transaction items will be loaded here -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1365,9 +1576,9 @@
                 <i class="fas fa-wallet"></i>
                 <span>Wallet</span>
             </div>
-            <div class="nav-icon" onclick="showPage('savings')">
-                <i class="fas fa-piggy-bank"></i>
-                <span>Savings</span>
+            <div class="nav-icon" onclick="showPage('accounts')">
+                <i class="fas fa-history"></i>
+                <span>Accounts</span>
             </div>
         </div>
     </div>
@@ -1387,6 +1598,7 @@
         let selectedPaymentOption = '';
         let currentSection = 'personalInfo';
         let exchangeRates = {};
+        let currentUser = null;
 
         // Business Configuration
         const businesses = {
@@ -1512,6 +1724,8 @@
             
             if (pageId === 'payments') {
                 resetForm();
+            } else if (pageId === 'accounts') {
+                loadTransactionHistory();
             }
         }
 
@@ -1629,6 +1843,88 @@
             toAmount.value = tempAmount;
             
             convertCurrency();
+        }
+
+        // Payment Category Selection
+        function selectCategory(category) {
+            document.getElementById('paymentForm').style.display = 'block';
+            document.querySelector('.payment-categories').style.display = 'none';
+            document.querySelector('.welcome-section').style.display = 'none';
+            
+            // Set the payment category based on selection
+            const categorySelect = document.getElementById('paymentCategory');
+            switch(category) {
+                case 'shopping':
+                    categorySelect.value = 'product';
+                    break;
+                case 'tickets':
+                    categorySelect.value = 'event_ticket';
+                    break;
+                case 'subscriptions':
+                    categorySelect.value = 'subscription';
+                    break;
+                case 'rent':
+                    categorySelect.value = 'service';
+                    break;
+                case 'services':
+                    categorySelect.value = 'service';
+                    break;
+                default:
+                    categorySelect.value = 'other';
+            }
+            
+            // Auto-fill user info if signed in
+            if (currentUser) {
+                document.getElementById('customerName').value = currentUser.name;
+                document.getElementById('customerEmail').value = currentUser.email;
+            }
+        }
+
+        // Google Sign-In Functions
+        function handleGoogleSignIn(response) {
+            // Decode the JWT token to get user info
+            const responsePayload = parseJwt(response.credential);
+            
+            currentUser = {
+                name: responsePayload.name,
+                email: responsePayload.email,
+                picture: responsePayload.picture
+            };
+            
+            // Update UI with user info
+            updateUserProfile();
+            
+            // Auto-fill form if on payments page
+            if (currentPage === 'payments') {
+                document.getElementById('customerName').value = currentUser.name;
+                document.getElementById('customerEmail').value = currentUser.email;
+            }
+            
+            console.log('User signed in:', currentUser);
+        }
+
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                
+                return JSON.parse(jsonPayload);
+            } catch (e) {
+                console.error('Error parsing JWT:', e);
+                return {};
+            }
+        }
+
+        function updateUserProfile() {
+            const userAvatar = document.getElementById('userAvatar');
+            if (currentUser && currentUser.picture) {
+                userAvatar.innerHTML = `<img src="${currentUser.picture}" alt="User Avatar">`;
+            } else {
+                userAvatar.innerHTML = '<i class="fas fa-user"></i>';
+            }
         }
 
         // Payment Form Functions
@@ -1913,7 +2209,50 @@
             selectedBusiness = null;
             selectedPaymentOption = '';
             
+            // Reset UI to show categories again
+            document.getElementById('paymentForm').style.display = 'none';
+            document.querySelector('.payment-categories').style.display = 'grid';
+            document.querySelector('.welcome-section').style.display = 'block';
+            
             updateProgressIndicator();
+        }
+
+        // Accounts Page Functions
+        function loadTransactionHistory() {
+            const transactionHistory = document.getElementById('transactionHistory');
+            const payments = JSON.parse(localStorage.getItem('vpay_offline_payments') || '[]');
+            
+            if (payments.length === 0) {
+                transactionHistory.innerHTML = `
+                    <div class="instructions">
+                        <p>No transaction history found. Make a payment to see your transaction history here.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Sort payments by timestamp (newest first)
+            payments.sort((a, b) => new Date(b.offlineTimestamp) - new Date(a.offlineTimestamp));
+            
+            let html = '';
+            payments.forEach(payment => {
+                const date = new Date(payment.offlineTimestamp).toLocaleDateString();
+                const statusClass = payment.status === 'pending_verification' ? 'status-pending' : 'status-completed';
+                const statusText = payment.status === 'pending_verification' ? 'Pending' : 'Completed';
+                
+                html += `
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-business">${payment.paymentDestination}</div>
+                            <div class="transaction-date">${date}</div>
+                        </div>
+                        <div class="transaction-amount">KES ${payment.amount}</div>
+                        <div class="transaction-status ${statusClass}">${statusText}</div>
+                    </div>
+                `;
+            });
+            
+            transactionHistory.innerHTML = html;
         }
 
         // Initialize app
@@ -1923,6 +2262,13 @@
             fetchExchangeRates();
             fetchUSDToKESRate();
             setInterval(fetchUSDToKESRate, 30000);
+            
+            // Check if user is already signed in
+            const savedUser = localStorage.getItem('vpay_current_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateUserProfile();
+            }
         });
     </script>
 </body>
