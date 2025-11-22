@@ -106,6 +106,7 @@
             font-weight: bold;
             color: var(--navy);
             overflow: hidden;
+            cursor: pointer;
         }
 
         .user-avatar img {
@@ -956,7 +957,7 @@
             margin: 20px 0;
         }
 
-        /* Accounts Page Styles */
+        /* Transactions Page Styles */
         .transaction-history {
             margin-top: 20px;
         }
@@ -970,6 +971,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .transaction-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
         }
 
         .transaction-details {
@@ -1007,6 +1015,148 @@
         .status-pending {
             background: #fff3cd;
             color: #856404;
+        }
+
+        /* Transaction Details Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 25px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .modal-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: var(--gray-dark);
+        }
+
+        .transaction-detail {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .detail-value {
+            color: var(--gray-dark);
+        }
+
+        /* Welcome Modal */
+        .welcome-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .welcome-modal-content {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .welcome-modal-icon {
+            font-size: 4em;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+
+        .welcome-modal-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 15px;
+        }
+
+        .welcome-modal-text {
+            color: var(--gray-dark);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        /* User Menu */
+        .user-menu {
+            position: absolute;
+            top: 70px;
+            right: 15px;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            padding: 10px 0;
+            z-index: 100;
+            display: none;
+            min-width: 180px;
+        }
+
+        .user-menu-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .user-menu-item:hover {
+            background: var(--gray-light);
+        }
+
+        .user-menu-item i {
+            width: 20px;
+            color: var(--navy);
         }
 
         /* Coming Soon Pages */
@@ -1120,6 +1270,14 @@
             .payment-categories {
                 grid-template-columns: 1fr;
             }
+
+            .modal-content {
+                padding: 20px;
+            }
+
+            .welcome-modal-content {
+                padding: 25px;
+            }
         }
 
         @media (max-width: 360px) {
@@ -1150,6 +1308,57 @@
     </style>
 </head>
 <body>
+    <!-- Welcome Modal -->
+    <div class="welcome-modal" id="welcomeModal">
+        <div class="welcome-modal-content">
+            <div class="welcome-modal-icon">
+                <i class="fas fa-wallet"></i>
+            </div>
+            <h2 class="welcome-modal-title">Welcome to V-PAY</h2>
+            <p class="welcome-modal-text">Sign in to access secure payments, track your transactions, and enjoy a seamless payment experience.</p>
+            <div class="g-signin-container">
+                <div id="g_id_onload"
+                    data-client_id="286681909528-ca5egn614i94vgh2p3ejrov1r53hn8v8.apps.googleusercontent.com"
+                    data-context="signin"
+                    data-ux_mode="popup"
+                    data-callback="handleGoogleSignIn"
+                    data-auto_prompt="false">
+                </div>
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-shape="rectangular"
+                    data-theme="filled_blue"
+                    data-text="signin_with"
+                    data-size="large"
+                    data-logo_alignment="left">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Menu -->
+    <div class="user-menu" id="userMenu">
+        <div class="user-menu-item" onclick="handleSignOut()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Sign Out</span>
+        </div>
+    </div>
+
+    <!-- Transaction Details Modal -->
+    <div class="modal-overlay" id="transactionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Transaction Details</h3>
+                <button class="close-modal" onclick="closeTransactionModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="transactionDetails">
+                <!-- Transaction details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
     <div class="app-container">
         <!-- Main Content -->
         <div class="main-content">
@@ -1162,7 +1371,7 @@
                     <div class="logo-text">V-PAY</div>
                 </div>
                 <div class="user-profile">
-                    <div class="user-avatar" id="userAvatar">
+                    <div class="user-avatar" id="userAvatar" onclick="toggleUserMenu()">
                         <i class="fas fa-user"></i>
                     </div>
                 </div>
@@ -1322,25 +1531,6 @@
                     <div class="welcome-section">
                         <h2 class="welcome-title">Welcome to V-PAY Payments</h2>
                         <p class="welcome-text">Select a payment category to get started with your transaction</p>
-                        
-                        <!-- Google Sign-In Button -->
-                        <div class="g-signin-container">
-                            <div id="g_id_onload"
-                                data-client_id="286681909528-ca5egn614i94vgh2p3ejrov1r53hn8v8.apps.googleusercontent.com"
-                                data-context="signin"
-                                data-ux_mode="popup"
-                                data-callback="handleGoogleSignIn"
-                                data-auto_prompt="false">
-                            </div>
-                            <div class="g_id_signin"
-                                data-type="standard"
-                                data-shape="rectangular"
-                                data-theme="filled_blue"
-                                data-text="signin_with"
-                                data-size="large"
-                                data-logo_alignment="left">
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Payment Categories -->
@@ -1544,8 +1734,8 @@
                 </div>
             </div>
 
-            <!-- Accounts Page (Replaces Savings) -->
-            <div class="page" id="accounts">
+            <!-- Transactions Page (Replaces Accounts) -->
+            <div class="page" id="transactions">
                 <div class="dashboard-container">
                     <div class="dashboard-card">
                         <div class="dashboard-card-header">
@@ -1576,9 +1766,9 @@
                 <i class="fas fa-wallet"></i>
                 <span>Wallet</span>
             </div>
-            <div class="nav-icon" onclick="showPage('accounts')">
+            <div class="nav-icon" onclick="showPage('transactions')">
                 <i class="fas fa-history"></i>
-                <span>Accounts</span>
+                <span>Transactions</span>
             </div>
         </div>
     </div>
@@ -1599,6 +1789,7 @@
         let currentSection = 'personalInfo';
         let exchangeRates = {};
         let currentUser = null;
+        let selectedTransaction = null;
 
         // Business Configuration
         const businesses = {
@@ -1707,6 +1898,13 @@
 
         // Navigation Functions
         function showPage(pageId) {
+            // Check if user is trying to access transactions without being signed in
+            if (pageId === 'transactions' && !currentUser) {
+                alert('Please sign in to view your transaction history');
+                showWelcomeModal();
+                return;
+            }
+            
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
@@ -1724,7 +1922,7 @@
             
             if (pageId === 'payments') {
                 resetForm();
-            } else if (pageId === 'accounts') {
+            } else if (pageId === 'transactions') {
                 loadTransactionHistory();
             }
         }
@@ -1845,6 +2043,93 @@
             convertCurrency();
         }
 
+        // Authentication Functions
+        function showWelcomeModal() {
+            document.getElementById('welcomeModal').style.display = 'flex';
+        }
+
+        function hideWelcomeModal() {
+            document.getElementById('welcomeModal').style.display = 'none';
+        }
+
+        function handleGoogleSignIn(response) {
+            // Decode the JWT token to get user info
+            const responsePayload = parseJwt(response.credential);
+            
+            currentUser = {
+                name: responsePayload.name,
+                email: responsePayload.email,
+                picture: responsePayload.picture
+            };
+            
+            // Save user to localStorage
+            localStorage.setItem('vpay_current_user', JSON.stringify(currentUser));
+            
+            // Update UI with user info
+            updateUserProfile();
+            
+            // Hide welcome modal
+            hideWelcomeModal();
+            
+            console.log('User signed in:', currentUser);
+        }
+
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                
+                return JSON.parse(jsonPayload);
+            } catch (e) {
+                console.error('Error parsing JWT:', e);
+                return {};
+            }
+        }
+
+        function handleSignOut() {
+            currentUser = null;
+            localStorage.removeItem('vpay_current_user');
+            updateUserProfile();
+            hideUserMenu();
+            
+            // If on transactions page, redirect to home
+            if (currentPage === 'transactions') {
+                showPage('home');
+            }
+        }
+
+        function updateUserProfile() {
+            const userAvatar = document.getElementById('userAvatar');
+            if (currentUser && currentUser.picture) {
+                userAvatar.innerHTML = `<img src="${currentUser.picture}" alt="User Avatar">`;
+            } else {
+                userAvatar.innerHTML = '<i class="fas fa-user"></i>';
+            }
+        }
+
+        function toggleUserMenu() {
+            const userMenu = document.getElementById('userMenu');
+            if (userMenu.style.display === 'block') {
+                userMenu.style.display = 'none';
+            } else {
+                userMenu.style.display = 'block';
+            }
+        }
+
+        function hideUserMenu() {
+            document.getElementById('userMenu').style.display = 'none';
+        }
+
+        // Close user menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.user-profile')) {
+                hideUserMenu();
+            }
+        });
+
         // Payment Category Selection
         function selectCategory(category) {
             document.getElementById('paymentForm').style.display = 'block';
@@ -1877,53 +2162,6 @@
             if (currentUser) {
                 document.getElementById('customerName').value = currentUser.name;
                 document.getElementById('customerEmail').value = currentUser.email;
-            }
-        }
-
-        // Google Sign-In Functions
-        function handleGoogleSignIn(response) {
-            // Decode the JWT token to get user info
-            const responsePayload = parseJwt(response.credential);
-            
-            currentUser = {
-                name: responsePayload.name,
-                email: responsePayload.email,
-                picture: responsePayload.picture
-            };
-            
-            // Update UI with user info
-            updateUserProfile();
-            
-            // Auto-fill form if on payments page
-            if (currentPage === 'payments') {
-                document.getElementById('customerName').value = currentUser.name;
-                document.getElementById('customerEmail').value = currentUser.email;
-            }
-            
-            console.log('User signed in:', currentUser);
-        }
-
-        function parseJwt(token) {
-            try {
-                const base64Url = token.split('.')[1];
-                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                }).join(''));
-                
-                return JSON.parse(jsonPayload);
-            } catch (e) {
-                console.error('Error parsing JWT:', e);
-                return {};
-            }
-        }
-
-        function updateUserProfile() {
-            const userAvatar = document.getElementById('userAvatar');
-            if (currentUser && currentUser.picture) {
-                userAvatar.innerHTML = `<img src="${currentUser.picture}" alt="User Avatar">`;
-            } else {
-                userAvatar.innerHTML = '<i class="fas fa-user"></i>';
             }
         }
 
@@ -2217,7 +2455,7 @@
             updateProgressIndicator();
         }
 
-        // Accounts Page Functions
+        // Transactions Page Functions
         function loadTransactionHistory() {
             const transactionHistory = document.getElementById('transactionHistory');
             const payments = JSON.parse(localStorage.getItem('vpay_offline_payments') || '[]');
@@ -2241,7 +2479,7 @@
                 const statusText = payment.status === 'pending_verification' ? 'Pending' : 'Completed';
                 
                 html += `
-                    <div class="transaction-item">
+                    <div class="transaction-item" onclick="showTransactionDetails('${payment.id}')">
                         <div class="transaction-details">
                             <div class="transaction-business">${payment.paymentDestination}</div>
                             <div class="transaction-date">${date}</div>
@@ -2255,20 +2493,92 @@
             transactionHistory.innerHTML = html;
         }
 
+        function showTransactionDetails(transactionId) {
+            const payments = JSON.parse(localStorage.getItem('vpay_offline_payments') || '[]');
+            const transaction = payments.find(p => p.id === transactionId);
+            
+            if (!transaction) return;
+            
+            selectedTransaction = transaction;
+            
+            const detailsContainer = document.getElementById('transactionDetails');
+            const date = new Date(transaction.offlineTimestamp).toLocaleString();
+            const statusClass = transaction.status === 'pending_verification' ? 'status-pending' : 'status-completed';
+            const statusText = transaction.status === 'pending_verification' ? 'Pending Verification' : 'Completed';
+            
+            detailsContainer.innerHTML = `
+                <div class="transaction-detail">
+                    <div class="detail-label">Transaction ID</div>
+                    <div class="detail-value">${transaction.id}</div>
+                </div>
+                <div class="transaction-detail">
+                    <div class="detail-label">Date & Time</div>
+                    <div class="detail-value">${date}</div>
+                </div>
+                <div class="transaction-detail">
+                    <div class="detail-label">Business</div>
+                    <div class="detail-value">${transaction.paymentDestination}</div>
+                </div>
+                <div class="transaction-detail">
+                    <div class="detail-label">Amount</div>
+                    <div class="detail-value">KES ${transaction.amount}</div>
+                </div>
+                <div class="transaction-detail">
+                    <div class="detail-label">Payment Method</div>
+                    <div class="detail-value">${transaction.paymentMethod}</div>
+                </div>
+                <div class="transaction-detail">
+                    <div class="detail-label">Category</div>
+                    <div class="detail-value">${transaction.paymentCategory}</div>
+                </div>
+                <div class="transaction-detail">
+                    <div class="detail-label">Status</div>
+                    <div class="detail-value">
+                        <span class="transaction-status ${statusClass}">${statusText}</span>
+                    </div>
+                </div>
+                <div class="transaction-detail">
+                    <div class="detail-label">Reference Number</div>
+                    <div class="detail-value">${transaction.transactionId || 'N/A'}</div>
+                </div>
+                <div class="transaction-detail">
+                    <div class="detail-label">Notes</div>
+                    <div class="detail-value">${transaction.notes || 'No additional notes'}</div>
+                </div>
+            `;
+            
+            document.getElementById('transactionModal').style.display = 'flex';
+        }
+
+        function closeTransactionModal() {
+            document.getElementById('transactionModal').style.display = 'none';
+            selectedTransaction = null;
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('transactionModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeTransactionModal();
+            }
+        });
+
         // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
-            showPage('home');
-            setupCurrencyConverter();
-            fetchExchangeRates();
-            fetchUSDToKESRate();
-            setInterval(fetchUSDToKESRate, 30000);
-            
             // Check if user is already signed in
             const savedUser = localStorage.getItem('vpay_current_user');
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
                 updateUserProfile();
+            } else {
+                // Show welcome modal for first-time users
+                showWelcomeModal();
             }
+            
+            showPage('home');
+            setupCurrencyConverter();
+            fetchExchangeRates();
+            fetchUSDToKESRate();
+            setInterval(fetchUSDToKESRate, 30000);
         });
     </script>
 </body>
