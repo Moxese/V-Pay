@@ -1159,6 +1159,15 @@
             color: var(--navy);
         }
 
+        /* App Content (Hidden when not signed in) */
+        .app-content {
+            display: none;
+        }
+
+        .app-content.active {
+            display: block;
+        }
+
         /* Coming Soon Pages */
         .coming-soon {
             text-align: center;
@@ -1359,416 +1368,419 @@
         </div>
     </div>
 
-    <div class="app-container">
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Top Bar -->
-            <div class="top-bar">
-                <div class="logo-container">
-                    <div class="logo">
-                        <img src="https://i.postimg.cc/GtHqWWbV/wallet.png" alt="V-PAY Logo" style="width: 30px; height: 30px;">
+    <!-- App Content (Only shown when signed in) -->
+    <div class="app-content" id="appContent">
+        <div class="app-container">
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Top Bar -->
+                <div class="top-bar">
+                    <div class="logo-container">
+                        <div class="logo">
+                            <img src="https://i.postimg.cc/GtHqWWbV/wallet.png" alt="V-PAY Logo" style="width: 30px; height: 30px;">
+                        </div>
+                        <div class="logo-text">V-PAY</div>
                     </div>
-                    <div class="logo-text">V-PAY</div>
-                </div>
-                <div class="user-profile">
-                    <div class="user-avatar" id="userAvatar" onclick="toggleUserMenu()">
-                        <i class="fas fa-user"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pages -->
-            <!-- Home Page (Dashboard) -->
-            <div class="page active" id="home">
-                <div class="dashboard-container">
-                    <!-- USD to KES Exchange Rate Dashboard Section -->
-                    <div class="dashboard-card">
-                        <div class="dashboard-card-header">
-                            <div class="dashboard-card-title">USD to KES Exchange Rate</div>
-                            <button class="refresh-btn" onclick="fetchUSDToKESRate()">
-                                <i class="fas fa-sync-alt"></i> Refresh
-                            </button>
-                        </div>
-                        <div class="exchange-rate-display">
-                            <div class="rate-card">
-                                <div class="rate-flag">🇺🇸</div>
-                                <div class="rate-info">
-                                    <div class="rate-pair">USD/KES</div>
-                                    <div class="rate-value" id="usdKesRate">Loading...</div>
-                                    <div class="rate-change" id="rateChange">
-                                        <i class="fas fa-arrow-up"></i> <span>0.00%</span>
-                                    </div>
-                                </div>
-                                <div class="rate-chart">
-                                    <div class="mini-chart">
-                                        <div class="chart-bar" style="height: 30%"></div>
-                                        <div class="chart-bar" style="height: 60%"></div>
-                                        <div class="chart-bar" style="height: 45%"></div>
-                                        <div class="chart-bar" style="height: 80%"></div>
-                                        <div class="chart-bar" style="height: 70%"></div>
-                                        <div class="chart-bar" style="height: 90%"></div>
-                                        <div class="chart-bar active" style="height: 100%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rate-details">
-                                <div class="detail-item">
-                                    <div class="detail-label">Last Updated</div>
-                                    <div class="detail-value" id="lastUpdated">--:--:--</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="detail-label">24h High</div>
-                                    <div class="detail-value" id="dailyHigh">-</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="detail-label">24h Low</div>
-                                    <div class="detail-value" id="dailyLow">-</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="dashboard-card">
-                        <div class="dashboard-card-header">
-                            <div class="dashboard-card-title">Currency Converter</div>
-                            <button class="refresh-btn" onclick="fetchExchangeRates()">
-                                <i class="fas fa-sync-alt"></i> Refresh
-                            </button>
-                        </div>
-                        <div class="forex-calculator">
-                            <div class="converter-form">
-                                <div class="converter-input-group">
-                                    <label>From</label>
-                                    <div class="converter-input">
-                                        <select id="fromCurrency">
-                                            <option value="KES" selected>KES</option>
-                                            <option value="USD">USD</option>
-                                            <option value="EUR">EUR</option>
-                                            <option value="GBP">GBP</option>
-                                            <option value="JPY">JPY</option>
-                                            <option value="CAD">CAD</option>
-                                            <option value="AUD">AUD</option>
-                                            <option value="CHF">CHF</option>
-                                        </select>
-                                        <input type="number" id="fromAmount" placeholder="0" value="1">
-                                    </div>
-                                </div>
-                                
-                                <button class="swap-btn" onclick="swapCurrencies()">
-                                    <i class="fas fa-exchange-alt"></i>
-                                </button>
-                                
-                                <div class="converter-input-group">
-                                    <label>To</label>
-                                    <div class="converter-input">
-                                        <select id="toCurrency">
-                                            <option value="USD" selected>USD</option>
-                                            <option value="KES">KES</option>
-                                            <option value="EUR">EUR</option>
-                                            <option value="GBP">GBP</option>
-                                            <option value="JPY">JPY</option>
-                                            <option value="CAD">CAD</option>
-                                            <option value="AUD">AUD</option>
-                                            <option value="CHF">CHF</option>
-                                        </select>
-                                        <input type="number" id="toAmount" placeholder="0" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="converter-result" id="converterResult">
-                                Convert currencies to see result
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="info-cards">
-                        <div class="info-card">
-                            <div class="info-card-header">
-                                <div class="info-card-icon">
-                                    <i class="fas fa-rocket"></i>
-                                </div>
-                                <div class="info-card-title">V-PAY Improvements</div>
-                            </div>
-                            <div class="info-card-content">
-                                <p>We're continuously enhancing V-PAY to provide you with the best payment experience:</p>
-                                <ul class="info-card-list">
-                                    <li><i class="fas fa-check-circle"></i> Faster transaction processing</li>
-                                    <li><i class="fas fa-check-circle"></i> Enhanced security features</li>
-                                    <li><i class="fas fa-check-circle"></i> New payment methods</li>
-                                    <li><i class="fas fa-check-circle"></i> Improved user interface</li>
-                                    <li><i class="fas fa-check-circle"></i> Multi-currency support</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="info-card">
-                            <div class="info-card-header">
-                                <div class="info-card-icon">
-                                    <i class="fas fa-bell"></i>
-                                </div>
-                                <div class="info-card-title">What to Expect</div>
-                            </div>
-                            <div class="info-card-content">
-                                <p>Exciting new features are coming to V-PAY:</p>
-                                <ul class="info-card-list">
-                                    <li><i class="fas fa-star"></i> Digital wallet integration</li>
-                                    <li><i class="fas fa-star"></i> Savings and investment options</li>
-                                    <li><i class="fas fa-star"></i> Bill payment automation</li>
-                                    <li><i class="fas fa-star"></i> Loyalty rewards program</li>
-                                    <li><i class="fas fa-star"></i> Business payment solutions</li>
-                                </ul>
-                            </div>
+                    <div class="user-profile">
+                        <div class="user-avatar" id="userAvatar" onclick="toggleUserMenu()">
+                            <i class="fas fa-user"></i>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Payments Page -->
-            <div class="page" id="payments">
-                <div class="container">
-                    <!-- Welcome Section -->
-                    <div class="welcome-section">
-                        <h2 class="welcome-title">Welcome to V-PAY Payments</h2>
-                        <p class="welcome-text">Select a payment category to get started with your transaction</p>
-                    </div>
-
-                    <!-- Payment Categories -->
-                    <div class="payment-categories">
-                        <div class="category-card" onclick="selectCategory('shopping')">
-                            <div class="category-icon">
-                                <i class="fas fa-shopping-cart"></i>
-                            </div>
-                            <div class="category-name">Shopping</div>
-                        </div>
-                        <div class="category-card" onclick="selectCategory('tickets')">
-                            <div class="category-icon">
-                                <i class="fas fa-ticket-alt"></i>
-                            </div>
-                            <div class="category-name">Ticket Purchase</div>
-                        </div>
-                        <div class="category-card" onclick="selectCategory('subscriptions')">
-                            <div class="category-icon">
-                                <i class="fas fa-sync-alt"></i>
-                            </div>
-                            <div class="category-name">Subscriptions</div>
-                        </div>
-                        <div class="category-card" onclick="selectCategory('rent')">
-                            <div class="category-icon">
-                                <i class="fas fa-home"></i>
-                            </div>
-                            <div class="category-name">House Rent</div>
-                        </div>
-                        <div class="category-card" onclick="selectCategory('services')">
-                            <div class="category-icon">
-                                <i class="fas fa-concierge-bell"></i>
-                            </div>
-                            <div class="category-name">Service Payment</div>
-                        </div>
-                        <div class="category-card" onclick="selectCategory('other')">
-                            <div class="category-icon">
-                                <i class="fas fa-ellipsis-h"></i>
-                            </div>
-                            <div class="category-name">Other</div>
-                        </div>
-                    </div>
-
-                    <!-- Payment Form (Hidden Initially) -->
-                    <div id="paymentForm" style="display: none;">
-                        <div class="progress-indicator">
-                            <div class="progress-step active" id="step1"></div>
-                            <div class="progress-step" id="step2"></div>
-                            <div class="progress-step" id="step3"></div>
-                            <div class="progress-step" id="step4"></div>
-                        </div>
-
-                        <!-- Personal Information Section -->
-                        <div class="form-section">
-                            <div class="section-header" onclick="toggleSection('personalInfo')">
-                                <h3><i class="fas fa-user"></i> Personal Information</h3>
-                                <i class="fas fa-chevron-down" id="personalInfoIcon"></i>
-                            </div>
-                            <div class="section-content active" id="personalInfo">
-                                <div class="form-group">
-                                    <label for="customerName">Full Name</label>
-                                    <input type="text" id="customerName" required placeholder="Enter your full name">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="customerPhone">Phone Number</label>
-                                    <input type="tel" id="customerPhone" required placeholder="0712345678">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="customerEmail">Email Address</label>
-                                    <input type="email" id="customerEmail" required placeholder="your.email@example.com">
-                                </div>
-
-                                <button class="btn btn-next" onclick="showSection('paymentDetails')">
-                                    Continue <i class="fas fa-arrow-right"></i>
+                <!-- Pages -->
+                <!-- Home Page (Dashboard) -->
+                <div class="page active" id="home">
+                    <div class="dashboard-container">
+                        <!-- USD to KES Exchange Rate Dashboard Section -->
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-header">
+                                <div class="dashboard-card-title">USD to KES Exchange Rate</div>
+                                <button class="refresh-btn" onclick="fetchUSDToKESRate()">
+                                    <i class="fas fa-sync-alt"></i> Refresh
                                 </button>
                             </div>
-                        </div>
-
-                        <!-- Payment Details Section -->
-                        <div class="form-section">
-                            <div class="section-header" onclick="toggleSection('paymentDetails')">
-                                <h3><i class="fas fa-receipt"></i> Payment Details</h3>
-                                <i class="fas fa-chevron-down" id="paymentDetailsIcon"></i>
+                            <div class="exchange-rate-display">
+                                <div class="rate-card">
+                                    <div class="rate-flag">🇺🇸</div>
+                                    <div class="rate-info">
+                                        <div class="rate-pair">USD/KES</div>
+                                        <div class="rate-value" id="usdKesRate">Loading...</div>
+                                        <div class="rate-change" id="rateChange">
+                                            <i class="fas fa-arrow-up"></i> <span>0.00%</span>
+                                        </div>
+                                    </div>
+                                    <div class="rate-chart">
+                                        <div class="mini-chart">
+                                            <div class="chart-bar" style="height: 30%"></div>
+                                            <div class="chart-bar" style="height: 60%"></div>
+                                            <div class="chart-bar" style="height: 45%"></div>
+                                            <div class="chart-bar" style="height: 80%"></div>
+                                            <div class="chart-bar" style="height: 70%"></div>
+                                            <div class="chart-bar" style="height: 90%"></div>
+                                            <div class="chart-bar active" style="height: 100%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rate-details">
+                                    <div class="detail-item">
+                                        <div class="detail-label">Last Updated</div>
+                                        <div class="detail-value" id="lastUpdated">--:--:--</div>
+                                    </div>
+                                    <div class="detail-item">
+                                        <div class="detail-label">24h High</div>
+                                        <div class="detail-value" id="dailyHigh">-</div>
+                                    </div>
+                                    <div class="detail-item">
+                                        <div class="detail-label">24h Low</div>
+                                        <div class="detail-value" id="dailyLow">-</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="section-content" id="paymentDetails">
-                                <div class="form-group">
-                                    <label for="businessSearch">Payment For</label>
-                                    <div class="search-container">
-                                        <input type="text" id="businessSearch" required placeholder="Type business name to search...">
-                                        <div class="search-results" id="searchResults"></div>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-header">
+                                <div class="dashboard-card-title">Currency Converter</div>
+                                <button class="refresh-btn" onclick="fetchExchangeRates()">
+                                    <i class="fas fa-sync-alt"></i> Refresh
+                                </button>
+                            </div>
+                            <div class="forex-calculator">
+                                <div class="converter-form">
+                                    <div class="converter-input-group">
+                                        <label>From</label>
+                                        <div class="converter-input">
+                                            <select id="fromCurrency">
+                                                <option value="KES" selected>KES</option>
+                                                <option value="USD">USD</option>
+                                                <option value="EUR">EUR</option>
+                                                <option value="GBP">GBP</option>
+                                                <option value="JPY">JPY</option>
+                                                <option value="CAD">CAD</option>
+                                                <option value="AUD">AUD</option>
+                                                <option value="CHF">CHF</option>
+                                            </select>
+                                            <input type="number" id="fromAmount" placeholder="0" value="1">
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="paymentCategory">Payment Type</label>
-                                    <select id="paymentCategory" required>
-                                        <option value="">-- Select category --</option>
-                                        <option value="event_ticket">Event Ticket</option>
-                                        <option value="service">Service Payment</option>
-                                        <option value="subscription">Subscription</option>
-                                        <option value="product">Product Purchase</option>
-                                        <option value="booking">Booking Fee</option>
-                                        <option value="membership">Membership</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="amount">Amount</label>
-                                    <div class="amount-input">
-                                        <input type="number" id="amount" required min="1" placeholder="0">
-                                    </div>
-                                </div>
-
-                                <div style="display: flex; gap: 10px;">
-                                    <button class="btn" style="flex: 1;" onclick="showSection('personalInfo')">
-                                        <i class="fas fa-arrow-left"></i> Back
+                                    
+                                    <button class="swap-btn" onclick="swapCurrencies()">
+                                        <i class="fas fa-exchange-alt"></i>
                                     </button>
-                                    <button class="btn btn-next" style="flex: 1;" onclick="showSection('paymentMethod')">
+                                    
+                                    <div class="converter-input-group">
+                                        <label>To</label>
+                                        <div class="converter-input">
+                                            <select id="toCurrency">
+                                                <option value="USD" selected>USD</option>
+                                                <option value="KES">KES</option>
+                                                <option value="EUR">EUR</option>
+                                                <option value="GBP">GBP</option>
+                                                <option value="JPY">JPY</option>
+                                                <option value="CAD">CAD</option>
+                                                <option value="AUD">AUD</option>
+                                                <option value="CHF">CHF</option>
+                                            </select>
+                                            <input type="number" id="toAmount" placeholder="0" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="converter-result" id="converterResult">
+                                    Convert currencies to see result
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-cards">
+                            <div class="info-card">
+                                <div class="info-card-header">
+                                    <div class="info-card-icon">
+                                        <i class="fas fa-rocket"></i>
+                                    </div>
+                                    <div class="info-card-title">V-PAY Improvements</div>
+                                </div>
+                                <div class="info-card-content">
+                                    <p>We're continuously enhancing V-PAY to provide you with the best payment experience:</p>
+                                    <ul class="info-card-list">
+                                        <li><i class="fas fa-check-circle"></i> Faster transaction processing</li>
+                                        <li><i class="fas fa-check-circle"></i> Enhanced security features</li>
+                                        <li><i class="fas fa-check-circle"></i> New payment methods</li>
+                                        <li><i class="fas fa-check-circle"></i> Improved user interface</li>
+                                        <li><i class="fas fa-check-circle"></i> Multi-currency support</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="info-card">
+                                <div class="info-card-header">
+                                    <div class="info-card-icon">
+                                        <i class="fas fa-bell"></i>
+                                    </div>
+                                    <div class="info-card-title">What to Expect</div>
+                                </div>
+                                <div class="info-card-content">
+                                    <p>Exciting new features are coming to V-PAY:</p>
+                                    <ul class="info-card-list">
+                                        <li><i class="fas fa-star"></i> Digital wallet integration</li>
+                                        <li><i class="fas fa-star"></i> Savings and investment options</li>
+                                        <li><i class="fas fa-star"></i> Bill payment automation</li>
+                                        <li><i class="fas fa-star"></i> Loyalty rewards program</li>
+                                        <li><i class="fas fa-star"></i> Business payment solutions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payments Page -->
+                <div class="page" id="payments">
+                    <div class="container">
+                        <!-- Welcome Section -->
+                        <div class="welcome-section">
+                            <h2 class="welcome-title">Welcome to V-PAY Payments</h2>
+                            <p class="welcome-text">Select a payment category to get started with your transaction</p>
+                        </div>
+
+                        <!-- Payment Categories -->
+                        <div class="payment-categories">
+                            <div class="category-card" onclick="selectCategory('shopping')">
+                                <div class="category-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <div class="category-name">Shopping</div>
+                            </div>
+                            <div class="category-card" onclick="selectCategory('tickets')">
+                                <div class="category-icon">
+                                    <i class="fas fa-ticket-alt"></i>
+                                </div>
+                                <div class="category-name">Ticket Purchase</div>
+                            </div>
+                            <div class="category-card" onclick="selectCategory('subscriptions')">
+                                <div class="category-icon">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <div class="category-name">Subscriptions</div>
+                            </div>
+                            <div class="category-card" onclick="selectCategory('rent')">
+                                <div class="category-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="category-name">House Rent</div>
+                            </div>
+                            <div class="category-card" onclick="selectCategory('services')">
+                                <div class="category-icon">
+                                    <i class="fas fa-concierge-bell"></i>
+                                </div>
+                                <div class="category-name">Service Payment</div>
+                            </div>
+                            <div class="category-card" onclick="selectCategory('other')">
+                                <div class="category-icon">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </div>
+                                <div class="category-name">Other</div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Form (Hidden Initially) -->
+                        <div id="paymentForm" style="display: none;">
+                            <div class="progress-indicator">
+                                <div class="progress-step active" id="step1"></div>
+                                <div class="progress-step" id="step2"></div>
+                                <div class="progress-step" id="step3"></div>
+                                <div class="progress-step" id="step4"></div>
+                            </div>
+
+                            <!-- Personal Information Section -->
+                            <div class="form-section">
+                                <div class="section-header" onclick="toggleSection('personalInfo')">
+                                    <h3><i class="fas fa-user"></i> Personal Information</h3>
+                                    <i class="fas fa-chevron-down" id="personalInfoIcon"></i>
+                                </div>
+                                <div class="section-content active" id="personalInfo">
+                                    <div class="form-group">
+                                        <label for="customerName">Full Name</label>
+                                        <input type="text" id="customerName" required placeholder="Enter your full name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="customerPhone">Phone Number</label>
+                                        <input type="tel" id="customerPhone" required placeholder="0712345678">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="customerEmail">Email Address</label>
+                                        <input type="email" id="customerEmail" required placeholder="your.email@example.com">
+                                    </div>
+
+                                    <button class="btn btn-next" onclick="showSection('paymentDetails')">
                                         Continue <i class="fas fa-arrow-right"></i>
                                     </button>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Payment Method Section -->
-                        <div class="form-section">
-                            <div class="section-header" onclick="toggleSection('paymentMethod')">
-                                <h3><i class="fas fa-mobile-alt"></i> Payment Method</h3>
-                                <i class="fas fa-chevron-down" id="paymentMethodIcon"></i>
-                            </div>
-                            <div class="section-content" id="paymentMethod">
-                                <div id="businessPaymentInfo">
-                                    <!-- Dynamic content will be inserted here -->
+                            <!-- Payment Details Section -->
+                            <div class="form-section">
+                                <div class="section-header" onclick="toggleSection('paymentDetails')">
+                                    <h3><i class="fas fa-receipt"></i> Payment Details</h3>
+                                    <i class="fas fa-chevron-down" id="paymentDetailsIcon"></i>
                                 </div>
+                                <div class="section-content" id="paymentDetails">
+                                    <div class="form-group">
+                                        <label for="businessSearch">Payment For</label>
+                                        <div class="search-container">
+                                            <input type="text" id="businessSearch" required placeholder="Type business name to search...">
+                                            <div class="search-results" id="searchResults"></div>
+                                        </div>
+                                    </div>
 
-                                <div style="display: flex; gap: 10px;">
-                                    <button class="btn" style="flex: 1;" onclick="showSection('paymentDetails')">
-                                        <i class="fas fa-arrow-left"></i> Back
-                                    </button>
-                                    <button class="btn btn-next" style="flex: 1;" onclick="showSection('confirmation')">
-                                        Continue <i class="fas fa-arrow-right"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                                    <div class="form-group">
+                                        <label for="paymentCategory">Payment Type</label>
+                                        <select id="paymentCategory" required>
+                                            <option value="">-- Select category --</option>
+                                            <option value="event_ticket">Event Ticket</option>
+                                            <option value="service">Service Payment</option>
+                                            <option value="subscription">Subscription</option>
+                                            <option value="product">Product Purchase</option>
+                                            <option value="booking">Booking Fee</option>
+                                            <option value="membership">Membership</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
 
-                        <!-- Confirmation Section -->
-                        <div class="form-section">
-                            <div class="section-header" onclick="toggleSection('confirmation')">
-                                <h3><i class="fas fa-check-circle"></i> Confirmation</h3>
-                                <i class="fas fa-chevron-down" id="confirmationIcon"></i>
-                            </div>
-                            <div class="section-content" id="confirmation">
-                                <div class="form-group">
-                                    <label for="transactionId">Transaction Reference Number</label>
-                                    <input type="text" id="transactionId" required placeholder="Enter transaction code">
-                                    <small style="color: var(--gray-dark); margin-top: 5px; display: block;">
-                                        Enter the code you received after making the payment
-                                    </small>
-                                </div>
+                                    <div class="form-group">
+                                        <label for="amount">Amount</label>
+                                        <div class="amount-input">
+                                            <input type="number" id="amount" required min="1" placeholder="0">
+                                        </div>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="notes">Additional Information</label>
-                                    <textarea id="notes" placeholder="Any additional details about your payment"></textarea>
-                                </div>
-
-                                <div style="display: flex; gap: 10px;">
-                                    <button class="btn" style="flex: 1;" onclick="showSection('paymentMethod')">
-                                        <i class="fas fa-arrow-left"></i> Back
-                                    </button>
-                                    <button class="btn btn-submit" style="flex: 2;" onclick="processPayment()">
-                                        <i class="fas fa-paper-plane"></i> Submit Payment
-                                    </button>
+                                    <div style="display: flex; gap: 10px;">
+                                        <button class="btn" style="flex: 1;" onclick="showSection('personalInfo')">
+                                            <i class="fas fa-arrow-left"></i> Back
+                                        </button>
+                                        <button class="btn btn-next" style="flex: 1;" onclick="showSection('paymentMethod')">
+                                            Continue <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="loading" id="loading">
-                            <div class="spinner"></div>
-                            <div>Processing your payment details...</div>
-                        </div>
+                            <!-- Payment Method Section -->
+                            <div class="form-section">
+                                <div class="section-header" onclick="toggleSection('paymentMethod')">
+                                    <h3><i class="fas fa-mobile-alt"></i> Payment Method</h3>
+                                    <i class="fas fa-chevron-down" id="paymentMethodIcon"></i>
+                                </div>
+                                <div class="section-content" id="paymentMethod">
+                                    <div id="businessPaymentInfo">
+                                        <!-- Dynamic content will be inserted here -->
+                                    </div>
 
-                        <div id="statusMessage" class="status-message"></div>
+                                    <div style="display: flex; gap: 10px;">
+                                        <button class="btn" style="flex: 1;" onclick="showSection('paymentDetails')">
+                                            <i class="fas fa-arrow-left"></i> Back
+                                        </button>
+                                        <button class="btn btn-next" style="flex: 1;" onclick="showSection('confirmation')">
+                                            Continue <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Confirmation Section -->
+                            <div class="form-section">
+                                <div class="section-header" onclick="toggleSection('confirmation')">
+                                    <h3><i class="fas fa-check-circle"></i> Confirmation</h3>
+                                    <i class="fas fa-chevron-down" id="confirmationIcon"></i>
+                                </div>
+                                <div class="section-content" id="confirmation">
+                                    <div class="form-group">
+                                        <label for="transactionId">Transaction Reference Number</label>
+                                        <input type="text" id="transactionId" required placeholder="Enter transaction code">
+                                        <small style="color: var(--gray-dark); margin-top: 5px; display: block;">
+                                            Enter the code you received after making the payment
+                                        </small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="notes">Additional Information</label>
+                                        <textarea id="notes" placeholder="Any additional details about your payment"></textarea>
+                                    </div>
+
+                                    <div style="display: flex; gap: 10px;">
+                                        <button class="btn" style="flex: 1;" onclick="showSection('paymentMethod')">
+                                            <i class="fas fa-arrow-left"></i> Back
+                                        </button>
+                                        <button class="btn btn-submit" style="flex: 2;" onclick="processPayment()">
+                                            <i class="fas fa-paper-plane"></i> Submit Payment
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="loading" id="loading">
+                                <div class="spinner"></div>
+                                <div>Processing your payment details...</div>
+                            </div>
+
+                            <div id="statusMessage" class="status-message"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wallet Page -->
+                <div class="page" id="wallet">
+                    <div class="coming-soon">
+                        <div class="coming-soon-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <h2>Wallet Coming Soon</h2>
+                        <p>We're building a secure digital wallet to manage all your payments and transactions in one convenient place.</p>
+                        <div class="btn" style="max-width: 200px; margin: 0 auto; background: var(--navy-light);">
+                            <i class="fas fa-bell"></i> Notify Me
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transactions Page (Replaces Accounts) -->
+                <div class="page" id="transactions">
+                    <div class="dashboard-container">
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-header">
+                                <div class="dashboard-card-title">Transaction History</div>
+                                <button class="refresh-btn" onclick="loadTransactionHistory()">
+                                    <i class="fas fa-sync-alt"></i> Refresh
+                                </button>
+                            </div>
+                            <div class="transaction-history" id="transactionHistory">
+                                <!-- Transaction items will be loaded here -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Wallet Page -->
-            <div class="page" id="wallet">
-                <div class="coming-soon">
-                    <div class="coming-soon-icon">
-                        <i class="fas fa-wallet"></i>
-                    </div>
-                    <h2>Wallet Coming Soon</h2>
-                    <p>We're building a secure digital wallet to manage all your payments and transactions in one convenient place.</p>
-                    <div class="btn" style="max-width: 200px; margin: 0 auto; background: var(--navy-light);">
-                        <i class="fas fa-bell"></i> Notify Me
-                    </div>
+            <!-- Bottom Navigation -->
+            <div class="bottom-nav">
+                <div class="nav-icon active" onclick="showPage('home')">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
                 </div>
-            </div>
-
-            <!-- Transactions Page (Replaces Accounts) -->
-            <div class="page" id="transactions">
-                <div class="dashboard-container">
-                    <div class="dashboard-card">
-                        <div class="dashboard-card-header">
-                            <div class="dashboard-card-title">Transaction History</div>
-                            <button class="refresh-btn" onclick="loadTransactionHistory()">
-                                <i class="fas fa-sync-alt"></i> Refresh
-                            </button>
-                        </div>
-                        <div class="transaction-history" id="transactionHistory">
-                            <!-- Transaction items will be loaded here -->
-                        </div>
-                    </div>
+                <div class="nav-icon" onclick="showPage('payments')">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Payments</span>
                 </div>
-            </div>
-        </div>
-
-        <!-- Bottom Navigation -->
-        <div class="bottom-nav">
-            <div class="nav-icon active" onclick="showPage('home')">
-                <i class="fas fa-home"></i>
-                <span>Home</span>
-            </div>
-            <div class="nav-icon" onclick="showPage('payments')">
-                <i class="fas fa-credit-card"></i>
-                <span>Payments</span>
-            </div>
-            <div class="nav-icon" onclick="showPage('wallet')">
-                <i class="fas fa-wallet"></i>
-                <span>Wallet</span>
-            </div>
-            <div class="nav-icon" onclick="showPage('transactions')">
-                <i class="fas fa-history"></i>
-                <span>Transactions</span>
+                <div class="nav-icon" onclick="showPage('wallet')">
+                    <i class="fas fa-wallet"></i>
+                    <span>Wallet</span>
+                </div>
+                <div class="nav-icon" onclick="showPage('transactions')">
+                    <i class="fas fa-history"></i>
+                    <span>Transactions</span>
+                </div>
             </div>
         </div>
     </div>
@@ -1898,9 +1910,8 @@
 
         // Navigation Functions
         function showPage(pageId) {
-            // Check if user is trying to access transactions without being signed in
-            if (pageId === 'transactions' && !currentUser) {
-                alert('Please sign in to view your transaction history');
+            // Check if user is signed in
+            if (!currentUser) {
                 showWelcomeModal();
                 return;
             }
@@ -2059,7 +2070,8 @@
             currentUser = {
                 name: responsePayload.name,
                 email: responsePayload.email,
-                picture: responsePayload.picture
+                picture: responsePayload.picture,
+                id: responsePayload.sub // Unique Google ID
             };
             
             // Save user to localStorage
@@ -2067,6 +2079,9 @@
             
             // Update UI with user info
             updateUserProfile();
+            
+            // Show app content
+            document.getElementById('appContent').classList.add('active');
             
             // Hide welcome modal
             hideWelcomeModal();
@@ -2095,10 +2110,9 @@
             updateUserProfile();
             hideUserMenu();
             
-            // If on transactions page, redirect to home
-            if (currentPage === 'transactions') {
-                showPage('home');
-            }
+            // Hide app content and show welcome modal
+            document.getElementById('appContent').classList.remove('active');
+            showWelcomeModal();
         }
 
         function updateUserProfile() {
@@ -2336,7 +2350,7 @@
             }, 2000);
         }
 
-        // UPDATED PAYMENT PROCESSING FUNCTION - Matching your working version
+        // UPDATED PAYMENT PROCESSING FUNCTION - User-specific transactions
         async function processPayment() {
             if (!selectedBusiness) {
                 showStatus('Please select a business first', 'error');
@@ -2362,7 +2376,8 @@
                 paymentMethod: getPaymentMethodName(selectedPaymentOption),
                 transactionId: document.getElementById('transactionId').value,
                 notes: document.getElementById('notes').value,
-                status: 'pending_verification'
+                status: 'pending_verification',
+                userId: currentUser.id // Add user ID to transaction
             };
 
             showLoading(true);
@@ -2407,7 +2422,10 @@
         }
 
         function saveToLocalStorage(formData) {
-            let payments = JSON.parse(localStorage.getItem('vpay_offline_payments') || '[]');
+            // Get user-specific transaction storage key
+            const userTransactionsKey = `vpay_transactions_${currentUser.id}`;
+            let payments = JSON.parse(localStorage.getItem(userTransactionsKey) || '[]');
+            
             const paymentRecord = {
                 ...formData,
                 offline: true,
@@ -2415,7 +2433,7 @@
                 id: Date.now().toString()
             };
             payments.push(paymentRecord);
-            localStorage.setItem('vpay_offline_payments', JSON.stringify(payments));
+            localStorage.setItem(userTransactionsKey, JSON.stringify(payments));
             
             console.log('💾 Payment saved to localStorage:', paymentRecord);
         }
@@ -2455,10 +2473,22 @@
             updateProgressIndicator();
         }
 
-        // Transactions Page Functions
+        // Transactions Page Functions - User-specific
         function loadTransactionHistory() {
             const transactionHistory = document.getElementById('transactionHistory');
-            const payments = JSON.parse(localStorage.getItem('vpay_offline_payments') || '[]');
+            
+            if (!currentUser) {
+                transactionHistory.innerHTML = `
+                    <div class="instructions">
+                        <p>Please sign in to view your transaction history.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Get user-specific transactions
+            const userTransactionsKey = `vpay_transactions_${currentUser.id}`;
+            const payments = JSON.parse(localStorage.getItem(userTransactionsKey) || '[]');
             
             if (payments.length === 0) {
                 transactionHistory.innerHTML = `
@@ -2494,7 +2524,9 @@
         }
 
         function showTransactionDetails(transactionId) {
-            const payments = JSON.parse(localStorage.getItem('vpay_offline_payments') || '[]');
+            // Get user-specific transactions
+            const userTransactionsKey = `vpay_transactions_${currentUser.id}`;
+            const payments = JSON.parse(localStorage.getItem(userTransactionsKey) || '[]');
             const transaction = payments.find(p => p.id === transactionId);
             
             if (!transaction) return;
@@ -2569,6 +2601,7 @@
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
                 updateUserProfile();
+                document.getElementById('appContent').classList.add('active');
             } else {
                 // Show welcome modal for first-time users
                 showWelcomeModal();
