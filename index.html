@@ -1091,7 +1091,7 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.8);
-            display: flex;
+            display: none;
             justify-content: center;
             align-items: center;
             z-index: 2000;
@@ -2594,7 +2594,7 @@
             }
         });
 
-        // Initialize app
+        // Initialize app - FIXED AUTHENTICATION PERSISTENCE
         document.addEventListener('DOMContentLoaded', function() {
             // Check if user is already signed in
             const savedUser = localStorage.getItem('vpay_current_user');
@@ -2602,12 +2602,15 @@
                 currentUser = JSON.parse(savedUser);
                 updateUserProfile();
                 document.getElementById('appContent').classList.add('active');
+                hideWelcomeModal(); // Make sure welcome modal is hidden
+                
+                // Initialize the app with the current page
+                showPage(currentPage);
             } else {
                 // Show welcome modal for first-time users
                 showWelcomeModal();
             }
             
-            showPage('home');
             setupCurrencyConverter();
             fetchExchangeRates();
             fetchUSDToKESRate();
