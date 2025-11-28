@@ -2039,7 +2039,7 @@
     </div>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxf4ZZGAmn5-CKjv1Pb3vdh1yKcPvp1Iszf-00bnMsKL5nPDNOW_EqQJo1xgKkSB63Elw/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbycDPMAhgMwuuchAlTMT0hGGgIMpcUejdeapcSAVk9raWITFJpLKdQaxbociiS3a16CAg/exec';
         const FOREX_API_KEY = 'eeb508c45ff6e011d2bc3292';
 
         // App State
@@ -2456,6 +2456,7 @@
 
         function selectBusiness(businessKey) {
             selectedBusiness = businesses[businessKey];
+            selectedPaymentOption = ''; // Reset payment option
             
             // Hide business selection, show payment form
             document.getElementById('businessSelectionView').style.display = 'none';
@@ -2475,12 +2476,14 @@
             document.getElementById('serviceCategoriesView').style.display = 'block';
             selectedBusiness = null;
             selectedCategory = '';
+            selectedPaymentOption = '';
         }
 
         function backToBusinessSelection() {
             document.getElementById('paymentFormView').style.display = 'none';
             document.getElementById('businessSelectionView').style.display = 'block';
             selectedBusiness = null;
+            selectedPaymentOption = '';
             goToStep(1);
         }
 
@@ -2560,11 +2563,11 @@
 
             let html = '';
             selectedBusiness.paymentMethods.forEach((method, index) => {
-                const isActive = index === 0;
+                const isActive = index === 0 && !selectedPaymentOption;
                 if (isActive) selectedPaymentOption = method.type;
                 
                 html += `
-                    <div class="payment-method-card ${isActive ? 'active' : ''}" onclick="selectPaymentMethod('${method.type}', this)">
+                    <div class="payment-method-card ${selectedPaymentOption === method.type ? 'active' : ''}" onclick="selectPaymentMethod('${method.type}', this)">
                         <div class="payment-method-card-header">
                             <div class="payment-method-icon">
                                 <i class="${getMethodIcon(method.type)}"></i>
