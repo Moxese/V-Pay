@@ -927,6 +927,52 @@
             font-size: 14px;
         }
 
+        /* Business Selection Grid */
+        .business-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .business-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+        }
+
+        .business-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-color: var(--navy);
+        }
+
+        .business-card.selected {
+            border-color: var(--navy);
+            background: var(--navy-light);
+            color: var(--white);
+        }
+
+        .business-card.selected .business-icon {
+            color: var(--white);
+        }
+
+        .business-icon {
+            font-size: 2.5em;
+            margin-bottom: 12px;
+            color: var(--navy);
+        }
+
+        .business-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
         /* Welcome Section */
         .welcome-section {
             background: var(--white);
@@ -1127,6 +1173,50 @@
             line-height: 1.6;
         }
 
+        /* Success Modal */
+        .success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .success-modal-content {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .success-modal-icon {
+            font-size: 4em;
+            color: var(--success);
+            margin-bottom: 20px;
+        }
+
+        .success-modal-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 15px;
+        }
+
+        .success-modal-text {
+            color: var(--gray-dark);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
         /* User Menu */
         .user-menu {
             position: absolute;
@@ -1194,6 +1284,161 @@
             line-height: 1.6;
         }
 
+        /* Payment Steps */
+        .payment-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .payment-steps::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gray);
+            z-index: 1;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--gray);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-number {
+            background: var(--navy);
+        }
+
+        .step.completed .step-number {
+            background: var(--success);
+        }
+
+        .step-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray-dark);
+            text-align: center;
+        }
+
+        .step.active .step-label {
+            color: var(--navy);
+        }
+
+        /* Amount Input Large */
+        .amount-input-large {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .amount-input-large input {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            border: 2px solid var(--gray);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .amount-input-large input:focus {
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
+        }
+
+        /* Payment Method Cards */
+        .payment-method-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .payment-method-card {
+            background: var(--white);
+            border: 2px solid var(--gray);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method-card.active {
+            border-color: var(--navy);
+            background: var(--gray-light);
+        }
+
+        .payment-method-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .payment-method-icon {
+            font-size: 1.5em;
+            color: var(--navy);
+        }
+
+        .payment-method-name {
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 16px;
+        }
+
+        .payment-details-card {
+            background: var(--navy);
+            color: var(--white);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .payment-details-text {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
         /* Responsive */
         @media (max-width: 480px) {
             .container {
@@ -1253,7 +1498,7 @@
             }
             
             .coming-soon h2 {
-                fontSize: 1.6em;
+                font-size: 1.6em;
             }
             
             .rate-card {
@@ -1276,7 +1521,7 @@
                 gap: 10px;
             }
 
-            .payment-categories {
+            .payment-categories, .business-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -1284,8 +1529,13 @@
                 padding: 20px;
             }
 
-            .welcome-modal-content {
+            .welcome-modal-content, .success-modal-content {
                 padding: 25px;
+            }
+
+            .amount-input-large input {
+                font-size: 1.5em;
+                padding: 15px;
             }
         }
 
@@ -1342,6 +1592,20 @@
                     data-logo_alignment="left">
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal">
+        <div class="success-modal-content">
+            <div class="success-modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="success-modal-title">Payment Submitted Successfully!</h2>
+            <p class="success-modal-text" id="successMessage">Your payment has been processed and a receipt has been sent to your email.</p>
+            <button class="btn" onclick="closeSuccessModal()" style="max-width: 200px; margin: 0 auto;">
+                <i class="fas fa-check"></i> Continue
+            </button>
         </div>
     </div>
 
@@ -1538,180 +1802,166 @@
                 <!-- Payments Page -->
                 <div class="page" id="payments">
                     <div class="container">
-                        <!-- Welcome Section -->
-                        <div class="welcome-section">
-                            <h2 class="welcome-title">Welcome to V-PAY Payments</h2>
-                            <p class="welcome-text">Select a payment category to get started with your transaction</p>
+                        <!-- Service Categories View -->
+                        <div id="serviceCategoriesView">
+                            <div class="welcome-section">
+                                <h2 class="welcome-title">Welcome to V-PAY Payments</h2>
+                                <p class="welcome-text">Select a payment category to get started with your transaction</p>
+                            </div>
+
+                            <!-- Payment Categories -->
+                            <div class="payment-categories">
+                                <div class="category-card" onclick="selectCategory('shopping')">
+                                    <div class="category-icon">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                    <div class="category-name">Shopping</div>
+                                </div>
+                                <div class="category-card" onclick="selectCategory('tickets')">
+                                    <div class="category-icon">
+                                        <i class="fas fa-ticket-alt"></i>
+                                    </div>
+                                    <div class="category-name">Ticket Purchase</div>
+                                </div>
+                                <div class="category-card" onclick="selectCategory('subscriptions')">
+                                    <div class="category-icon">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </div>
+                                    <div class="category-name">Subscriptions</div>
+                                </div>
+                                <div class="category-card" onclick="selectCategory('rent')">
+                                    <div class="category-icon">
+                                        <i class="fas fa-home"></i>
+                                    </div>
+                                    <div class="category-name">House Rent</div>
+                                </div>
+                                <div class="category-card" onclick="selectCategory('services')">
+                                    <div class="category-icon">
+                                        <i class="fas fa-concierge-bell"></i>
+                                    </div>
+                                    <div class="category-name">Service Payment</div>
+                                </div>
+                                <div class="category-card" onclick="selectCategory('other')">
+                                    <div class="category-icon">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </div>
+                                    <div class="category-name">Other</div>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Payment Categories -->
-                        <div class="payment-categories">
-                            <div class="category-card" onclick="selectCategory('shopping')">
-                                <div class="category-icon">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </div>
-                                <div class="category-name">Shopping</div>
+                        <!-- Business Selection View -->
+                        <div id="businessSelectionView" style="display: none;">
+                            <div class="welcome-section">
+                                <h2 class="welcome-title" id="businessSelectionTitle">Select Business</h2>
+                                <p class="welcome-text">Choose the business you want to pay</p>
+                                <button class="btn" onclick="backToCategories()" style="max-width: 200px; margin: 10px auto 0; background: var(--gray-dark);">
+                                    <i class="fas fa-arrow-left"></i> Back to Categories
+                                </button>
                             </div>
-                            <div class="category-card" onclick="selectCategory('tickets')">
-                                <div class="category-icon">
-                                    <i class="fas fa-ticket-alt"></i>
-                                </div>
-                                <div class="category-name">Ticket Purchase</div>
-                            </div>
-                            <div class="category-card" onclick="selectCategory('subscriptions')">
-                                <div class="category-icon">
-                                    <i class="fas fa-sync-alt"></i>
-                                </div>
-                                <div class="category-name">Subscriptions</div>
-                            </div>
-                            <div class="category-card" onclick="selectCategory('rent')">
-                                <div class="category-icon">
-                                    <i class="fas fa-home"></i>
-                                </div>
-                                <div class="category-name">House Rent</div>
-                            </div>
-                            <div class="category-card" onclick="selectCategory('services')">
-                                <div class="category-icon">
-                                    <i class="fas fa-concierge-bell"></i>
-                                </div>
-                                <div class="category-name">Service Payment</div>
-                            </div>
-                            <div class="category-card" onclick="selectCategory('other')">
-                                <div class="category-icon">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </div>
-                                <div class="category-name">Other</div>
+
+                            <div class="business-grid" id="businessGrid">
+                                <!-- Business cards will be loaded here -->
                             </div>
                         </div>
 
-                        <!-- Payment Form (Hidden Initially) -->
-                        <div id="paymentForm" style="display: none;">
-                            <div class="progress-indicator">
-                                <div class="progress-step active" id="step1"></div>
-                                <div class="progress-step" id="step2"></div>
-                                <div class="progress-step" id="step3"></div>
-                                <div class="progress-step" id="step4"></div>
+                        <!-- Payment Form View -->
+                        <div id="paymentFormView" style="display: none;">
+                            <div class="welcome-section">
+                                <h2 class="welcome-title" id="paymentFormTitle">Complete Payment</h2>
+                                <p class="welcome-text" id="paymentFormSubtitle">Finalize your payment to <span id="selectedBusinessName"></span></p>
+                                <button class="btn" onclick="backToBusinessSelection()" style="max-width: 200px; margin: 10px auto 0; background: var(--gray-dark);">
+                                    <i class="fas fa-arrow-left"></i> Change Business
+                                </button>
                             </div>
 
-                            <!-- Personal Information Section -->
-                            <div class="form-section">
-                                <div class="section-header" onclick="toggleSection('personalInfo')">
-                                    <h3><i class="fas fa-user"></i> Personal Information</h3>
-                                    <i class="fas fa-chevron-down" id="personalInfoIcon"></i>
+                            <div class="payment-steps">
+                                <div class="step active" id="step1">
+                                    <div class="step-number">1</div>
+                                    <div class="step-label">Amount</div>
                                 </div>
-                                <div class="section-content active" id="personalInfo">
-                                    <div class="form-group">
-                                        <label for="customerName">Full Name</label>
-                                        <input type="text" id="customerName" required placeholder="Enter your full name">
-                                    </div>
+                                <div class="step" id="step2">
+                                    <div class="step-number">2</div>
+                                    <div class="step-label">Payment</div>
+                                </div>
+                                <div class="step" id="step3">
+                                    <div class="step-number">3</div>
+                                    <div class="step-label">Confirm</div>
+                                </div>
+                            </div>
 
-                                    <div class="form-group">
-                                        <label for="customerPhone">Phone Number</label>
-                                        <input type="tel" id="customerPhone" required placeholder="0712345678">
+                            <!-- Step 1: Amount Input -->
+                            <div class="form-section active" id="amountStep">
+                                <div class="section-content active">
+                                    <div class="amount-input-large">
+                                        <input type="number" id="paymentAmount" placeholder="0" min="1" autofocus>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label for="customerEmail">Email Address</label>
-                                        <input type="email" id="customerEmail" required placeholder="your.email@example.com">
+                                    <div class="instructions">
+                                        <p>Enter the amount you wish to pay in Kenyan Shillings (KES)</p>
                                     </div>
-
-                                    <button class="btn btn-next" onclick="showSection('paymentDetails')">
-                                        Continue <i class="fas fa-arrow-right"></i>
+                                    <button class="btn btn-next" onclick="goToPaymentStep()">
+                                        Continue to Payment <i class="fas fa-arrow-right"></i>
                                     </button>
                                 </div>
                             </div>
 
-                            <!-- Payment Details Section -->
-                            <div class="form-section">
-                                <div class="section-header" onclick="toggleSection('paymentDetails')">
-                                    <h3><i class="fas fa-receipt"></i> Payment Details</h3>
-                                    <i class="fas fa-chevron-down" id="paymentDetailsIcon"></i>
-                                </div>
-                                <div class="section-content" id="paymentDetails">
-                                    <div class="form-group">
-                                        <label for="businessSearch">Payment For</label>
-                                        <div class="search-container">
-                                            <input type="text" id="businessSearch" required placeholder="Type business name to search...">
-                                            <div class="search-results" id="searchResults"></div>
-                                        </div>
+                            <!-- Step 2: Payment Method -->
+                            <div class="form-section" id="paymentStep" style="display: none;">
+                                <div class="section-content active">
+                                    <div class="business-info">
+                                        <h4 id="paymentBusinessName">Business Name</h4>
+                                        <p>Choose your preferred payment method:</p>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="paymentCategory">Payment Type</label>
-                                        <select id="paymentCategory" required>
-                                            <option value="">-- Select category --</option>
-                                            <option value="event_ticket">Event Ticket</option>
-                                            <option value="service">Service Payment</option>
-                                            <option value="subscription">Subscription</option>
-                                            <option value="product">Product Purchase</option>
-                                            <option value="booking">Booking Fee</option>
-                                            <option value="membership">Membership</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="amount">Amount</label>
-                                        <div class="amount-input">
-                                            <input type="number" id="amount" required min="1" placeholder="0">
-                                        </div>
+                                    <div class="payment-method-cards" id="paymentMethodsContainer">
+                                        <!-- Payment methods will be loaded here -->
                                     </div>
 
                                     <div style="display: flex; gap: 10px;">
-                                        <button class="btn" style="flex: 1;" onclick="showSection('personalInfo')">
+                                        <button class="btn" style="flex: 1;" onclick="backToAmountStep()">
                                             <i class="fas fa-arrow-left"></i> Back
                                         </button>
-                                        <button class="btn btn-next" style="flex: 1;" onclick="showSection('paymentMethod')">
+                                        <button class="btn btn-next" style="flex: 1;" onclick="goToConfirmationStep()">
                                             Continue <i class="fas fa-arrow-right"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Payment Method Section -->
-                            <div class="form-section">
-                                <div class="section-header" onclick="toggleSection('paymentMethod')">
-                                    <h3><i class="fas fa-mobile-alt"></i> Payment Method</h3>
-                                    <i class="fas fa-chevron-down" id="paymentMethodIcon"></i>
-                                </div>
-                                <div class="section-content" id="paymentMethod">
-                                    <div id="businessPaymentInfo">
-                                        <!-- Dynamic content will be inserted here -->
+                            <!-- Step 3: Confirmation -->
+                            <div class="form-section" id="confirmationStep" style="display: none;">
+                                <div class="section-content active">
+                                    <div class="business-info">
+                                        <h4>Payment Summary</h4>
+                                        <div class="transaction-detail">
+                                            <div class="detail-label">Business</div>
+                                            <div class="detail-value" id="summaryBusiness"></div>
+                                        </div>
+                                        <div class="transaction-detail">
+                                            <div class="detail-label">Amount</div>
+                                            <div class="detail-value" id="summaryAmount"></div>
+                                        </div>
+                                        <div class="transaction-detail">
+                                            <div class="detail-label">Payment Method</div>
+                                            <div class="detail-value" id="summaryMethod"></div>
+                                        </div>
                                     </div>
 
-                                    <div style="display: flex; gap: 10px;">
-                                        <button class="btn" style="flex: 1;" onclick="showSection('paymentDetails')">
-                                            <i class="fas fa-arrow-left"></i> Back
-                                        </button>
-                                        <button class="btn btn-next" style="flex: 1;" onclick="showSection('confirmation')">
-                                            Continue <i class="fas fa-arrow-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Confirmation Section -->
-                            <div class="form-section">
-                                <div class="section-header" onclick="toggleSection('confirmation')">
-                                    <h3><i class="fas fa-check-circle"></i> Confirmation</h3>
-                                    <i class="fas fa-chevron-down" id="confirmationIcon"></i>
-                                </div>
-                                <div class="section-content" id="confirmation">
                                     <div class="form-group">
                                         <label for="transactionId">Transaction Reference Number</label>
-                                        <input type="text" id="transactionId" required placeholder="Enter transaction code">
+                                        <input type="text" id="transactionId" required placeholder="Enter M-PESA transaction code">
                                         <small style="color: var(--gray-dark); margin-top: 5px; display: block;">
                                             Enter the code you received after making the payment
                                         </small>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="notes">Additional Information</label>
+                                        <label for="notes">Additional Information (Optional)</label>
                                         <textarea id="notes" placeholder="Any additional details about your payment"></textarea>
                                     </div>
 
                                     <div style="display: flex; gap: 10px;">
-                                        <button class="btn" style="flex: 1;" onclick="showSection('paymentMethod')">
+                                        <button class="btn" style="flex: 1;" onclick="backToPaymentStep()">
                                             <i class="fas fa-arrow-left"></i> Back
                                         </button>
                                         <button class="btn btn-submit" style="flex: 2;" onclick="processPayment()">
@@ -1725,8 +1975,6 @@
                                 <div class="spinner"></div>
                                 <div>Processing your payment details...</div>
                             </div>
-
-                            <div id="statusMessage" class="status-message"></div>
                         </div>
                     </div>
                 </div>
@@ -1802,13 +2050,16 @@
         let exchangeRates = {};
         let currentUser = null;
         let selectedTransaction = null;
+        let currentPaymentStep = 1;
+        let selectedCategory = '';
 
-        // Business Configuration
+        // Updated Business Configuration
         const businesses = {
-            'houseofglamour': {
-                name: "House of Glamour",
+            'dsogstores': {
+                name: "DSOG Stores",
                 email: "office.dsog@gmail.com",
-                sheetName: "House of Glamour Payments",
+                sheetName: "DSOG Stores Payments",
+                icon: "fas fa-store",
                 paymentMethods: [
                     {
                         type: 'mpesa-till',
@@ -1818,10 +2069,11 @@
                     }
                 ]
             },
-            'iammugera': {
-                name: "I AM MUGERA",
-                email: "info.iammugera@gmail.com",
-                sheetName: "I AM MUGERA Payments",
+            'thesonga': {
+                name: "The Songa",
+                email: "office.songawelfare@gmail.com",
+                sheetName: "The Songa Payments",
+                icon: "fas fa-music",
                 paymentMethods: [
                     {
                         type: 'mpesa-send',
@@ -1835,6 +2087,7 @@
                 name: "WorkFit Club",
                 email: "finance.workfit@gmail.com",
                 sheetName: "WorkFit Club Payments",
+                icon: "fas fa-dumbbell",
                 paymentMethods: [
                     {
                         type: 'mpesa-send',
@@ -1848,6 +2101,21 @@
                 name: "Hekima Hub",
                 email: "finance.hekimahub@gmail.com",
                 sheetName: "Hekima Hub Payments",
+                icon: "fas fa-book",
+                paymentMethods: [
+                    {
+                        type: 'mpesa-till',
+                        name: 'Lipa Na M-PESA',
+                        details: '9442155',
+                        description: 'Till Number'
+                    }
+                ]
+            },
+            'fusionstores': {
+                name: "Fusion Stores",
+                email: "teleioofusion@gmail.com",
+                sheetName: "Fusion Stores Payments",
+                icon: "fas fa-fire",
                 paymentMethods: [
                     {
                         type: 'mpesa-till',
@@ -1932,7 +2200,7 @@
             currentPage = pageId;
             
             if (pageId === 'payments') {
-                resetForm();
+                resetPaymentFlow();
             } else if (pageId === 'transactions') {
                 loadTransactionHistory();
             }
@@ -2144,175 +2412,194 @@
             }
         });
 
-        // Payment Category Selection
+        // Enhanced Payment Flow Functions
         function selectCategory(category) {
-            document.getElementById('paymentForm').style.display = 'block';
-            document.querySelector('.payment-categories').style.display = 'none';
-            document.querySelector('.welcome-section').style.display = 'none';
+            selectedCategory = category;
             
-            // Set the payment category based on selection
-            const categorySelect = document.getElementById('paymentCategory');
-            switch(category) {
-                case 'shopping':
-                    categorySelect.value = 'product';
-                    break;
-                case 'tickets':
-                    categorySelect.value = 'event_ticket';
-                    break;
-                case 'subscriptions':
-                    categorySelect.value = 'subscription';
-                    break;
-                case 'rent':
-                    categorySelect.value = 'service';
-                    break;
-                case 'services':
-                    categorySelect.value = 'service';
-                    break;
-                default:
-                    categorySelect.value = 'other';
-            }
+            // Hide service categories, show business selection
+            document.getElementById('serviceCategoriesView').style.display = 'none';
+            document.getElementById('businessSelectionView').style.display = 'block';
             
-            // Auto-fill user info if signed in
-            if (currentUser) {
-                document.getElementById('customerName').value = currentUser.name;
-                document.getElementById('customerEmail').value = currentUser.email;
-            }
+            // Update title based on category
+            const title = document.getElementById('businessSelectionTitle');
+            const categoryNames = {
+                'shopping': 'Shopping',
+                'tickets': 'Ticket Purchase',
+                'subscriptions': 'Subscriptions',
+                'rent': 'House Rent',
+                'services': 'Service Payment',
+                'other': 'Other Payments'
+            };
+            title.textContent = `Select Business - ${categoryNames[category]}`;
+            
+            // Load business grid
+            loadBusinessGrid();
         }
 
-        // Payment Form Functions
-        function toggleSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            const icon = document.getElementById(sectionId + 'Icon');
+        function loadBusinessGrid() {
+            const businessGrid = document.getElementById('businessGrid');
+            let html = '';
             
-            if (section.classList.contains('active')) {
-                section.classList.remove('active');
-                icon.classList.remove('fa-chevron-up');
-                icon.classList.add('fa-chevron-down');
-            } else {
-                document.querySelectorAll('.section-content').forEach(sec => {
-                    sec.classList.remove('active');
-                });
-                document.querySelectorAll('.section-header i.fa-chevron-down').forEach(icn => {
-                    icn.classList.remove('fa-chevron-up');
-                    icn.classList.add('fa-chevron-down');
-                });
-                
-                section.classList.add('active');
-                icon.classList.remove('fa-chevron-down');
-                icon.classList.add('fa-chevron-up');
-                
-                currentSection = sectionId;
-                updateProgressIndicator();
-                
-                if (sectionId === 'paymentMethod' && selectedBusiness) {
-                    updatePaymentMethods();
-                }
+            for (const [key, business] of Object.entries(businesses)) {
+                html += `
+                    <div class="business-card" onclick="selectBusiness('${key}')">
+                        <div class="business-icon">
+                            <i class="${business.icon}"></i>
+                        </div>
+                        <div class="business-name">${business.name}</div>
+                    </div>
+                `;
             }
-        }
-
-        function showSection(sectionId) {
-            toggleSection(sectionId);
-        }
-
-        function updateProgressIndicator() {
-            const steps = ['personalInfo', 'paymentDetails', 'paymentMethod', 'confirmation'];
-            const currentIndex = steps.indexOf(currentSection);
             
-            steps.forEach((step, index) => {
-                const stepElement = document.getElementById('step' + (index + 1));
-                if (index <= currentIndex) {
-                    stepElement.classList.add('active');
-                } else {
-                    stepElement.classList.remove('active');
-                }
-            });
+            businessGrid.innerHTML = html;
         }
-
-        // Search functionality
-        document.getElementById('businessSearch').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const resultsContainer = document.getElementById('searchResults');
-            
-            if (searchTerm.length < 2) {
-                resultsContainer.style.display = 'none';
-                return;
-            }
-
-            const matchingBusinesses = Object.entries(businesses).filter(([key, business]) => 
-                business.name.toLowerCase().includes(searchTerm)
-            );
-
-            if (matchingBusinesses.length > 0) {
-                resultsContainer.innerHTML = matchingBusinesses.map(([key, business]) => 
-                    `<div class="search-result" onclick="selectBusiness('${key}')">${business.name}</div>`
-                ).join('');
-                resultsContainer.style.display = 'block';
-            } else {
-                resultsContainer.style.display = 'none';
-            }
-        });
-
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.search-container')) {
-                document.getElementById('searchResults').style.display = 'none';
-            }
-        });
 
         function selectBusiness(businessKey) {
             selectedBusiness = businesses[businessKey];
-            document.getElementById('businessSearch').value = selectedBusiness.name;
-            document.getElementById('searchResults').style.display = 'none';
             
-            if (selectedBusiness.paymentMethods.length > 0) {
-                selectedPaymentOption = selectedBusiness.paymentMethods[0].type;
+            // Hide business selection, show payment form
+            document.getElementById('businessSelectionView').style.display = 'none';
+            document.getElementById('paymentFormView').style.display = 'block';
+            
+            // Update payment form title
+            document.getElementById('selectedBusinessName').textContent = selectedBusiness.name;
+            document.getElementById('paymentFormTitle').textContent = `Pay ${selectedBusiness.name}`;
+            document.getElementById('paymentFormSubtitle').textContent = `Complete your ${selectedCategory} payment`;
+            
+            // Reset to first step
+            goToStep(1);
+        }
+
+        function backToCategories() {
+            document.getElementById('businessSelectionView').style.display = 'none';
+            document.getElementById('serviceCategoriesView').style.display = 'block';
+            selectedBusiness = null;
+            selectedCategory = '';
+        }
+
+        function backToBusinessSelection() {
+            document.getElementById('paymentFormView').style.display = 'none';
+            document.getElementById('businessSelectionView').style.display = 'block';
+            selectedBusiness = null;
+            goToStep(1);
+        }
+
+        function goToStep(step) {
+            currentPaymentStep = step;
+            
+            // Hide all steps
+            document.getElementById('amountStep').style.display = 'none';
+            document.getElementById('paymentStep').style.display = 'none';
+            document.getElementById('confirmationStep').style.display = 'none';
+            
+            // Show current step
+            if (step === 1) {
+                document.getElementById('amountStep').style.display = 'block';
+                document.getElementById('paymentAmount').focus();
+            } else if (step === 2) {
+                document.getElementById('paymentStep').style.display = 'block';
+                loadPaymentMethods();
+            } else if (step === 3) {
+                document.getElementById('confirmationStep').style.display = 'block';
+                updateConfirmationSummary();
+            }
+            
+            // Update step indicators
+            updateStepIndicators(step);
+        }
+
+        function updateStepIndicators(step) {
+            for (let i = 1; i <= 3; i++) {
+                const stepElement = document.getElementById(`step${i}`);
+                if (i < step) {
+                    stepElement.classList.add('completed');
+                    stepElement.classList.remove('active');
+                } else if (i === step) {
+                    stepElement.classList.add('active');
+                    stepElement.classList.remove('completed');
+                } else {
+                    stepElement.classList.remove('active', 'completed');
+                }
             }
         }
 
-        function updatePaymentMethods() {
-            const container = document.getElementById('businessPaymentInfo');
+        function goToAmountStep() {
+            goToStep(1);
+        }
+
+        function goToPaymentStep() {
+            const amount = document.getElementById('paymentAmount').value;
+            if (!amount || amount < 1) {
+                alert('Please enter a valid amount');
+                return;
+            }
+            goToStep(2);
+        }
+
+        function goToConfirmationStep() {
+            if (!selectedPaymentOption) {
+                alert('Please select a payment method');
+                return;
+            }
+            goToStep(3);
+        }
+
+        function backToPaymentStep() {
+            goToStep(2);
+        }
+
+        function loadPaymentMethods() {
+            const container = document.getElementById('paymentMethodsContainer');
             
             if (!selectedBusiness) {
-                container.innerHTML = '<div class="instructions"><p>Please select a business first</p></div>';
+                container.innerHTML = '<div class="instructions"><p>No business selected</p></div>';
                 return;
             }
 
-            let html = `
-                <div class="business-info">
-                    <h4>${selectedBusiness.name}</h4>
-                    <p>Select your preferred payment method below:</p>
-                </div>
-            `;
+            document.getElementById('paymentBusinessName').textContent = selectedBusiness.name;
 
+            let html = '';
             selectedBusiness.paymentMethods.forEach((method, index) => {
-                const isActive = index === 0 ? 'active' : '';
+                const isActive = index === 0;
+                if (isActive) selectedPaymentOption = method.type;
+                
                 html += `
-                    <div class="payment-method ${isActive}" onclick="selectPaymentOption('${method.type}', this)">
-                        <div class="payment-method-header">
-                            <i class="${getMethodIcon(method.type)}"></i>
-                            <h5>${method.name}</h5>
+                    <div class="payment-method-card ${isActive ? 'active' : ''}" onclick="selectPaymentMethod('${method.type}', this)">
+                        <div class="payment-method-card-header">
+                            <div class="payment-method-icon">
+                                <i class="${getMethodIcon(method.type)}"></i>
+                            </div>
+                            <div class="payment-method-name">${method.name}</div>
                         </div>
-                        <div class="payment-details" onclick="copyToClipboard('${method.details}', event)">
-                            <span>${method.description}: ${method.details}</span>
-                            <i class="fas fa-copy copy-icon"></i>
+                        <div class="payment-details-card">
+                            <div class="payment-details-text">${method.description}: ${method.details}</div>
+                            <button class="copy-btn" onclick="copyToClipboard('${method.details}', event)">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
                         </div>
                     </div>
                 `;
             });
 
             container.innerHTML = html;
-            
-            if (selectedBusiness.paymentMethods.length > 0) {
-                selectedPaymentOption = selectedBusiness.paymentMethods[0].type;
-            }
         }
 
-        function selectPaymentOption(option, element) {
-            selectedPaymentOption = option;
+        function selectPaymentMethod(methodType, element) {
+            selectedPaymentOption = methodType;
             
-            document.querySelectorAll('.payment-method').forEach(el => {
+            document.querySelectorAll('.payment-method-card').forEach(el => {
                 el.classList.remove('active');
             });
             element.classList.add('active');
+        }
+
+        function updateConfirmationSummary() {
+            const amount = document.getElementById('paymentAmount').value;
+            const method = selectedBusiness.paymentMethods.find(m => m.type === selectedPaymentOption);
+            
+            document.getElementById('summaryBusiness').textContent = selectedBusiness.name;
+            document.getElementById('summaryAmount').textContent = `KES ${amount}`;
+            document.getElementById('summaryMethod').textContent = method ? method.name : selectedPaymentOption;
         }
 
         function getMethodIcon(methodType) {
@@ -2350,34 +2637,40 @@
             }, 2000);
         }
 
-        // UPDATED PAYMENT PROCESSING FUNCTION - User-specific transactions
+        // Payment Processing Function
         async function processPayment() {
             if (!selectedBusiness) {
-                showStatus('Please select a business first', 'error');
+                alert('Please select a business first');
                 return;
             }
 
             if (!selectedPaymentOption) {
-                showStatus('Please select a payment method', 'error');
+                alert('Please select a payment method');
+                return;
+            }
+
+            const transactionId = document.getElementById('transactionId').value;
+            if (!transactionId) {
+                alert('Please enter your transaction reference number');
                 return;
             }
 
             const formData = {
                 timestamp: new Date().toLocaleString('en-KE'),
-                customerName: document.getElementById('customerName').value,
-                customerPhone: document.getElementById('customerPhone').value,
-                customerEmail: document.getElementById('customerEmail').value,
+                customerName: currentUser.name,
+                customerPhone: '', // Could be added if available from Google profile
+                customerEmail: currentUser.email,
                 paymentDestination: selectedBusiness.name,
                 paymentDestinationKey: Object.keys(businesses).find(key => businesses[key].name === selectedBusiness.name),
                 businessEmail: selectedBusiness.email,
                 sheetName: selectedBusiness.sheetName,
-                paymentCategory: document.getElementById('paymentCategory').options[document.getElementById('paymentCategory').selectedIndex].text,
-                amount: document.getElementById('amount').value,
+                paymentCategory: selectedCategory,
+                amount: document.getElementById('paymentAmount').value,
                 paymentMethod: getPaymentMethodName(selectedPaymentOption),
-                transactionId: document.getElementById('transactionId').value,
+                transactionId: transactionId,
                 notes: document.getElementById('notes').value,
                 status: 'pending_verification',
-                userId: currentUser.id // Add user ID to transaction
+                userId: currentUser.id
             };
 
             showLoading(true);
@@ -2398,22 +2691,29 @@
                 
                 saveToLocalStorage(formData);
                 
-                showStatus('✓ Payment submitted successfully! A receipt has been sent to your email.', 'success');
+                showSuccessModal('✓ Payment submitted successfully! A receipt has been sent to your email.');
                 
             } catch (error) {
                 console.error('❌ Error:', error);
                 
                 saveToLocalStorage(formData);
                 
-                showStatus('⚠️ Payment details saved offline. The business will contact you for verification.', 'success');
+                showSuccessModal('⚠️ Payment details saved offline. The business will contact you for verification.');
                 
             } finally {
-                setTimeout(() => {
-                    resetForm();
-                    showSection('personalInfo');
-                    showLoading(false);
-                }, 3000);
+                showLoading(false);
             }
+        }
+
+        function showSuccessModal(message) {
+            document.getElementById('successMessage').textContent = message;
+            document.getElementById('successModal').style.display = 'flex';
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+            resetPaymentFlow();
+            showPage('home');
         }
 
         function getPaymentMethodName(methodType) {
@@ -2442,38 +2742,28 @@
             document.getElementById('loading').style.display = show ? 'block' : 'none';
         }
 
-        function showStatus(message, type) {
-            const statusDiv = document.getElementById('statusMessage');
-            statusDiv.textContent = message;
-            statusDiv.className = `status-message status-${type}`;
-            statusDiv.style.display = 'block';
-            
-            setTimeout(() => {
-                statusDiv.style.display = 'none';
-            }, 5000);
-        }
-
-        function resetForm() {
-            document.getElementById('customerName').value = '';
-            document.getElementById('customerPhone').value = '';
-            document.getElementById('customerEmail').value = '';
-            document.getElementById('businessSearch').value = '';
-            document.getElementById('paymentCategory').selectedIndex = 0;
-            document.getElementById('amount').value = '';
+        function resetPaymentFlow() {
+            // Reset all payment form fields
+            document.getElementById('paymentAmount').value = '';
             document.getElementById('transactionId').value = '';
             document.getElementById('notes').value = '';
+            
+            // Reset state
             selectedBusiness = null;
             selectedPaymentOption = '';
+            selectedCategory = '';
+            currentPaymentStep = 1;
             
-            // Reset UI to show categories again
-            document.getElementById('paymentForm').style.display = 'none';
-            document.querySelector('.payment-categories').style.display = 'grid';
-            document.querySelector('.welcome-section').style.display = 'block';
+            // Show service categories view
+            document.getElementById('serviceCategoriesView').style.display = 'block';
+            document.getElementById('businessSelectionView').style.display = 'none';
+            document.getElementById('paymentFormView').style.display = 'none';
             
-            updateProgressIndicator();
+            // Reset step indicators
+            updateStepIndicators(1);
         }
 
-        // Transactions Page Functions - User-specific
+        // Transactions Page Functions
         function loadTransactionHistory() {
             const transactionHistory = document.getElementById('transactionHistory');
             
@@ -2594,7 +2884,7 @@
             }
         });
 
-        // Initialize app - FIXED AUTHENTICATION PERSISTENCE
+        // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
             // Check if user is already signed in
             const savedUser = localStorage.getItem('vpay_current_user');
@@ -2602,7 +2892,7 @@
                 currentUser = JSON.parse(savedUser);
                 updateUserProfile();
                 document.getElementById('appContent').classList.add('active');
-                hideWelcomeModal(); // Make sure welcome modal is hidden
+                hideWelcomeModal();
                 
                 // Initialize the app with the current page
                 showPage(currentPage);
