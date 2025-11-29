@@ -1439,6 +1439,216 @@
             background: rgba(255, 255, 255, 0.3);
         }
 
+        /* Onboarding Guide Styles */
+        .onboarding-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 3000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .onboarding-content {
+            background: var(--white);
+            border-radius: 16px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            position: relative;
+        }
+
+        .onboarding-header {
+            padding: 25px 25px 15px;
+            text-align: center;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .onboarding-title {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .onboarding-subtitle {
+            color: var(--gray-dark);
+            font-size: 1em;
+        }
+
+        .onboarding-body {
+            padding: 25px;
+        }
+
+        .onboarding-step {
+            display: none;
+            text-align: center;
+        }
+
+        .onboarding-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .onboarding-icon {
+            font-size: 4em;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+
+        .onboarding-step-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 15px;
+        }
+
+        .onboarding-step-text {
+            color: var(--gray-dark);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .onboarding-feature-list {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .onboarding-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .onboarding-feature-item:last-child {
+            border-bottom: none;
+        }
+
+        .onboarding-feature-icon {
+            width: 30px;
+            height: 30px;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+        }
+
+        .onboarding-footer {
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--gray);
+        }
+
+        .onboarding-progress {
+            display: flex;
+            gap: 8px;
+        }
+
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gray);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: var(--navy);
+            transform: scale(1.2);
+        }
+
+        .onboarding-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .onboarding-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .onboarding-btn-primary {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .onboarding-btn-primary:hover {
+            background: var(--navy-light);
+        }
+
+        .onboarding-btn-secondary {
+            background: var(--gray);
+            color: var(--navy);
+        }
+
+        .onboarding-btn-secondary:hover {
+            background: var(--gray-dark);
+            color: var(--white);
+        }
+
+        .onboarding-highlight {
+            position: absolute;
+            border-radius: 12px;
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5), 0 0 0 3px var(--navy), 0 0 20px rgba(0, 31, 63, 0.5);
+            z-index: 3001;
+            pointer-events: none;
+            transition: all 0.5s ease;
+        }
+
+        .onboarding-tooltip {
+            position: absolute;
+            background: var(--white);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            z-index: 3002;
+            max-width: 250px;
+            text-align: center;
+        }
+
+        .onboarding-tooltip:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid var(--white);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .onboarding-tooltip-title {
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .onboarding-tooltip-text {
+            font-size: 0.9em;
+            color: var(--gray-dark);
+            line-height: 1.4;
+        }
+
         /* Responsive */
         @media (max-width: 480px) {
             .container {
@@ -1537,6 +1747,28 @@
                 font-size: 1.5em;
                 padding: 15px;
             }
+
+            .onboarding-content {
+                max-height: 95vh;
+            }
+
+            .onboarding-body {
+                padding: 20px;
+            }
+
+            .onboarding-footer {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .onboarding-buttons {
+                width: 100%;
+            }
+
+            .onboarding-btn {
+                flex: 1;
+            }
         }
 
         @media (max-width: 360px) {
@@ -1590,6 +1822,227 @@
                     data-text="signin_with"
                     data-size="large"
                     data-logo_alignment="left">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Onboarding Guide -->
+    <div class="onboarding-overlay" id="onboardingOverlay">
+        <div class="onboarding-content">
+            <div class="onboarding-header">
+                <h2 class="onboarding-title">Welcome to V-PAY!</h2>
+                <p class="onboarding-subtitle">Let's get you started with our app</p>
+            </div>
+            <div class="onboarding-body">
+                <!-- Step 1: Introduction -->
+                <div class="onboarding-step active" id="onboardingStep1">
+                    <div class="onboarding-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="onboarding-step-title">Welcome to V-PAY</h3>
+                    <p class="onboarding-step-text">We're excited to have you on board! Let us show you around the app so you can make the most of our payment platform.</p>
+                    <div class="onboarding-feature-list">
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <div>
+                                <strong>Real-time Exchange Rates</strong>
+                                <p>Track USD to KES and other currency pairs</p>
+                            </div>
+                        </div>
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div>
+                                <strong>Easy Payments</strong>
+                                <p>Pay businesses quickly and securely</p>
+                            </div>
+                        </div>
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <div>
+                                <strong>Transaction History</strong>
+                                <p>Keep track of all your payments</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Dashboard -->
+                <div class="onboarding-step" id="onboardingStep2">
+                    <div class="onboarding-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="onboarding-step-title">Dashboard</h3>
+                    <p class="onboarding-step-text">Your dashboard is the home screen where you can:</p>
+                    <div class="onboarding-feature-list">
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div>Check real-time USD to KES exchange rates</div>
+                        </div>
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <div>Use the currency converter for quick calculations</div>
+                        </div>
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <div>Refresh rates anytime with the refresh button</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Payments -->
+                <div class="onboarding-step" id="onboardingStep3">
+                    <div class="onboarding-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3 class="onboarding-step-title">Making Payments</h3>
+                    <p class="onboarding-step-text">Our payment process is simple and secure:</p>
+                    <div class="onboarding-feature-list">
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div>Select a payment category that matches your need</div>
+                        </div>
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div>Choose from our trusted business partners</div>
+                        </div>
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div>Enter amount and complete payment in 3 easy steps</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Transactions -->
+                <div class="onboarding-step" id="onboardingStep4">
+                    <div class="onboarding-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3 class="onboarding-step-title">Transaction History</h3>
+                    <p class="onboarding-step-text">Keep track of all your payments:</p>
+                    <div class="onboarding-feature-list">
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-list"></i>
+                            </div>
+                            <div>View all your past payments in one place</div>
+                        </div>
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div>Check payment status and details</div>
+                        </div>
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-receipt"></i>
+                            </div>
+                            <div>Access receipts for all completed transactions</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Navigation -->
+                <div class="onboarding-step" id="onboardingStep5">
+                    <div class="onboarding-icon">
+                        <i class="fas fa-compass"></i>
+                    </div>
+                    <h3 class="onboarding-step-title">Navigation</h3>
+                    <p class="onboarding-step-text">Use the bottom navigation to move between sections:</p>
+                    <div class="onboarding-feature-list">
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div><strong>Home:</strong> Dashboard with exchange rates</div>
+                        </div>
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div><strong>Payments:</strong> Make new payments</div>
+                        </div>
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div><strong>Wallet:</strong> Coming soon - manage your funds</div>
+                        </div>
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <div><strong>Transactions:</strong> View payment history</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 6: Completion -->
+                <div class="onboarding-step" id="onboardingStep6">
+                    <div class="onboarding-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="onboarding-step-title">You're All Set!</h3>
+                    <p class="onboarding-step-text">You're now ready to use V-PAY. Here are a few tips to get started:</p>
+                    <div class="onboarding-feature-list">
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div>Check exchange rates before making international payments</div>
+                        </div>
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div>Always verify payment details before submitting</div>
+                        </div>
+                        <div class="onboarding-feature-item">
+                            <div class="onboarding-feature-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <div>Need help? Contact support anytime</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="onboarding-footer">
+                <div class="onboarding-progress">
+                    <div class="progress-dot active" id="progressDot1"></div>
+                    <div class="progress-dot" id="progressDot2"></div>
+                    <div class="progress-dot" id="progressDot3"></div>
+                    <div class="progress-dot" id="progressDot4"></div>
+                    <div class="progress-dot" id="progressDot5"></div>
+                    <div class="progress-dot" id="progressDot6"></div>
+                </div>
+                <div class="onboarding-buttons">
+                    <button class="onboarding-btn onboarding-btn-secondary" id="onboardingBackBtn" onclick="previousOnboardingStep()" style="display: none;">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button class="onboarding-btn onboarding-btn-primary" id="onboardingNextBtn" onclick="nextOnboardingStep()">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="onboarding-btn onboarding-btn-primary" id="onboardingFinishBtn" onclick="finishOnboarding()" style="display: none;">
+                        Get Started <i class="fas fa-check"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -2061,6 +2514,10 @@
         let selectedTransaction = null;
         let currentPaymentStep = 1;
         let selectedCategory = '';
+        
+        // Onboarding state
+        let currentOnboardingStep = 1;
+        const totalOnboardingSteps = 6;
 
         // Updated Business Configuration
         const businesses = {
@@ -2362,6 +2819,15 @@
             
             // Hide welcome modal
             hideWelcomeModal();
+            
+            // Check if this is the user's first time
+            const hasCompletedOnboarding = localStorage.getItem('vpay_onboarding_completed');
+            if (!hasCompletedOnboarding) {
+                // Show onboarding guide for first-time users
+                setTimeout(() => {
+                    startOnboarding();
+                }, 1000);
+            }
             
             console.log('User signed in:', currentUser);
         }
@@ -2921,6 +3387,71 @@
                 closeTransactionModal();
             }
         });
+
+        // Onboarding Guide Functions
+        function startOnboarding() {
+            currentOnboardingStep = 1;
+            document.getElementById('onboardingOverlay').style.display = 'flex';
+            updateOnboardingStep();
+        }
+
+        function nextOnboardingStep() {
+            if (currentOnboardingStep < totalOnboardingSteps) {
+                currentOnboardingStep++;
+                updateOnboardingStep();
+            }
+        }
+
+        function previousOnboardingStep() {
+            if (currentOnboardingStep > 1) {
+                currentOnboardingStep--;
+                updateOnboardingStep();
+            }
+        }
+
+        function updateOnboardingStep() {
+            // Hide all steps
+            for (let i = 1; i <= totalOnboardingSteps; i++) {
+                document.getElementById(`onboardingStep${i}`).classList.remove('active');
+                document.getElementById(`progressDot${i}`).classList.remove('active');
+            }
+            
+            // Show current step
+            document.getElementById(`onboardingStep${currentOnboardingStep}`).classList.add('active');
+            document.getElementById(`progressDot${currentOnboardingStep}`).classList.add('active');
+            
+            // Update button visibility
+            const backBtn = document.getElementById('onboardingBackBtn');
+            const nextBtn = document.getElementById('onboardingNextBtn');
+            const finishBtn = document.getElementById('onboardingFinishBtn');
+            
+            if (currentOnboardingStep === 1) {
+                backBtn.style.display = 'none';
+                nextBtn.style.display = 'block';
+                finishBtn.style.display = 'none';
+            } else if (currentOnboardingStep === totalOnboardingSteps) {
+                backBtn.style.display = 'block';
+                nextBtn.style.display = 'none';
+                finishBtn.style.display = 'block';
+            } else {
+                backBtn.style.display = 'block';
+                nextBtn.style.display = 'block';
+                finishBtn.style.display = 'none';
+            }
+        }
+
+        function finishOnboarding() {
+            // Mark onboarding as completed
+            localStorage.setItem('vpay_onboarding_completed', 'true');
+            
+            // Hide onboarding overlay
+            document.getElementById('onboardingOverlay').style.display = 'none';
+            
+            // Show a quick tip about the dashboard
+            setTimeout(() => {
+                alert('💡 Tip: Check the exchange rates on your dashboard before making international payments!');
+            }, 500);
+        }
 
         // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
