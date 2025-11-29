@@ -2,12 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#001f3f">
     <meta name="description" content="V-PAY - Secure Payment Processing Platform">
     <title>V-PAY - Secure Payments</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="https://i.postimg.cc/GtHqWWbV/wallet.png">
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/GtHqWWbV/wallet.png">
+    
+    <!-- iOS Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="V-PAY">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         :root {
@@ -1604,49 +1614,112 @@
             color: var(--white);
         }
 
-        .onboarding-highlight {
-            position: absolute;
-            border-radius: 12px;
-            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5), 0 0 0 3px var(--navy), 0 0 20px rgba(0, 31, 63, 0.5);
-            z-index: 3001;
-            pointer-events: none;
-            transition: all 0.5s ease;
-        }
-
-        .onboarding-tooltip {
-            position: absolute;
-            background: var(--white);
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            z-index: 3002;
-            max-width: 250px;
-            text-align: center;
-        }
-
-        .onboarding-tooltip:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 10px solid var(--white);
-            bottom: -10px;
+        /* PWA Installation Prompt */
+        .pwa-install-prompt {
+            position: fixed;
+            bottom: 90px;
             left: 50%;
             transform: translateX(-50%);
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            z-index: 2000;
+            max-width: 400px;
+            width: 90%;
+            display: none;
+            animation: slideUp 0.3s ease;
         }
 
-        .onboarding-tooltip-title {
+        @keyframes slideUp {
+            from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        .pwa-prompt-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .pwa-prompt-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+
+        .pwa-prompt-title {
             font-weight: 600;
             color: var(--navy);
-            margin-bottom: 8px;
+            font-size: 1.2em;
         }
 
-        .onboarding-tooltip-text {
-            font-size: 0.9em;
+        .pwa-prompt-text {
             color: var(--gray-dark);
-            line-height: 1.4;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .pwa-prompt-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .pwa-prompt-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pwa-prompt-install {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .pwa-prompt-install:hover {
+            background: var(--navy-light);
+        }
+
+        .pwa-prompt-dismiss {
+            background: var(--gray);
+            color: var(--navy);
+        }
+
+        .pwa-prompt-dismiss:hover {
+            background: var(--gray-dark);
+            color: var(--white);
+        }
+
+        /* Offline Notification */
+        .offline-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--warning);
+            color: var(--black);
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 2000;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
         }
 
         /* Responsive */
@@ -1769,6 +1842,11 @@
             .onboarding-btn {
                 flex: 1;
             }
+
+            .pwa-install-prompt {
+                bottom: 80px;
+                width: 95%;
+            }
         }
 
         @media (max-width: 360px) {
@@ -1799,6 +1877,32 @@
     </style>
 </head>
 <body>
+    <!-- PWA Install Prompt -->
+    <div class="pwa-install-prompt" id="pwaInstallPrompt">
+        <div class="pwa-prompt-header">
+            <div class="pwa-prompt-icon">
+                <i class="fas fa-download"></i>
+            </div>
+            <div class="pwa-prompt-title">Install V-PAY</div>
+        </div>
+        <div class="pwa-prompt-text">
+            Install V-PAY on your device for a better experience. Get quick access and work offline.
+        </div>
+        <div class="pwa-prompt-buttons">
+            <button class="pwa-prompt-btn pwa-prompt-dismiss" onclick="dismissPWAInstall()">
+                Not Now
+            </button>
+            <button class="pwa-prompt-btn pwa-prompt-install" onclick="installPWA()">
+                Install
+            </button>
+        </div>
+    </div>
+
+    <!-- Offline Notification -->
+    <div class="offline-notification" id="offlineNotification">
+        <i class="fas fa-wifi-slash"></i> You are currently offline
+    </div>
+
     <!-- Welcome Modal -->
     <div class="welcome-modal" id="welcomeModal">
         <div class="welcome-modal-content">
@@ -1823,6 +1927,11 @@
                     data-size="large"
                     data-logo_alignment="left">
                 </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <button class="btn" onclick="installPWA()" style="max-width: 250px; margin: 0 auto; background: var(--success);">
+                    <i class="fas fa-download"></i> Install App
+                </button>
             </div>
         </div>
     </div>
@@ -2519,6 +2628,10 @@
         let currentOnboardingStep = 1;
         const totalOnboardingSteps = 6;
 
+        // PWA state
+        let deferredPrompt = null;
+        let isAppInstalled = false;
+
         // Updated Business Configuration
         const businesses = {
             'dsogstores': {
@@ -2592,6 +2705,75 @@
                 ]
             }
         };
+
+        // PWA Functions
+        function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('✅ Service Worker registered successfully:', registration);
+                        
+                        // Check if app is already installed
+                        if (window.matchMedia('(display-mode: standalone)').matches || 
+                            window.navigator.standalone === true) {
+                            isAppInstalled = true;
+                            console.log('📱 App is installed');
+                        }
+                    })
+                    .catch(error => {
+                        console.log('❌ Service Worker registration failed:', error);
+                    });
+            }
+        }
+
+        function showInstallPrompt() {
+            // Only show prompt if app isn't already installed and user is engaged
+            if (!isAppInstalled && deferredPrompt) {
+                const installPrompt = document.getElementById('pwaInstallPrompt');
+                installPrompt.style.display = 'block';
+                
+                // Auto-dismiss after 15 seconds
+                setTimeout(() => {
+                    if (installPrompt.style.display === 'block') {
+                        installPrompt.style.display = 'none';
+                    }
+                }, 15000);
+            }
+        }
+
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                
+                deferredPrompt.userChoice.then(choiceResult => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('✅ User accepted PWA installation');
+                        isAppInstalled = true;
+                        document.getElementById('pwaInstallPrompt').style.display = 'none';
+                    } else {
+                        console.log('❌ User dismissed PWA installation');
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                // Fallback for browsers that don't support beforeinstallprompt
+                alert('To install this app, look for "Add to Home Screen" in your browser\'s menu.');
+            }
+        }
+
+        function dismissPWAInstall() {
+            document.getElementById('pwaInstallPrompt').style.display = 'none';
+            // Don't show again for this session
+            sessionStorage.setItem('pwaPromptDismissed', 'true');
+        }
+
+        function checkConnection() {
+            if (!navigator.onLine) {
+                document.getElementById('offlineNotification').style.display = 'block';
+            } else {
+                document.getElementById('offlineNotification').style.display = 'none';
+            }
+        }
 
         // USD to KES Exchange Rate Functions
         let usdKesRate = 0;
@@ -3469,6 +3651,34 @@
                 // Show welcome modal for first-time users
                 showWelcomeModal();
             }
+            
+            // Initialize PWA features
+            registerServiceWorker();
+            checkConnection();
+            
+            // Listen for PWA installation prompt
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                
+                // Show install button after a delay
+                setTimeout(() => {
+                    if (!sessionStorage.getItem('pwaPromptDismissed')) {
+                        showInstallPrompt();
+                    }
+                }, 3000);
+            });
+            
+            // Listen for app installation
+            window.addEventListener('appinstalled', () => {
+                isAppInstalled = true;
+                console.log('📱 PWA was installed');
+                document.getElementById('pwaInstallPrompt').style.display = 'none';
+            });
+            
+            // Listen for online/offline status
+            window.addEventListener('online', checkConnection);
+            window.addEventListener('offline', checkConnection);
             
             setupCurrencyConverter();
             fetchExchangeRates();
