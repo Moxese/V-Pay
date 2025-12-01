@@ -1,7 +1,7 @@
 // Service Worker for V-PAY PWA
 const CACHE_NAME = 'vpay-v1.2';
 const urlsToCache = [
-  '/index.html',
+  '/index.html/',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
   'https://i.postimg.cc/GtHqWWbV/wallet.png',
   'https://accounts.google.com/gsi/client'
