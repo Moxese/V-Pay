@@ -192,6 +192,7 @@
             align-items: center;
             z-index: 3000;
             padding: 20px;
+            animation: fadeIn 0.3s ease;
         }
 
         .password-modal-content {
@@ -208,6 +209,11 @@
         @keyframes slideInUp {
             from { transform: translateY(50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideOutDown {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(50px); opacity: 0; }
         }
 
         .password-modal-icon {
@@ -280,10 +286,17 @@
             font-size: 0.85em;
             margin-top: 8px;
             display: none;
+            animation: shake 0.5s ease;
         }
 
         .password-error.show {
             display: block;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
 
         .password-actions {
@@ -3805,7 +3818,6 @@
         // Password Management Functions
         function generatePasswordHash(password) {
             // Simple hash function for demonstration
-            // In production, use a proper hashing library like bcrypt
             let hash = 0;
             for (let i = 0; i < password.length; i++) {
                 const char = password.charCodeAt(i);
@@ -3834,7 +3846,6 @@
             const passwordData = JSON.parse(localStorage.getItem(passwordKey));
             
             if (!passwordData) {
-                // No password set for this user
                 return { valid: false, message: "No password set" };
             }
             
@@ -3881,13 +3892,11 @@
         }
 
         function changeUserPassword(userId, oldPassword, newPassword) {
-            // Verify old password first
             const verification = verifyUserPassword(userId, oldPassword);
             if (!verification.valid) {
                 return { success: false, message: verification.message };
             }
             
-            // Validate new password
             if (newPassword.length < PASSWORD_CONFIG.minLength) {
                 return { success: false, message: `Password must be at least ${PASSWORD_CONFIG.minLength} characters long` };
             }
@@ -3896,14 +3905,12 @@
                 return { success: false, message: `Password cannot exceed ${PASSWORD_CONFIG.maxLength} characters` };
             }
             
-            // Save new password
             saveUserPassword(userId, newPassword);
             
             return { success: true, message: "Password changed successfully" };
         }
 
         function resetUserPassword(userId, newPassword) {
-            // Validate new password
             if (newPassword.length < PASSWORD_CONFIG.minLength) {
                 return { success: false, message: `Password must be at least ${PASSWORD_CONFIG.minLength} characters long` };
             }
@@ -3912,7 +3919,6 @@
                 return { success: false, message: `Password cannot exceed ${PASSWORD_CONFIG.maxLength} characters` };
             }
             
-            // Save new password
             saveUserPassword(userId, newPassword);
             
             return { success: true, message: "Password reset successfully" };
@@ -3924,7 +3930,7 @@
             return !!passwordData;
         }
 
-        // Password Modal Functions
+        // Enhanced Password Modal Functions
         function showPasswordModal(title, message, callback) {
             document.getElementById('passwordModalTitle').textContent = title;
             document.getElementById('passwordModalText').textContent = message;
@@ -3933,11 +3939,26 @@
             passwordVerificationCallback = callback;
             document.getElementById('passwordModal').style.display = 'flex';
             document.getElementById('passwordInput').focus();
+            
+            // Force a DOM update to ensure modal is visible
+            setTimeout(() => {
+                document.getElementById('passwordModal').style.animation = 'none';
+                document.getElementById('passwordModal').offsetHeight; // trigger reflow
+                document.getElementById('passwordModal').style.animation = 'fadeIn 0.3s ease';
+            }, 10);
         }
 
         function hidePasswordModal() {
-            document.getElementById('passwordModal').style.display = 'none';
-            passwordVerificationCallback = null;
+            const modal = document.getElementById('passwordModal');
+            modal.style.animation = 'none';
+            modal.offsetHeight; // trigger reflow
+            modal.style.animation = 'slideOutDown 0.3s ease';
+            
+            setTimeout(() => {
+                modal.style.display = 'none';
+                modal.style.animation = '';
+                passwordVerificationCallback = null;
+            }, 300);
         }
 
         function cancelPassword() {
@@ -3947,7 +3968,7 @@
             }
         }
 
-        function verifyPassword() {
+        async function verifyPassword() {
             const password = document.getElementById('passwordInput').value;
             
             if (!password) {
@@ -3955,15 +3976,34 @@
                 return;
             }
             
-            const verification = verifyUserPassword(currentUser.id, password);
-            
-            if (verification.valid) {
-                hidePasswordModal();
-                if (passwordVerificationCallback) {
-                    passwordVerificationCallback({ verified: true, password: password });
+            try {
+                showGlobalLoading("Verifying password...");
+                
+                // Add a small delay to show loading state
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                const verification = verifyUserPassword(currentUser.id, password);
+                
+                if (verification.valid) {
+                    hideGlobalLoading();
+                    hidePasswordModal();
+                    
+                    // Call the callback AFTER modal is hidden
+                    setTimeout(() => {
+                        if (passwordVerificationCallback) {
+                            passwordVerificationCallback({ 
+                                verified: true, 
+                                password: password 
+                            });
+                        }
+                    }, 100);
+                } else {
+                    hideGlobalLoading();
+                    showPasswordError(verification.message);
                 }
-            } else {
-                showPasswordError(verification.message);
+            } catch (error) {
+                hideGlobalLoading();
+                showPasswordError("Verification failed. Please try again.");
             }
         }
 
@@ -4102,7 +4142,6 @@
 
         function tryBiometric() {
             // This is a placeholder for biometric authentication
-            // In a real app, you would use WebAuthn API or device-specific APIs
             showGlobalLoading("Checking biometric authentication...");
             
             setTimeout(() => {
@@ -4302,7 +4341,7 @@
             document.getElementById('balanceSyncStatus').style.display = 'none';
         }
 
-        // Enhanced Payment Processing with Password Verification
+        // Enhanced Payment Processing with Proper Flow
         async function processPayment() {
             if (!selectedBusiness || !selectedPaymentOption) {
                 alert('Please complete all payment details');
@@ -4326,6 +4365,13 @@
                 alert('Insufficient wallet balance');
                 return;
             }
+
+            // Store payment details for after password verification
+            pendingTransaction = {
+                amount: amount,
+                transactionId: transactionId,
+                type: 'payment'
+            };
 
             // Show password verification modal
             showPasswordModal(
@@ -5337,17 +5383,6 @@
             
             window.addEventListener('online', checkConnection);
             window.addEventListener('offline', checkConnection);
-            
-            // Add shake animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes shake {
-                    0%, 100% { transform: translateX(0); }
-                    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-                    20%, 40%, 60%, 80% { transform: translateX(5px); }
-                }
-            `;
-            document.head.appendChild(style);
         });
     </script>
 </body>
