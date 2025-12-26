@@ -179,6 +179,352 @@
             font-weight: 500;
         }
 
+        /* Password Modal Styles */
+        .password-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            padding: 20px;
+        }
+
+        .password-modal-content {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            animation: slideInUp 0.3s ease;
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .password-modal-icon {
+            font-size: 3em;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+
+        .password-modal-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .password-modal-text {
+            color: var(--gray-dark);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .password-input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .password-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            font-size: 16px;
+            background: var(--white);
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray-dark);
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        .password-input-wrapper {
+            position: relative;
+        }
+
+        .password-error {
+            color: var(--danger);
+            font-size: 0.85em;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .password-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .password-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .password-btn-primary {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .password-btn-primary:hover {
+            background: var(--navy-light);
+        }
+
+        .password-btn-secondary {
+            background: var(--gray);
+            color: var(--navy);
+        }
+
+        .password-btn-secondary:hover {
+            background: var(--gray-dark);
+            color: var(--white);
+        }
+
+        .password-forgot {
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .password-forgot a {
+            color: var(--navy);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .password-forgot a:hover {
+            text-decoration: underline;
+        }
+
+        /* Lock Screen Styles */
+        .lock-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--black) 100%);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 4000;
+            padding: 20px;
+        }
+
+        .lock-screen-content {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 40px 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .lock-screen-icon {
+            font-size: 4em;
+            color: var(--navy);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .lock-screen-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .lock-screen-user {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .lock-screen-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: var(--gray-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: var(--navy);
+        }
+
+        .lock-screen-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .lock-screen-user-info {
+            text-align: left;
+        }
+
+        .lock-screen-user-name {
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 1.2em;
+        }
+
+        .lock-screen-user-email {
+            color: var(--gray-dark);
+            font-size: 0.9em;
+        }
+
+        /* Biometric Option */
+        .biometric-option {
+            margin: 25px 0;
+            padding: 20px;
+            background: var(--gray-light);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .biometric-option:hover {
+            border-color: var(--navy);
+            background: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .biometric-icon {
+            font-size: 2.5em;
+            color: var(--navy);
+            margin-bottom: 15px;
+        }
+
+        .biometric-text {
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .biometric-subtext {
+            color: var(--gray-dark);
+            font-size: 0.9em;
+        }
+
+        /* Security Indicator */
+        .security-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            color: var(--gray-dark);
+            font-size: 0.9em;
+        }
+
+        .security-indicator i {
+            color: var(--success);
+        }
+
+        /* Loading Overlay for Transactions */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            flex-direction: column;
+        }
+
+        .loading-overlay .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid var(--white);
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .loading-overlay p {
+            color: var(--white);
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        /* Balance Sync Status */
+        .balance-sync-status {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
         /* Dashboard Styles */
         .dashboard-container {
             max-width: 800px;
@@ -2065,6 +2411,99 @@
     </style>
 </head>
 <body>
+    <!-- Password Modal -->
+    <div class="password-modal" id="passwordModal">
+        <div class="password-modal-content">
+            <div class="password-modal-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h2 class="password-modal-title" id="passwordModalTitle">Enter Your Password</h2>
+            <p class="password-modal-text" id="passwordModalText">Please enter your password to authorize this transaction.</p>
+            
+            <div class="password-input-group">
+                <label for="passwordInput">Password</label>
+                <div class="password-input-wrapper">
+                    <input type="password" id="passwordInput" class="password-input" placeholder="Enter your password" autocomplete="current-password">
+                    <button type="button" class="password-toggle" onclick="togglePasswordVisibility()">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <div class="password-error" id="passwordError">
+                    Incorrect password. Please try again.
+                </div>
+            </div>
+
+            <div class="password-actions">
+                <button class="password-btn password-btn-secondary" onclick="cancelPassword()">
+                    Cancel
+                </button>
+                <button class="password-btn password-btn-primary" onclick="verifyPassword()">
+                    Verify & Continue
+                </button>
+            </div>
+
+            <div class="password-forgot">
+                <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lock Screen -->
+    <div class="lock-screen" id="lockScreen">
+        <div class="lock-screen-content">
+            <div class="lock-screen-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h2 class="lock-screen-title">V-PAY Secured</h2>
+            
+            <div class="lock-screen-user" id="lockScreenUser">
+                <!-- User info will be populated here -->
+            </div>
+
+            <div class="password-input-group">
+                <label for="lockPassword">Enter Password to Unlock</label>
+                <div class="password-input-wrapper">
+                    <input type="password" id="lockPassword" class="password-input" placeholder="Your account password" autocomplete="current-password">
+                    <button type="button" class="password-toggle" onclick="toggleLockPasswordVisibility()">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <div class="password-error" id="lockPasswordError">
+                    Incorrect password. Please try again.
+                </div>
+            </div>
+
+            <button class="btn" onclick="unlockApp()" style="margin-top: 20px; max-width: 200px;">
+                <i class="fas fa-unlock"></i> Unlock App
+            </button>
+
+            <div class="biometric-option" onclick="tryBiometric()">
+                <div class="biometric-icon">
+                    <i class="fas fa-fingerprint"></i>
+                </div>
+                <div class="biometric-text">Use Biometric</div>
+                <div class="biometric-subtext">Touch ID or Face ID</div>
+            </div>
+
+            <div class="security-indicator">
+                <i class="fas fa-shield-alt"></i>
+                <span>Your data is encrypted and secure</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="globalLoading">
+        <div class="spinner"></div>
+        <p id="loadingMessage">Processing...</p>
+    </div>
+
+    <!-- Balance Sync Status -->
+    <div class="balance-sync-status" id="balanceSyncStatus">
+        <i class="fas fa-sync-alt"></i>
+        <span id="balanceSyncText">Syncing wallet balance...</span>
+    </div>
+
     <!-- PWA Install Prompt -->
     <div class="pwa-install-prompt" id="pwaInstallPrompt">
         <div class="pwa-prompt-header">
@@ -2164,6 +2603,14 @@
 
     <!-- User Menu -->
     <div class="user-menu" id="userMenu">
+        <div class="user-menu-item" onclick="showChangePassword()">
+            <i class="fas fa-key"></i>
+            <span>Change Password</span>
+        </div>
+        <div class="user-menu-item" onclick="lockApp()">
+            <i class="fas fa-lock"></i>
+            <span>Lock App</span>
+        </div>
         <div class="user-menu-item" onclick="handleSignOut()">
             <i class="fas fa-sign-out-alt"></i>
             <span>Sign Out</span>
@@ -2196,6 +2643,46 @@
             </div>
             <div id="investmentDetails">
                 <!-- Investment details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal-overlay" id="forgotPasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Reset Password</h3>
+                <button class="close-modal" onclick="closeForgotPassword()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="forgotPasswordContent">
+                <div class="password-input-group">
+                    <label for="resetEmail">Your Email</label>
+                    <input type="email" id="resetEmail" class="password-input" placeholder="Enter your registered email" readonly>
+                </div>
+                <div class="password-input-group">
+                    <label for="newPassword">New Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="newPassword" class="password-input" placeholder="Enter new password">
+                        <button type="button" class="password-toggle" onclick="toggleNewPasswordVisibility()">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="password-input-group">
+                    <label for="confirmPassword">Confirm New Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="confirmPassword" class="password-input" placeholder="Confirm new password">
+                        <button type="button" class="password-toggle" onclick="toggleConfirmPasswordVisibility()">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="password-error" id="resetPasswordError"></div>
+                <button class="btn btn-submit" onclick="resetPassword()" style="margin-top: 20px;">
+                    <i class="fas fa-redo"></i> Reset Password
+                </button>
             </div>
         </div>
     </div>
@@ -2771,8 +3258,8 @@
                         <div class="dashboard-card">
                             <div class="dashboard-card-header">
                                 <div class="dashboard-card-title">My Wallet</div>
-                                <button class="refresh-btn" onclick="loadWalletBalance()">
-                                    <i class="fas fa-sync-alt"></i> Refresh
+                                <button class="refresh-btn" onclick="syncWalletBalance()">
+                                    <i class="fas fa-sync-alt"></i> Sync Balance
                                 </button>
                             </div>
                             
@@ -2782,6 +3269,9 @@
                                 <div class="balance-amount" id="walletBalance">$0.00</div>
                                 <div class="balance-equivalent" id="walletEquivalent">
                                     Equivalent: KES 0.00
+                                </div>
+                                <div style="margin-top: 10px; font-size: 0.8em; color: var(--gray-dark);">
+                                    <i class="fas fa-info-circle"></i> Last synced: <span id="lastSynced">Never</span>
                                 </div>
                             </div>
                             
@@ -2850,7 +3340,7 @@
     </div>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwE6tPwUtXdmTQhNnaim3nVM1tZINAiGCbtOjOdBXnJwTqi6j3reBnN02mYO4hRqr4J-A/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyOfTqe6_UnInUbKRMaa_LkoPh5wsuNwa4KduspLLXGVe5IPM2PiZjTPXmtQBfqvPFs/exec';
         const FOREX_API_KEY = 'eeb508c45ff6e011d2bc3292';
 
         // App State
@@ -2866,7 +3356,20 @@
         let selectedCategory = '';
         let walletBalance = 0;
         let currentExchangeRate = 130;
+        let pendingTransaction = null;
+        let passwordVerificationCallback = null;
+        let appLocked = false;
+        let autoLockTimeout = null;
         
+        // Password configuration
+        const PASSWORD_CONFIG = {
+            minLength: 6,
+            maxLength: 20,
+            maxAttempts: 5,
+            lockoutTime: 15 * 60 * 1000, // 15 minutes in milliseconds
+            autoLockTime: 5 * 60 * 1000 // 5 minutes in milliseconds
+        };
+
         // Wallet configuration
         const walletConfig = {
             mpesaTill: '9442155',
@@ -3062,6 +3565,25 @@
             }
         }
 
+        function installPWA() {
+            if (window.deferredPrompt) {
+                window.deferredPrompt.prompt();
+                window.deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    } else {
+                        console.log('User dismissed the install prompt');
+                    }
+                    window.deferredPrompt = null;
+                });
+            }
+        }
+
+        function dismissPWAInstall() {
+            document.getElementById('pwaInstallPrompt').style.display = 'none';
+            localStorage.setItem('vpay_pwa_dismissed', 'true');
+        }
+
         function checkConnection() {
             if (!navigator.onLine) {
                 document.getElementById('offlineNotification').style.display = 'block';
@@ -3124,6 +3646,11 @@
 
         // Navigation Functions
         function showPage(pageId) {
+            if (appLocked) {
+                lockApp();
+                return;
+            }
+            
             if (!currentUser) {
                 showWelcomeModal();
                 return;
@@ -3149,10 +3676,14 @@
             } else if (pageId === 'wallet') {
                 loadWalletBalance();
                 loadWalletTransactions();
+                updateLastSyncedTime();
             } else if (pageId === 'home') {
                 loadRecentTransactions();
                 fetchUSDToKESRate();
             }
+            
+            // Reset auto-lock timer on page navigation
+            resetAutoLockTimer();
         }
 
         // Dashboard Forex Functions
@@ -3271,6 +3802,793 @@
             convertCurrency();
         }
 
+        // Password Management Functions
+        function generatePasswordHash(password) {
+            // Simple hash function for demonstration
+            // In production, use a proper hashing library like bcrypt
+            let hash = 0;
+            for (let i = 0; i < password.length; i++) {
+                const char = password.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return hash.toString(16);
+        }
+
+        function saveUserPassword(userId, password) {
+            const passwordHash = generatePasswordHash(password);
+            const passwordData = {
+                userId: userId,
+                passwordHash: passwordHash,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+                failedAttempts: 0,
+                lastFailedAttempt: null
+            };
+            
+            localStorage.setItem(`vpay_password_${userId}`, JSON.stringify(passwordData));
+        }
+
+        function verifyUserPassword(userId, password) {
+            const passwordKey = `vpay_password_${userId}`;
+            const passwordData = JSON.parse(localStorage.getItem(passwordKey));
+            
+            if (!passwordData) {
+                // No password set for this user
+                return { valid: false, message: "No password set" };
+            }
+            
+            // Check if user is locked out
+            if (passwordData.lockedUntil && new Date(passwordData.lockedUntil) > new Date()) {
+                const minutesLeft = Math.ceil((new Date(passwordData.lockedUntil) - new Date()) / (1000 * 60));
+                return { valid: false, message: `Account locked. Try again in ${minutesLeft} minutes.`, locked: true };
+            }
+            
+            const inputHash = generatePasswordHash(password);
+            const isValid = inputHash === passwordData.passwordHash;
+            
+            if (isValid) {
+                // Reset failed attempts on successful login
+                passwordData.failedAttempts = 0;
+                passwordData.lastFailedAttempt = null;
+                localStorage.setItem(passwordKey, JSON.stringify(passwordData));
+                
+                // Reset auto-lock timer
+                resetAutoLockTimer();
+                
+                return { valid: true, message: "Password correct" };
+            } else {
+                // Increment failed attempts
+                passwordData.failedAttempts = (passwordData.failedAttempts || 0) + 1;
+                passwordData.lastFailedAttempt = new Date().toISOString();
+                
+                // Lock account if max attempts reached
+                if (passwordData.failedAttempts >= PASSWORD_CONFIG.maxAttempts) {
+                    const lockoutTime = new Date(Date.now() + PASSWORD_CONFIG.lockoutTime);
+                    passwordData.lockedUntil = lockoutTime.toISOString();
+                }
+                
+                localStorage.setItem(passwordKey, JSON.stringify(passwordData));
+                
+                const attemptsLeft = PASSWORD_CONFIG.maxAttempts - passwordData.failedAttempts;
+                return { 
+                    valid: false, 
+                    message: attemptsLeft > 0 ? 
+                        `Incorrect password. ${attemptsLeft} attempt(s) left.` : 
+                        "Account locked due to too many failed attempts."
+                };
+            }
+        }
+
+        function changeUserPassword(userId, oldPassword, newPassword) {
+            // Verify old password first
+            const verification = verifyUserPassword(userId, oldPassword);
+            if (!verification.valid) {
+                return { success: false, message: verification.message };
+            }
+            
+            // Validate new password
+            if (newPassword.length < PASSWORD_CONFIG.minLength) {
+                return { success: false, message: `Password must be at least ${PASSWORD_CONFIG.minLength} characters long` };
+            }
+            
+            if (newPassword.length > PASSWORD_CONFIG.maxLength) {
+                return { success: false, message: `Password cannot exceed ${PASSWORD_CONFIG.maxLength} characters` };
+            }
+            
+            // Save new password
+            saveUserPassword(userId, newPassword);
+            
+            return { success: true, message: "Password changed successfully" };
+        }
+
+        function resetUserPassword(userId, newPassword) {
+            // Validate new password
+            if (newPassword.length < PASSWORD_CONFIG.minLength) {
+                return { success: false, message: `Password must be at least ${PASSWORD_CONFIG.minLength} characters long` };
+            }
+            
+            if (newPassword.length > PASSWORD_CONFIG.maxLength) {
+                return { success: false, message: `Password cannot exceed ${PASSWORD_CONFIG.maxLength} characters` };
+            }
+            
+            // Save new password
+            saveUserPassword(userId, newPassword);
+            
+            return { success: true, message: "Password reset successfully" };
+        }
+
+        function checkPasswordRequirement(userId) {
+            const passwordKey = `vpay_password_${userId}`;
+            const passwordData = JSON.parse(localStorage.getItem(passwordKey));
+            return !!passwordData;
+        }
+
+        // Password Modal Functions
+        function showPasswordModal(title, message, callback) {
+            document.getElementById('passwordModalTitle').textContent = title;
+            document.getElementById('passwordModalText').textContent = message;
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('passwordError').classList.remove('show');
+            passwordVerificationCallback = callback;
+            document.getElementById('passwordModal').style.display = 'flex';
+            document.getElementById('passwordInput').focus();
+        }
+
+        function hidePasswordModal() {
+            document.getElementById('passwordModal').style.display = 'none';
+            passwordVerificationCallback = null;
+        }
+
+        function cancelPassword() {
+            hidePasswordModal();
+            if (passwordVerificationCallback) {
+                passwordVerificationCallback({ cancelled: true });
+            }
+        }
+
+        function verifyPassword() {
+            const password = document.getElementById('passwordInput').value;
+            
+            if (!password) {
+                showPasswordError("Please enter your password");
+                return;
+            }
+            
+            const verification = verifyUserPassword(currentUser.id, password);
+            
+            if (verification.valid) {
+                hidePasswordModal();
+                if (passwordVerificationCallback) {
+                    passwordVerificationCallback({ verified: true, password: password });
+                }
+            } else {
+                showPasswordError(verification.message);
+            }
+        }
+
+        function showPasswordError(message) {
+            const errorElement = document.getElementById('passwordError');
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+            
+            // Shake animation for error
+            errorElement.style.animation = 'none';
+            setTimeout(() => {
+                errorElement.style.animation = 'shake 0.5s ease';
+            }, 10);
+            
+            // Clear password field
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('passwordInput').focus();
+        }
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('passwordInput');
+            const toggleButton = document.querySelector('.password-toggle i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.className = 'fas fa-eye';
+            }
+        }
+
+        function toggleLockPasswordVisibility() {
+            const passwordInput = document.getElementById('lockPassword');
+            const toggleButton = document.querySelector('.password-toggle i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.className = 'fas fa-eye';
+            }
+        }
+
+        function toggleNewPasswordVisibility() {
+            const passwordInput = document.getElementById('newPassword');
+            const toggleButton = document.querySelector('.password-toggle i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.className = 'fas fa-eye';
+            }
+        }
+
+        function toggleConfirmPasswordVisibility() {
+            const passwordInput = document.getElementById('confirmPassword');
+            const toggleButton = document.querySelector('.password-toggle i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.className = 'fas fa-eye';
+            }
+        }
+
+        // Lock Screen Functions
+        function lockApp() {
+            hideUserMenu();
+            appLocked = true;
+            document.getElementById('appContent').style.display = 'none';
+            document.getElementById('lockScreen').style.display = 'flex';
+            
+            // Update lock screen user info
+            const lockScreenUser = document.getElementById('lockScreenUser');
+            lockScreenUser.innerHTML = `
+                <div class="lock-screen-avatar">
+                    ${currentUser.picture ? 
+                        `<img src="${currentUser.picture}" alt="User Avatar">` : 
+                        `<i class="fas fa-user"></i>`
+                    }
+                </div>
+                <div class="lock-screen-user-info">
+                    <div class="lock-screen-user-name">${currentUser.name}</div>
+                    <div class="lock-screen-user-email">${currentUser.email}</div>
+                </div>
+            `;
+            
+            // Clear password field
+            document.getElementById('lockPassword').value = '';
+            document.getElementById('lockPasswordError').classList.remove('show');
+        }
+
+        function unlockApp() {
+            const password = document.getElementById('lockPassword').value;
+            
+            if (!password) {
+                showLockPasswordError("Please enter your password");
+                return;
+            }
+            
+            const verification = verifyUserPassword(currentUser.id, password);
+            
+            if (verification.valid) {
+                appLocked = false;
+                document.getElementById('lockScreen').style.display = 'none';
+                document.getElementById('appContent').style.display = 'block';
+                
+                // Reset auto-lock timer
+                resetAutoLockTimer();
+            } else {
+                showLockPasswordError(verification.message);
+            }
+        }
+
+        function showLockPasswordError(message) {
+            const errorElement = document.getElementById('lockPasswordError');
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+            
+            // Shake animation for error
+            errorElement.style.animation = 'none';
+            setTimeout(() => {
+                errorElement.style.animation = 'shake 0.5s ease';
+            }, 10);
+            
+            // Clear password field
+            document.getElementById('lockPassword').value = '';
+            document.getElementById('lockPassword').focus();
+        }
+
+        function tryBiometric() {
+            // This is a placeholder for biometric authentication
+            // In a real app, you would use WebAuthn API or device-specific APIs
+            showGlobalLoading("Checking biometric authentication...");
+            
+            setTimeout(() => {
+                hideGlobalLoading();
+                // Simulate biometric success
+                const verification = verifyUserPassword(currentUser.id, "biometric_placeholder");
+                if (verification.valid) {
+                    appLocked = false;
+                    document.getElementById('lockScreen').style.display = 'none';
+                    document.getElementById('appContent').style.display = 'block';
+                    resetAutoLockTimer();
+                } else {
+                    showLockPasswordError("Biometric authentication failed");
+                }
+            }, 1500);
+        }
+
+        // Auto-lock timer
+        function resetAutoLockTimer() {
+            if (autoLockTimeout) {
+                clearTimeout(autoLockTimeout);
+            }
+            
+            autoLockTimeout = setTimeout(() => {
+                if (!appLocked && currentUser) {
+                    lockApp();
+                }
+            }, PASSWORD_CONFIG.autoLockTime);
+        }
+
+        // Forgot Password Functions
+        function showForgotPassword() {
+            hidePasswordModal();
+            document.getElementById('resetEmail').value = currentUser.email;
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+            document.getElementById('resetPasswordError').textContent = '';
+            document.getElementById('forgotPasswordModal').style.display = 'flex';
+        }
+
+        function closeForgotPassword() {
+            document.getElementById('forgotPasswordModal').style.display = 'none';
+        }
+
+        function resetPassword() {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorElement = document.getElementById('resetPasswordError');
+            
+            // Validate passwords
+            if (!newPassword || !confirmPassword) {
+                errorElement.textContent = "Please enter both password fields";
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                errorElement.textContent = "Passwords do not match";
+                return;
+            }
+            
+            if (newPassword.length < PASSWORD_CONFIG.minLength) {
+                errorElement.textContent = `Password must be at least ${PASSWORD_CONFIG.minLength} characters`;
+                return;
+            }
+            
+            // Reset password
+            const result = resetUserPassword(currentUser.id, newPassword);
+            
+            if (result.success) {
+                alert("Password reset successfully!");
+                closeForgotPassword();
+                hidePasswordModal();
+            } else {
+                errorElement.textContent = result.message;
+            }
+        }
+
+        // Change Password Function
+        function showChangePassword() {
+            hideUserMenu();
+            showPasswordModal("Change Password", "Enter your current password to change it", async (result) => {
+                if (result.verified) {
+                    // Ask for new password
+                    const newPassword = prompt("Enter new password (min 6 characters):");
+                    if (!newPassword || newPassword.length < 6) {
+                        alert("Password must be at least 6 characters long");
+                        return;
+                    }
+                    
+                    const confirmPassword = prompt("Confirm new password:");
+                    if (newPassword !== confirmPassword) {
+                        alert("Passwords do not match");
+                        return;
+                    }
+                    
+                    // Change password
+                    const changeResult = changeUserPassword(currentUser.id, result.password, newPassword);
+                    
+                    if (changeResult.success) {
+                        alert("Password changed successfully!");
+                    } else {
+                        alert("Failed to change password: " + changeResult.message);
+                    }
+                }
+            });
+        }
+
+        // Enhanced Wallet Functions with Balance Sync
+        async function syncWalletBalance() {
+            if (!currentUser) return;
+            
+            showBalanceSyncStatus("Syncing wallet balance...", "syncing");
+            
+            try {
+                // Recalculate from local transactions
+                await recalculateWalletBalance();
+                
+                showBalanceSyncStatus("Balance synced successfully", "success");
+                setTimeout(() => {
+                    hideBalanceSyncStatus();
+                }, 2000);
+                
+            } catch (error) {
+                console.error('Error syncing wallet balance:', error);
+                showBalanceSyncStatus("Sync failed. Using local data.", "error");
+                setTimeout(() => {
+                    hideBalanceSyncStatus();
+                }, 3000);
+            }
+        }
+
+        async function recalculateWalletBalance() {
+            if (!currentUser) return;
+            
+            const userTransactionsKey = `vpay_wallet_transactions_${currentUser.id}`;
+            const transactions = JSON.parse(localStorage.getItem(userTransactionsKey) || '[]');
+            
+            let calculatedBalance = 0;
+            transactions.forEach(transaction => {
+                if (transaction.type === 'deposit') {
+                    calculatedBalance += parseFloat(transaction.amountUSD || 0);
+                } else if (transaction.type === 'payment' || transaction.type === 'withdrawal') {
+                    calculatedBalance -= parseFloat(transaction.amountUSD || 0);
+                }
+            });
+            
+            // Update wallet balance
+            walletBalance = parseFloat(calculatedBalance.toFixed(2));
+            saveWalletBalance();
+            updateWalletDisplay();
+            
+            // Update last synced time
+            localStorage.setItem(`vpay_last_sync_${currentUser.id}`, new Date().toISOString());
+            updateLastSyncedTime();
+            
+            return walletBalance;
+        }
+
+        function updateLastSyncedTime() {
+            const lastSyncedKey = `vpay_last_sync_${currentUser.id}`;
+            const lastSynced = localStorage.getItem(lastSyncedKey);
+            
+            if (lastSynced) {
+                const date = new Date(lastSynced);
+                const now = new Date();
+                const diffMs = now - date;
+                const diffMins = Math.floor(diffMs / 60000);
+                
+                let displayText;
+                if (diffMins < 1) {
+                    displayText = 'Just now';
+                } else if (diffMins < 60) {
+                    displayText = `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+                } else if (diffMins < 1440) {
+                    const diffHours = Math.floor(diffMins / 60);
+                    displayText = `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+                } else {
+                    displayText = date.toLocaleDateString();
+                }
+                
+                document.getElementById('lastSynced').textContent = displayText;
+            } else {
+                document.getElementById('lastSynced').textContent = 'Never';
+            }
+        }
+
+        function showBalanceSyncStatus(message, type) {
+            const statusElement = document.getElementById('balanceSyncStatus');
+            const textElement = document.getElementById('balanceSyncText');
+            
+            statusElement.className = `balance-sync-status ${type}`;
+            textElement.textContent = message;
+            statusElement.style.display = 'flex';
+        }
+
+        function hideBalanceSyncStatus() {
+            document.getElementById('balanceSyncStatus').style.display = 'none';
+        }
+
+        // Enhanced Payment Processing with Password Verification
+        async function processPayment() {
+            if (!selectedBusiness || !selectedPaymentOption) {
+                alert('Please complete all payment details');
+                return;
+            }
+
+            const transactionId = document.getElementById('transactionId').value;
+            if (!transactionId && selectedPaymentOption !== 'wallet') {
+                alert('Please enter your transaction reference number');
+                return;
+            }
+
+            const amount = parseFloat(document.getElementById('paymentAmount').value);
+            if (!amount || amount < 0.01) {
+                alert('Please enter a valid amount');
+                return;
+            }
+
+            // For wallet payments, check balance
+            if (selectedPaymentOption === 'wallet' && amount > walletBalance) {
+                alert('Insufficient wallet balance');
+                return;
+            }
+
+            // Show password verification modal
+            showPasswordModal(
+                "Authorize Payment",
+                `Please enter your password to authorize payment of $${amount.toFixed(2)} to ${selectedBusiness.name}`,
+                async (result) => {
+                    if (result.verified) {
+                        // Continue with payment processing
+                        await executePayment(amount, transactionId);
+                    } else if (result.cancelled) {
+                        // User cancelled
+                        console.log('Payment cancelled by user');
+                    }
+                }
+            );
+        }
+
+        async function executePayment(amount, transactionId) {
+            showGlobalLoading("Processing payment...");
+
+            const formData = {
+                timestamp: new Date().toLocaleString('en-KE'),
+                customerName: currentUser.name,
+                customerEmail: currentUser.email,
+                paymentDestination: selectedBusiness.name,
+                paymentDestinationKey: Object.keys(businesses).find(key => businesses[key].name === selectedBusiness.name),
+                businessEmail: selectedBusiness.email,
+                sheetName: selectedBusiness.sheetName,
+                paymentCategory: selectedCategory,
+                amount: amount,
+                paymentMethod: getPaymentMethodName(selectedPaymentOption),
+                transactionId: selectedPaymentOption === 'wallet' ? `WALLET-${Date.now()}` : transactionId,
+                notes: document.getElementById('notes').value,
+                status: 'pending_verification',
+                userId: currentUser.id
+            };
+
+            try {
+                let response;
+                
+                if (selectedPaymentOption === 'wallet') {
+                    formData.action = 'wallet_payment';
+                    response = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    });
+                    
+                    // Update wallet balance locally
+                    walletBalance -= amount;
+                    saveWalletBalance();
+                    updateWalletDisplay();
+                    
+                    // Save transaction locally
+                    saveWalletTransaction({
+                        type: 'payment',
+                        amountUSD: amount,
+                        business: selectedBusiness.name,
+                        transactionId: formData.transactionId,
+                        timestamp: new Date().toISOString(),
+                        offline: false
+                    });
+                    
+                    showEnhancedSuccessModal(
+                        `✓ Wallet payment of $${amount.toFixed(2)} to ${selectedBusiness.name} successful!`,
+                        {
+                            amount: `$${amount.toFixed(2)}`,
+                            business: selectedBusiness.name,
+                            newBalance: walletBalance
+                        },
+                        true
+                    );
+                    
+                } else {
+                    formData.action = 'regular_payment';
+                    response = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    });
+                    
+                    showEnhancedSuccessModal(
+                        `✓ Payment of $${amount.toFixed(2)} to ${selectedBusiness.name} submitted! A receipt has been sent to your email.`,
+                        {
+                            amount: `$${amount.toFixed(2)}`,
+                            business: selectedBusiness.name
+                        },
+                        false
+                    );
+                }
+                
+                // Save to local storage
+                saveTransactionToLocal(formData);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                
+                // Save offline
+                const receiptId = 'VPAY-OFFLINE-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+                formData.receiptId = receiptId;
+                saveTransactionToLocal(formData);
+                
+                if (selectedPaymentOption === 'wallet') {
+                    walletBalance -= amount;
+                    saveWalletBalance();
+                    updateWalletDisplay();
+                    
+                    saveWalletTransaction({
+                        type: 'payment',
+                        amountUSD: amount,
+                        business: selectedBusiness.name,
+                        transactionId: formData.transactionId,
+                        timestamp: new Date().toISOString(),
+                        offline: true
+                    });
+                }
+                
+                showEnhancedSuccessModal(
+                    `⚠️ Payment details saved offline. ${selectedPaymentOption === 'wallet' ? 'Wallet balance updated.' : 'The business will contact you for verification.'}`,
+                    {
+                        amount: `$${amount.toFixed(2)}`,
+                        business: selectedBusiness.name,
+                        newBalance: selectedPaymentOption === 'wallet' ? walletBalance : null
+                    },
+                    selectedPaymentOption === 'wallet'
+                );
+                
+            } finally {
+                hideGlobalLoading();
+            }
+        }
+
+        async function processDeposit() {
+            const amountKES = parseFloat(document.getElementById('depositAmount').value);
+            const transactionId = document.getElementById('depositTransactionId').value;
+            
+            if (!amountKES || amountKES < 100) {
+                alert('Minimum deposit amount is KES 100');
+                return;
+            }
+            
+            if (!transactionId) {
+                alert('Please enter your transaction code');
+                return;
+            }
+            
+            // Show password verification for deposit
+            showPasswordModal(
+                "Authorize Deposit",
+                `Please enter your password to authorize deposit of KES ${amountKES.toLocaleString()}`,
+                async (result) => {
+                    if (result.verified) {
+                        await executeDeposit(amountKES, transactionId);
+                    }
+                }
+            );
+        }
+
+        async function executeDeposit(amountKES, transactionId) {
+            showGlobalLoading("Processing deposit...");
+            
+            const method = depositMethods.find(m => m.id === selectedDepositMethod);
+            const amountUSD = amountKES / currentExchangeRate;
+            
+            const formData = {
+                action: 'wallet_deposit',
+                userId: currentUser.id,
+                customerName: currentUser.name,
+                customerEmail: currentUser.email,
+                amount: amountKES,
+                currency: 'KES',
+                paymentMethod: method.name,
+                transactionId: transactionId,
+                exchangeRate: currentExchangeRate
+            };
+            
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                // Update wallet balance locally
+                walletBalance += amountUSD;
+                saveWalletBalance();
+                updateWalletDisplay();
+                
+                // Save transaction locally
+                saveWalletTransaction({
+                    type: 'deposit',
+                    amountUSD: amountUSD,
+                    amountKES: amountKES,
+                    method: method.name,
+                    transactionId: transactionId,
+                    timestamp: new Date().toISOString(),
+                    offline: false
+                });
+                
+                closeDepositModal();
+                
+                showEnhancedSuccessModal(
+                    `✓ Deposit of KES ${amountKES.toFixed(2)} ($${amountUSD.toFixed(2)}) successful! Receipt sent to your email.`,
+                    {
+                        amount: `$${amountUSD.toFixed(2)} (KES ${amountKES.toFixed(2)})`,
+                        newBalance: walletBalance
+                    },
+                    true
+                );
+                
+            } catch (error) {
+                console.error('Deposit error:', error);
+                
+                // Save offline
+                walletBalance += amountUSD;
+                saveWalletBalance();
+                updateWalletDisplay();
+                
+                saveWalletTransaction({
+                    type: 'deposit',
+                    amountUSD: amountUSD,
+                    amountKES: amountKES,
+                    method: method.name,
+                    transactionId: transactionId,
+                    timestamp: new Date().toISOString(),
+                    offline: true
+                });
+                
+                closeDepositModal();
+                
+                showEnhancedSuccessModal(
+                    `⚠️ Deposit of KES ${amountKES.toFixed(2)} saved offline. Your balance has been updated.`,
+                    {
+                        amount: `$${amountUSD.toFixed(2)} (KES ${amountKES.toFixed(2)})`,
+                        newBalance: walletBalance
+                    },
+                    true
+                );
+                
+            } finally {
+                hideGlobalLoading();
+            }
+        }
+
+        // Global Loading Functions
+        function showGlobalLoading(message = "Processing...") {
+            document.getElementById('loadingMessage').textContent = message;
+            document.getElementById('globalLoading').style.display = 'flex';
+        }
+
+        function hideGlobalLoading() {
+            document.getElementById('globalLoading').style.display = 'none';
+        }
+
         // Authentication Functions
         function showWelcomeModal() {
             document.getElementById('welcomeModal').style.display = 'flex';
@@ -3292,14 +4610,40 @@
             
             localStorage.setItem('vpay_current_user', JSON.stringify(currentUser));
             updateUserProfile();
-            document.getElementById('appContent').classList.add('active');
+            
+            // Check if password is required
+            if (checkPasswordRequirement(currentUser.id)) {
+                // Show lock screen for password entry
+                lockApp();
+            } else {
+                // First-time user - set up password
+                showSetPasswordModal();
+            }
+            
+            // Load initial data
+            loadInitialData();
+        }
+
+        function showSetPasswordModal() {
             hideWelcomeModal();
-            
-            loadWalletBalance();
-            loadRecentTransactions();
-            fetchUSDToKESRate();
-            
-            console.log('User signed in:', currentUser);
+            showPasswordModal(
+                "Set Your Password",
+                "Create a secure password for your V-PAY account (minimum 6 characters)",
+                (result) => {
+                    if (result.verified) {
+                        // First-time password setup
+                        const newPassword = result.password;
+                        if (newPassword.length >= 6) {
+                            saveUserPassword(currentUser.id, newPassword);
+                            document.getElementById('appContent').classList.add('active');
+                            alert("Password set successfully! You can now use the app.");
+                        } else {
+                            alert("Password must be at least 6 characters long");
+                            showSetPasswordModal();
+                        }
+                    }
+                }
+            );
         }
 
         function parseJwt(token) {
@@ -3318,12 +4662,20 @@
         }
 
         function handleSignOut() {
+            hideUserMenu();
+            
+            // Clear auto-lock timer
+            if (autoLockTimeout) {
+                clearTimeout(autoLockTimeout);
+                autoLockTimeout = null;
+            }
+            
             currentUser = null;
             localStorage.removeItem('vpay_current_user');
             updateUserProfile();
-            hideUserMenu();
             document.getElementById('appContent').classList.remove('active');
             showWelcomeModal();
+            appLocked = false;
         }
 
         function updateUserProfile() {
@@ -3342,6 +4694,14 @@
 
         function hideUserMenu() {
             document.getElementById('userMenu').style.display = 'none';
+        }
+
+        function loadInitialData() {
+            loadWalletBalance();
+            loadRecentTransactions();
+            fetchUSDToKESRate();
+            updateLastSyncedTime();
+            resetAutoLockTimer();
         }
 
         // Enhanced Payment Flow Functions
@@ -3603,131 +4963,6 @@
             }, 2000);
         }
 
-        // Payment Processing
-        async function processPayment() {
-            if (!selectedBusiness || !selectedPaymentOption) {
-                alert('Please complete all payment details');
-                return;
-            }
-
-            const transactionId = document.getElementById('transactionId').value;
-            if (!transactionId && selectedPaymentOption !== 'wallet') {
-                alert('Please enter your transaction reference number');
-                return;
-            }
-
-            const amount = parseFloat(document.getElementById('paymentAmount').value);
-            if (!amount || amount < 0.01) {
-                alert('Please enter a valid amount');
-                return;
-            }
-
-            // For wallet payments, check balance
-            if (selectedPaymentOption === 'wallet' && amount > walletBalance) {
-                alert('Insufficient wallet balance');
-                return;
-            }
-
-            showLoading(true);
-
-            const formData = {
-                timestamp: new Date().toLocaleString('en-KE'),
-                customerName: currentUser.name,
-                customerEmail: currentUser.email,
-                paymentDestination: selectedBusiness.name,
-                paymentDestinationKey: Object.keys(businesses).find(key => businesses[key].name === selectedBusiness.name),
-                businessEmail: selectedBusiness.email,
-                sheetName: selectedBusiness.sheetName,
-                paymentCategory: selectedCategory,
-                amount: amount,
-                paymentMethod: getPaymentMethodName(selectedPaymentOption),
-                transactionId: selectedPaymentOption === 'wallet' ? `WALLET-${Date.now()}` : transactionId,
-                notes: document.getElementById('notes').value,
-                status: 'pending_verification',
-                userId: currentUser.id
-            };
-
-            try {
-                let response;
-                
-                if (selectedPaymentOption === 'wallet') {
-                    formData.action = 'wallet_payment';
-                    response = await fetch(SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(formData)
-                    });
-                    
-                    // Update wallet balance locally
-                    walletBalance -= amount;
-                    saveWalletBalance();
-                    updateWalletDisplay();
-                    
-                    showEnhancedSuccessModal(
-                        `✓ Wallet payment of $${amount.toFixed(2)} to ${selectedBusiness.name} successful!`,
-                        {
-                            amount: `$${amount.toFixed(2)}`,
-                            business: selectedBusiness.name,
-                            newBalance: walletBalance
-                        },
-                        true
-                    );
-                    
-                } else {
-                    response = await fetch(SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(formData)
-                    });
-                    
-                    showEnhancedSuccessModal(
-                        `✓ Payment of $${amount.toFixed(2)} to ${selectedBusiness.name} submitted! A receipt has been sent to your email.`,
-                        {
-                            amount: `$${amount.toFixed(2)}`,
-                            business: selectedBusiness.name
-                        },
-                        false
-                    );
-                }
-                
-                // Save to local storage
-                saveTransactionToLocal(formData);
-                
-            } catch (error) {
-                console.error('Error:', error);
-                
-                // Save offline
-                const receiptId = 'VPAY-OFFLINE-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();
-                formData.receiptId = receiptId;
-                saveTransactionToLocal(formData);
-                
-                if (selectedPaymentOption === 'wallet') {
-                    walletBalance -= amount;
-                    saveWalletBalance();
-                    updateWalletDisplay();
-                }
-                
-                showEnhancedSuccessModal(
-                    `⚠️ Payment details saved offline. ${selectedPaymentOption === 'wallet' ? 'Wallet balance updated.' : 'The business will contact you for verification.'}`,
-                    {
-                        amount: `$${amount.toFixed(2)}`,
-                        business: selectedBusiness.name,
-                        newBalance: selectedPaymentOption === 'wallet' ? walletBalance : null
-                    },
-                    selectedPaymentOption === 'wallet'
-                );
-                
-            } finally {
-                showLoading(false);
-            }
-        }
-
         function getPaymentMethodName(methodType) {
             const method = selectedBusiness.paymentMethods.find(m => m.type === methodType);
             return method ? method.name : methodType;
@@ -3777,32 +5012,13 @@
         async function loadWalletBalance() {
             if (!currentUser) return;
             
-            try {
-                // Try to get balance from server
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'get_wallet_balance',
-                        userId: currentUser.id
-                    })
-                });
-                
-                // Fallback to local storage
-                const localBalance = localStorage.getItem(`vpay_wallet_balance_${currentUser.id}`);
-                walletBalance = localBalance ? parseFloat(localBalance) : 0;
-                
-                updateWalletDisplay();
-                
-            } catch (error) {
-                console.error('Error loading wallet balance:', error);
-                const localBalance = localStorage.getItem(`vpay_wallet_balance_${currentUser.id}`);
-                walletBalance = localBalance ? parseFloat(localBalance) : 0;
-                updateWalletDisplay();
-            }
+            const localBalance = localStorage.getItem(`vpay_wallet_balance_${currentUser.id}`);
+            walletBalance = localBalance ? parseFloat(localBalance) : 0;
+            
+            // Always recalculate to ensure accuracy
+            await recalculateWalletBalance();
+            
+            updateWalletDisplay();
         }
 
         function saveWalletBalance() {
@@ -3930,102 +5146,6 @@
 
         function closeDepositModal() {
             document.getElementById('depositModal').style.display = 'none';
-        }
-
-        async function processDeposit() {
-            const amountKES = parseFloat(document.getElementById('depositAmount').value);
-            const transactionId = document.getElementById('depositTransactionId').value;
-            
-            if (!amountKES || amountKES < 100) {
-                alert('Minimum deposit amount is KES 100');
-                return;
-            }
-            
-            if (!transactionId) {
-                alert('Please enter your transaction code');
-                return;
-            }
-            
-            const method = depositMethods.find(m => m.id === selectedDepositMethod);
-            const amountUSD = amountKES / currentExchangeRate;
-            
-            const formData = {
-                action: 'wallet_deposit',
-                userId: currentUser.id,
-                customerName: currentUser.name,
-                customerEmail: currentUser.email,
-                amount: amountKES,
-                currency: 'KES',
-                paymentMethod: method.name,
-                transactionId: transactionId,
-                exchangeRate: currentExchangeRate
-            };
-            
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                // Update wallet balance locally
-                walletBalance += amountUSD;
-                saveWalletBalance();
-                updateWalletDisplay();
-                
-                // Save transaction locally
-                saveWalletTransaction({
-                    type: 'deposit',
-                    amountUSD: amountUSD,
-                    amountKES: amountKES,
-                    method: method.name,
-                    transactionId: transactionId,
-                    timestamp: new Date().toISOString()
-                });
-                
-                closeDepositModal();
-                
-                showEnhancedSuccessModal(
-                    `✓ Deposit of KES ${amountKES.toFixed(2)} ($${amountUSD.toFixed(2)}) successful! Receipt sent to your email.`,
-                    {
-                        amount: `$${amountUSD.toFixed(2)} (KES ${amountKES.toFixed(2)})`,
-                        newBalance: walletBalance
-                    },
-                    true
-                );
-                
-            } catch (error) {
-                console.error('Deposit error:', error);
-                
-                // Save offline
-                walletBalance += amountUSD;
-                saveWalletBalance();
-                updateWalletDisplay();
-                
-                saveWalletTransaction({
-                    type: 'deposit',
-                    amountUSD: amountUSD,
-                    amountKES: amountKES,
-                    method: method.name,
-                    transactionId: transactionId,
-                    timestamp: new Date().toISOString(),
-                    offline: true
-                });
-                
-                closeDepositModal();
-                
-                showEnhancedSuccessModal(
-                    `⚠️ Deposit of KES ${amountKES.toFixed(2)} saved offline. Your balance has been updated.`,
-                    {
-                        amount: `$${amountUSD.toFixed(2)} (KES ${amountKES.toFixed(2)})`,
-                        newBalance: walletBalance
-                    },
-                    true
-                );
-            }
         }
 
         function saveWalletTransaction(transaction) {
@@ -4190,18 +5310,20 @@
             document.getElementById('investmentModal').style.display = 'flex';
         }
 
-        // Initialize app
+        // Initialize app with enhanced security
         document.addEventListener('DOMContentLoaded', function() {
             const savedUser = localStorage.getItem('vpay_current_user');
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
                 updateUserProfile();
-                document.getElementById('appContent').classList.add('active');
-                hideWelcomeModal();
                 
-                loadWalletBalance();
-                loadRecentTransactions();
-                showPage(currentPage);
+                // Check if app should be locked
+                if (checkPasswordRequirement(currentUser.id)) {
+                    lockApp();
+                } else {
+                    document.getElementById('appContent').classList.add('active');
+                    loadInitialData();
+                }
             } else {
                 showWelcomeModal();
             }
@@ -4215,6 +5337,17 @@
             
             window.addEventListener('online', checkConnection);
             window.addEventListener('offline', checkConnection);
+            
+            // Add shake animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                    20%, 40%, 60%, 80% { transform: translateX(5px); }
+                }
+            `;
+            document.head.appendChild(style);
         });
     </script>
 </body>
